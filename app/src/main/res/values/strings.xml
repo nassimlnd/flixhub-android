@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">flixhub</string>
+
+    <string name="gettingStarted_title">Welcome to FlixHub</string>
+    <string name="gettingStarted_subtitle">The best movie streaming app of the century to make your days great!</string>
+
+</resources>
