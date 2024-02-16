@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -25,12 +25,12 @@
         android:layout_gravity="center"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/lexend"
-        android:text="@string/login_title"
+        android:text="@string/register_title"
         android:textColor="@color/white"
         android:textSize="24dp" />
 
     <EditText
-        android:id="@+id/loginEmail"
+        android:id="@+id/registerEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -40,8 +40,8 @@
         android:drawableStart="@drawable/mail"
         android:drawablePadding="12dp"
         android:fontFamily="@font/lexend"
-        android:hint="@string/login_email"
-        android:inputType="textEmailAddress"
+        android:hint="@string/register_email"
+        android:inputType="text"
         android:paddingHorizontal="16dp"
         android:paddingVertical="16dp"
         android:textColor="@color/white"
@@ -49,7 +49,7 @@
         android:textSize="14sp" />
 
     <EditText
-        android:id="@+id/loginPassword"
+        android:id="@+id/registerPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -59,23 +59,12 @@
         android:drawableStart="@drawable/lock_keyhole"
         android:drawablePadding="12dp"
         android:fontFamily="@font/lexend"
-        android:hint="@string/login_password"
+        android:hint="@string/register_password"
         android:inputType="textPassword"
         android:paddingHorizontal="16dp"
         android:paddingVertical="16dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/loginForgotPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/lexend"
-        android:text="@string/login_forgot_password"
-        android:textColor="@color/primary"
         android:textSize="14sp" />
 
     <LinearLayout
@@ -86,7 +75,6 @@
         android:orientation="horizontal">
 
         <CheckBox
-            android:id="@+id/loginRemindMe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:buttonTint="@color/white"
@@ -99,20 +87,20 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/lexend"
-            android:text="@string/login_remind_me"
+            android:text="@string/register_cgu"
             android:textColor="@color/white"
             android:textSize="14sp" />
     </LinearLayout>
 
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/registerButton"
         android:layout_width="match_parent"
         android:layout_height="58dp"
         android:layout_gravity="center"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/lexend"
-        android:text="@string/login_button"
+        android:text="@string/register_button"
         android:textColor="@color/white"
         android:textSize="14sp" />
 
@@ -127,17 +115,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/lexend"
-            android:text="@string/login_no_account"
+            android:text="@string/register_already_have_account"
             android:textColor="@color/white"
             android:textSize="14sp"
             android:layout_marginEnd="4dp"/>
 
         <TextView
-            android:id="@+id/loginRegister"
+            android:id="@+id/registerLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/lexend"
-            android:text="@string/login_register"
+            android:text="@string/register_login"
             android:textColor="@color/primary"
             android:textSize="14sp" />
 

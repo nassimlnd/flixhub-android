@@ -23,7 +23,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginHorizontal="24dp"
         android:layout_marginBottom="36dp"
-        android:text="Get started"
+        android:text="@string/gettingStarted_button"
         android:fontFamily="@font/lexend"
         />
 
@@ -39,7 +39,7 @@
         android:fontFamily="@font/lexend"
         android:textStyle="bold"
         android:textColor="@color/white"
-        android:textSize="34dp" />
+        android:textSize="30sp" />
 
     <TextView
         android:id="@+id/subtitleText"
@@ -54,7 +54,7 @@
         android:fontFamily="@font/lexend"
         android:textStyle="normal"
         android:textColor="@color/white"
-        android:textSize="16dp" />
+        android:textSize="16sp" />
 
 
 </RelativeLayout>
