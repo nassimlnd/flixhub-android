@@ -22,4 +22,11 @@
     <string name="login_register">Créez un compte</string>
     <string name="login_remind_me">Se souvenir de moi</string>
 
+    <string name="register_interests_title">Centres d\'intérêt</string>
+    <string name="register_interests_subtitle">Sélectionnez vos centres d\'intérêt</string>
+    <string name="register_interests_skip">Passer</string>
+    <string name="register_interests_submit">Continuer</string>
+
+    <string name="register_profile_title">Remplissez vos informations</string>
+
 </resources>

@@ -7,6 +7,8 @@ import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.nassimlnd.flixhub.Register.RegisterActivity;
+
 public class GettingStartedActivity extends AppCompatActivity {
 
     Button getStartedButton;

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FlixHub</string>
+    <string name="gettingStarted_title">Welcome to FlixHub</string>
+    <string name="gettingStarted_subtitle">The best movie streaming app of the century to make your days great!</string>
+    <string name="gettingStarted_button">Get started</string>
+    <string name="register_title">Create your account</string>
+    <string name="register_email">Email</string>
+    <string name="register_password">Password</string>
+    <string name="register_button">Sign up</string>
+    <string name="register_cgu">Accept the conditions</string>
+    <string name="register_already_have_account">Already have an account ?</string>
+    <string name="register_login">Sign in</string>
+    <string name="login_title">Login to your account</string>
+    <string name="login_email">Email</string>
+    <string name="login_password">Password</string>
+    <string name="login_button">Sign in</string>
+    <string name="login_forgot_password">Forgot the password?</string>
+    <string name="login_no_account">Don\'t have an account?</string>
+    <string name="login_register">Sign up</string>
+    <string name="login_remind_me">Remember me</string>
+    <string name="register_interests_title">Choose your interest</string>
+    <string name="register_interests_subtitle">Choose your interests and get the best movie recommendations. Don\'t worry, you can always change it later.</string>
+    <string name="register_profile_title">Fill your profile</string>
+    <string name="register_interests_skip">Skip</string>
+    <string name="register_interests_submit">Continue</string>
+</resources>
