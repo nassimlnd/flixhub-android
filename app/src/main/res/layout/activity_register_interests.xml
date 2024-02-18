@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="12dp"
+            android:paddingVertical="12dp"
             app:flexWrap="wrap"
             app:alignItems="stretch"
             app:alignContent="stretch" />
@@ -52,6 +52,7 @@
             android:layout_gravity="center"
             android:layout_marginHorizontal="8dp"
             app:layout_flexGrow="1"
+            android:theme="@style/Button.Secondary"
             android:fontFamily="@font/lexend"
             android:text="@string/register_interests_skip"
             android:textColor="@color/white"
@@ -65,7 +66,7 @@
             android:layout_gravity="center"
             android:layout_marginHorizontal="8dp"
             android:fontFamily="@font/lexend"
-            android:text="Valider"
+            android:text="@string/register_interests_submit"
             android:textColor="@color/white"
             android:textSize="14sp" />
     </com.google.android.flexbox.FlexboxLayout>

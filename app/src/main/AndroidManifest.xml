@@ -29,6 +29,8 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".Register.RegisterInterestsActivity" />
         <activity android:name=".Register.RegisterProfileActivity" />
+
+        <activity android:name=".HomeActivity" />
     </application>
 
 </manifest>

@@ -8,7 +8,7 @@
     <string name="register_email">Email</string>
     <string name="register_password">Password</string>
     <string name="register_button">Sign up</string>
-    <string name="register_cgu">Accept the conditions</string>
+    <string name="register_cgu">I agree with the terms.</string>
     <string name="register_already_have_account">Already have an account ?</string>
     <string name="register_login">Sign in</string>
     <string name="login_title">Login to your account</string>
@@ -24,4 +24,11 @@
     <string name="register_profile_title">Fill your profile</string>
     <string name="register_interests_skip">Skip</string>
     <string name="register_interests_submit">Continue</string>
+    <string name="register_profile_fullname">Full name</string>
+    <string name="register_profile_nickname">Nickname</string>
+    <string name="register_profile_email">Email</string>
+    <string name="register_profile_phone_number">Phone number</string>
+    <string name="register_profile_skip">Skip</string>
+    <string name="register_profile_submit">Continue</string>
+    <string name="register_input_error">All fields needed.</string>
 </resources>

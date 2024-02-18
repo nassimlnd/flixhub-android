@@ -28,5 +28,12 @@
     <string name="register_interests_submit">Continuer</string>
 
     <string name="register_profile_title">Remplissez vos informations</string>
+    <string name="register_profile_fullname">Nom complet</string>
+    <string name="register_profile_nickname">Surnom</string>
+    <string name="register_profile_email">Email</string>
+    <string name="register_profile_phone_number">Numéro de téléphone</string>
+    <string name="register_profile_skip">Passer</string>
+    <string name="register_profile_submit">Continuer</string>
+    <string name="register_input_error">Tous les champs sont obligatoires</string>
 
 </resources>

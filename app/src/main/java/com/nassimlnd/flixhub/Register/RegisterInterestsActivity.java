@@ -1,6 +1,7 @@
 package com.nassimlnd.flixhub.Register;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BlendMode;
 import android.graphics.BlendModeColorFilter;
 import android.graphics.Color;
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
+import com.nassimlnd.flixhub.Network.APIClient;
 import com.nassimlnd.flixhub.R;
 import com.nassimlnd.flixhub.Register.Fragments.InterestFragment;
 
@@ -52,10 +54,7 @@ public class RegisterInterestsActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         registerInterestsSkipButton = findViewById(R.id.registerInterestsSkipButton);
 
-        final Drawable leftArrow = ContextCompat.getDrawable(this, R.drawable.baseline_arrow_back_24);
-        leftArrow.setColorFilter(new BlendModeColorFilter(Color.WHITE, BlendMode.SRC_ATOP));
-
-        toolbar.setNavigationIcon(leftArrow);
+        toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24);
         toolbar.setTitle(R.string.register_interests_title);
         toolbar.setTitleTextColor(Color.WHITE);
 
@@ -64,40 +63,15 @@ public class RegisterInterestsActivity extends AppCompatActivity {
         });
 
         registerInterestsSkipButton.setOnClickListener(v -> {
+            SharedPreferences.Editor editor = getSharedPreferences("user", MODE_PRIVATE).edit();
+            editor.putBoolean("haveInterests", false);
+            editor.apply();
             startActivity(new Intent(this, RegisterProfileActivity.class));
         });
 
-        call("http://10.0.2.2:3333/movies/groups");
+        call("/movies/groups");
+
         Log.d("TAG", "onCreate: " + topics.size());
-    }
-
-    public String getDataFromHTTP(String param) {
-        StringBuilder result = new StringBuilder();
-        HttpURLConnection conn = null;
-
-        try {
-            URL url = new URL(param);
-            conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-
-            InputStream inputStream = conn.getInputStream();
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-            BufferedReader bf = new BufferedReader(inputStreamReader);
-            String line = "";
-            while ((line = bf.readLine()) != null) {
-                result.append(line);
-            }
-            inputStream.close();
-            bf.close();
-            conn.disconnect();
-        } catch (ProtocolException e) {
-            throw new RuntimeException(e);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return result.toString();
     }
 
     public void call(String param) {
@@ -108,7 +82,7 @@ public class RegisterInterestsActivity extends AppCompatActivity {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                String data = getDataFromHTTP(param);
+                String data = APIClient.getMethod(param);
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -117,7 +91,6 @@ public class RegisterInterestsActivity extends AppCompatActivity {
                 });
             }
         });
-
     }
 
     public void display(String toDisplay){

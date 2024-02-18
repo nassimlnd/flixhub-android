@@ -6,6 +6,7 @@ import android.graphics.BlendModeColorFilter;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
@@ -22,6 +23,8 @@ public class LoginActivity extends AppCompatActivity {
 
     TextView loginRegister;
 
+    Button loginButton;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,17 +32,19 @@ public class LoginActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         loginRegister = findViewById(R.id.loginRegister);
+        loginButton = findViewById(R.id.loginButton);
 
-        final Drawable leftArrow = ContextCompat.getDrawable(this, R.drawable.baseline_arrow_back_24);
-        leftArrow.setColorFilter(new BlendModeColorFilter(Color.WHITE, BlendMode.SRC_ATOP));
-
-        toolbar.setNavigationIcon(leftArrow);
+        toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24);
         toolbar.setNavigationOnClickListener(v -> {
             getOnBackPressedDispatcher().onBackPressed();
         });
 
         loginRegister.setOnClickListener(v -> {
             startActivity(new Intent(this, RegisterActivity.class));
+        });
+
+        loginButton.setOnClickListener(v -> {
+            startActivity(new Intent(this, HomeActivity.class));
         });
     }
 }

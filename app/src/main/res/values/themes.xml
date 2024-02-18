@@ -13,5 +13,13 @@
         <item name="android:textColorSecondary">@color/white</item>
     </style>
 
+    <style name="Button.Secondary" parent="Base.Theme.Flixhub">
+        <item name="colorPrimary">@color/secondary</item>
+    </style>
+
+    <style name="Button.Outline" parent="Base.Theme.Flixhub">
+        <item name="colorPrimary">#00000000</item>
+    </style>
+
     <style name="Theme.Flixhub" parent="Base.Theme.Flixhub" />
 </resources>

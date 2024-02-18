@@ -5,5 +5,7 @@
 
     <color name="background">#181A20</color>
     <color name="background_light">#1F222A</color>
+    <color name="hint">#9E9E9E</color>f
     <color name="primary">#2563eb</color>
+    <color name="secondary">#35383F</color>
 </resources>
