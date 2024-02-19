@@ -7,7 +7,6 @@ import android.graphics.BlendMode;
 import android.graphics.BlendModeColorFilter;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -20,11 +19,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
-import com.nassimlnd.flixhub.HomeActivity;
+import com.nassimlnd.flixhub.Home.HomeActivity;
 import com.nassimlnd.flixhub.Network.APIClient;
 import com.nassimlnd.flixhub.R;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -94,12 +92,12 @@ public class RegisterProfileActivity extends AppCompatActivity {
                 Log.d("TAG", "onCreate: " + data.toString());
                 Log.d("TAG", "Calling /auth/register");
 
-                callRegisterMethod(data);
+                callRegisterMethod(data, getApplicationContext());
             }
         });
     }
 
-    public static void callRegisterMethod(HashMap<String, String> data) {
+    public static void callRegisterMethod(HashMap<String, String> data, Context ctx) {
         String param = "/auth/register";
 
         ExecutorService executor =
@@ -109,7 +107,7 @@ public class RegisterProfileActivity extends AppCompatActivity {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                String result = APIClient.postMethod(param, data);
+                String result = APIClient.postMethod(param, data, ctx);
                 handler.post(new Runnable() {
                     @Override
                     public void run() {

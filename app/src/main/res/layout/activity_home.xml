@@ -6,132 +6,123 @@
     android:background="@color/background"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imageView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
+            android:orientation="vertical">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/rectangle2" />
-
-        <com.google.android.flexbox.FlexboxLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="12dp"
-            android:paddingLeft="12dp"
-            android:paddingRight="24dp"
-            app:alignItems="center"
-            app:flexDirection="row"
-            app:justifyContent="space_between">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:src="@drawable/vector" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/search"
-                    app:tint="@color/white" />
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="12dp"
-                    android:src="@drawable/bell"
-                    app:tint="@color/white" />
-            </LinearLayout>
-        </com.google.android.flexbox.FlexboxLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rectangle2" />
 
-        <com.google.android.flexbox.FlexboxLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="24dp"
-            app:alignItems="flex_start"
-            app:flexDirection="column"
-            app:justifyContent="flex_end">
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="12dp"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="24dp"
+                    app:alignItems="center"
+                    app:flexDirection="row"
+                    app:justifyContent="space_between">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Kung Fu Panda"
-                android:textColor="@color/white"
-                android:textSize="24sp" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:src="@drawable/vector" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Action, Super-héros, Aventure"
-                android:textColor="@color/white" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/search"
+                            app:tint="@color/white" />
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginStart="12dp"
+                            android:src="@drawable/bell"
+                            app:tint="@color/white" />
+                    </LinearLayout>
+                </com.google.android.flexbox.FlexboxLayout>
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="24dp"
+                    app:alignItems="flex_start"
+                    app:flexDirection="column"
+                    app:justifyContent="flex_end">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Kung Fu Panda"
+                        android:textColor="@color/white"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Action, Super-héros, Aventure"
+                        android:textColor="@color/white" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Regarder"
+                            android:textColor="@color/white" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:drawableLeft="@drawable/plus"
+                            android:text="Ma liste"
+                            android:textColor="@color/white"
+                            android:theme="@style/Button.Secondary" />
+                    </LinearLayout>
+                </com.google.android.flexbox.FlexboxLayout>
+            </RelativeLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:id="@+id/categoryContainer"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginHorizontal="24dp"
+                android:orientation="vertical">
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Regarder"
-                    android:textColor="@color/white" />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:drawableLeft="@drawable/plus"
-                    android:text="Ma liste"
-                    android:textColor="@color/white"
-                    android:theme="@style/Button.Secondary" />
             </LinearLayout>
-        </com.google.android.flexbox.FlexboxLayout>
-    </RelativeLayout>
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="24dp"
-        android:orientation="vertical">
-
-        <com.google.android.flexbox.FlexboxLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:alignItems="center"
-            app:justifyContent="space_between">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Top 10 de la semaine"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Voir tout"
-                android:textColor="@color/primary"
-                android:textSize="14sp" />
-
-        </com.google.android.flexbox.FlexboxLayout>
-
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

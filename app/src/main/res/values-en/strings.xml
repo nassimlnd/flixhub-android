@@ -31,4 +31,5 @@
     <string name="register_profile_skip">Skip</string>
     <string name="register_profile_submit">Continue</string>
     <string name="register_input_error">All fields needed.</string>
+    <string name="home_category_see_all">See all</string>
 </resources>

@@ -69,7 +69,7 @@ public class RegisterInterestsActivity extends AppCompatActivity {
             startActivity(new Intent(this, RegisterProfileActivity.class));
         });
 
-        call("/movies/groups");
+        call("/movies/groups/all");
 
         Log.d("TAG", "onCreate: " + topics.size());
     }
