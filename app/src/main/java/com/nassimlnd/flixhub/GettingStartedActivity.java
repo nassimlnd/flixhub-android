@@ -2,6 +2,7 @@ package com.nassimlnd.flixhub;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
@@ -20,7 +21,7 @@ public class GettingStartedActivity extends AppCompatActivity {
 
         getStartedButton = findViewById(R.id.getStartedButton);
         getStartedButton.setOnClickListener(v -> {
-            startActivity(new Intent(this, RegisterActivity.class));
+            startActivity(new Intent(this, LogChoiceActivity.class));
         });
     }
 }

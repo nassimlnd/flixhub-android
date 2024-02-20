@@ -32,4 +32,6 @@
     <string name="register_profile_submit">Continue</string>
     <string name="register_input_error">All fields needed.</string>
     <string name="home_category_see_all">See all</string>
+    <string name="log_choice_button">Sign in with password</string>
+    <string name="log_choice_title">Let\'s you in</string>
 </resources>

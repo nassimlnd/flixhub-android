@@ -26,6 +26,7 @@
         </activity>
 
         <activity android:name=".GettingStartedActivity" />
+        <activity android:name=".LogChoiceActivity"/>
         <activity android:name=".Register.RegisterActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".Register.RegisterInterestsActivity" />
