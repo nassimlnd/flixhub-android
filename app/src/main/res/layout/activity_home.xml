@@ -7,13 +7,15 @@
     android:orientation="vertical">
 
     <ScrollView
+        android:id="@+id/content"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingBottom="24dp"
             android:orientation="vertical">
 
@@ -36,8 +38,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="12dp"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="24dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="24dp"
                     app:alignItems="center"
                     app:flexDirection="row"
                     app:justifyContent="space_between">
@@ -77,18 +79,18 @@
                     app:justifyContent="flex_end">
 
                     <TextView
+                        android:id="@+id/highlight_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:text="Kung Fu Panda"
                         android:textColor="@color/white"
                         android:textSize="24sp" />
 
                     <TextView
+                        android:id="@+id/highlight_group_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:text="Action, Super-héros, Aventure"
                         android:textColor="@color/white" />
 
                     <LinearLayout
@@ -99,7 +101,8 @@
                         <Button
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Regarder"
+                            android:text="@string/home_play_button"
+                            android:drawableLeft="@drawable/play"
                             android:textColor="@color/white" />
 
                         <Button
@@ -107,7 +110,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:drawableLeft="@drawable/plus"
-                            android:text="Ma liste"
+                            android:text="@string/home_add_list"
                             android:textColor="@color/white"
                             android:theme="@style/Button.Secondary" />
                     </LinearLayout>
@@ -125,6 +128,14 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <ProgressBar android:id="@+id/loading_spinner"
+        style="?android:progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center" />
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:background="@drawable/navbar_background"

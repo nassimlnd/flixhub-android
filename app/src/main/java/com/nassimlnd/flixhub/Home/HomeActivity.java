@@ -12,12 +12,17 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.window.OnBackInvokedDispatcher;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.bumptech.glide.Glide;
 import com.nassimlnd.flixhub.Home.Fragments.CategoryFragment;
@@ -28,6 +33,7 @@ import com.nassimlnd.flixhub.Network.APIClient;
 import com.nassimlnd.flixhub.R;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
@@ -45,24 +51,64 @@ public class HomeActivity extends AppCompatActivity {
 
     ImageView imageView;
     LinearLayout categoryContainer;
+    TextView highlightGroupTitle;
+    TextView highlightTitle;
+    ProgressBar progressBar;
+    ScrollView content;
+
+    Media highlightMedia;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         imageView = findViewById(R.id.imageView);
+        highlightTitle = findViewById(R.id.highlight_title);
+        highlightGroupTitle = findViewById(R.id.highlight_group_title);
+        content = findViewById(R.id.content);
+        progressBar = findViewById(R.id.loading_spinner);
 
-        Glide.with(imageView.getContext()).load("https://image.tmdb.org/t/p/w600_and_h900_bestv2/sHIz6PwGkyWD8dewnFnGPQgkWq5.jpg").into(imageView);
+        CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(this);
+        circularProgressDrawable.setStrokeWidth(5f);
+        circularProgressDrawable.setCenterRadius(30f);
+        circularProgressDrawable.setColorSchemeColors(ContextCompat.getColor(getApplicationContext(), R.color.primary));
+        circularProgressDrawable.start();
+
         ExecutorService executor =
                 Executors.newSingleThreadExecutor();
         Handler handler = new
                 Handler(Looper.getMainLooper());
 
         executor.execute(() -> {
-            getMoviesByCategory("FILMS RÉCEMMENT AJOUTÉS", getApplicationContext());
-            getMoviesByCategory("MANGAS", getApplicationContext());
+            highlightMedia = new Media();
+            String result = APIClient.callGetMethodWithCookies("/movies/random", getApplicationContext());
             handler.post(() -> {
+                try {
+                    JSONObject jsonResult = new JSONObject(result);
+                    JSONArray movies = jsonResult.getJSONArray("movie");
+                    JSONObject jsonMovie = movies.getJSONObject(0);
 
+                    highlightMedia.setId(Integer.parseInt(jsonMovie.getString("id")));
+                    highlightMedia.setTitle(jsonMovie.getString("title"));
+                    highlightMedia.setTvg_name(jsonMovie.getString("tvgName"));
+                    highlightMedia.setTvg_logo(jsonMovie.getString("tvgLogo"));
+                    highlightMedia.setGroup_title(jsonMovie.getString("groupTitle"));
+                    highlightMedia.setUrl(jsonMovie.getString("url"));
+
+                    highlightTitle.setText(highlightMedia.getTvg_name());
+                    highlightGroupTitle.setText(highlightMedia.getGroup_title());
+                    getMoviesByCategory("FILMS RÉCEMMENT AJOUTÉS", getApplicationContext());
+                    getMoviesByCategory("MANGAS", getApplicationContext());
+                    progressBar.setVisibility(ProgressBar.GONE);
+                    content.setVisibility(ScrollView.VISIBLE);
+
+                    Glide.with(imageView.getContext())
+                            .load(highlightMedia.getTvg_logo())
+                            .placeholder(circularProgressDrawable)
+                            .into(imageView);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
             });
         });
 
@@ -116,6 +162,21 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    public void getRandomMedia(Context ctx) {
+        try {
+            ExecutorService executor =
+                    Executors.newSingleThreadExecutor();
+            Handler handler = new
+                    Handler(Looper.getMainLooper());
+
+            executor.execute(() -> {
+
+            });
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void insertCategoryMedia(String categoryName, String result) {
         ArrayList<Media> moviesList = new ArrayList<>();
 
@@ -126,16 +187,13 @@ public class HomeActivity extends AppCompatActivity {
             for (int i = 0; i < movies.length(); i++) {
                 JSONObject jsonMovie = movies.getJSONObject(i);
                 Media movie = new Media();
-                Log.d("DEBUG", "insertCategoryMedia: " + jsonMovie.toString());
                 movie.setId(Integer.parseInt(jsonMovie.getString("id")));
                 movie.setTitle(jsonMovie.getString("title"));
-                //movie.setTvg_id(jsonMovie.getString("tvg_id"));
+                //movie.setTvg_id(jsonMovie.getString("tvgId"));
                 movie.setTvg_name(jsonMovie.getString("tvgName"));
                 movie.setTvg_logo(jsonMovie.getString("tvgLogo"));
                 movie.setGroup_title(jsonMovie.getString("groupTitle"));
                 movie.setUrl(jsonMovie.getString("url"));
-                //movie.setCreatedAt(Date.valueOf(jsonMovie.getString("createdAt")));
-                //movie.setUpdatedAt(Date.valueOf(jsonMovie.getString("updatedAt")));
 
                 moviesList.add(movie);
             }

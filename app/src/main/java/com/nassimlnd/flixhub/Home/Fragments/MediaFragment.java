@@ -2,6 +2,9 @@ package com.nassimlnd.flixhub.Home.Fragments;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BlendMode;
+import android.graphics.BlendModeColorFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -14,6 +17,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
@@ -50,19 +54,14 @@ public class MediaFragment extends Fragment {
 
         mediaImage = view.findViewById(R.id.imageView);
 
-        /*ExecutorService executor =
-                Executors.newSingleThreadExecutor();
-        Handler handler = new
-                Handler(Looper.getMainLooper());
+        CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(getContext());
+        circularProgressDrawable.setStrokeWidth(5f);
+        circularProgressDrawable.setCenterRadius(30f);
+        circularProgressDrawable.start();
 
-        executor.execute(() -> {
-            Bitmap bitmap = downloadImage(media.getUrl());
-            handler.post(() -> {
-                mediaImage.setImageBitmap(bitmap);
-            });
-        });*/
-
-        Glide.with(mediaImage.getContext()).load(media.getTvg_logo()).into(mediaImage);
+        Glide.with(mediaImage.getContext())
+                .load(media.getTvg_logo())
+                .into(mediaImage);
 
         return view;
     }
