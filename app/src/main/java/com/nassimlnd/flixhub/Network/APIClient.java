@@ -28,7 +28,7 @@ import java.util.concurrent.Executors;
 
 public class APIClient {
 
-    public static final String BASE_URL = "http://10.0.2.2:3333";
+    public static final String BASE_URL = "http://api.nassimlounadi.fr";
 
     public static String getMethod(String param) {
         StringBuilder result = new StringBuilder();

@@ -1,4 +1,4 @@
-package com.nassimlnd.flixhub.Home.Fragments;
+package com.nassimlnd.flixhub.Home.Fragments.Home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,11 +14,9 @@ import androidx.fragment.app.FragmentManager;
 
 import com.nassimlnd.flixhub.Media.CategoryListActivity;
 import com.nassimlnd.flixhub.Model.Media;
-import com.nassimlnd.flixhub.Model.Movie;
 import com.nassimlnd.flixhub.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class CategoryFragment extends Fragment {
 

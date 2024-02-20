@@ -1,4 +1,4 @@
-package com.nassimlnd.flixhub.Home.Fragments;
+package com.nassimlnd.flixhub.Home.Fragments.Home;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

@@ -1,152 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:orientation="vertical">
-
-    <ScrollView
-        android:id="@+id/content"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="24dp"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="300dp">
-
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/rectangle2" />
-
-                <com.google.android.flexbox.FlexboxLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="12dp"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="24dp"
-                    app:alignItems="center"
-                    app:flexDirection="row"
-                    app:justifyContent="space_between">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="32dp"
-                        android:src="@drawable/vector" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/search"
-                            app:tint="@color/white" />
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_marginStart="12dp"
-                            android:src="@drawable/bell"
-                            app:tint="@color/white" />
-                    </LinearLayout>
-                </com.google.android.flexbox.FlexboxLayout>
-
-                <com.google.android.flexbox.FlexboxLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="24dp"
-                    app:alignItems="flex_start"
-                    app:flexDirection="column"
-                    app:justifyContent="flex_end">
-
-                    <TextView
-                        android:id="@+id/highlight_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:textColor="@color/white"
-                        android:textSize="24sp" />
-
-                    <TextView
-                        android:id="@+id/highlight_group_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:textColor="@color/white" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/home_play_button"
-                            android:drawableLeft="@drawable/play"
-                            android:textColor="@color/white" />
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:drawableLeft="@drawable/plus"
-                            android:text="@string/home_add_list"
-                            android:textColor="@color/white"
-                            android:theme="@style/Button.Secondary" />
-                    </LinearLayout>
-                </com.google.android.flexbox.FlexboxLayout>
-            </RelativeLayout>
-
-            <LinearLayout
-                android:id="@+id/categoryContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
-                android:orientation="vertical">
-
-            </LinearLayout>
-        </LinearLayout>
-
-    </ScrollView>
-
-    <ProgressBar android:id="@+id/loading_spinner"
-        style="?android:progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_gravity="center" />
+    android:id="@+id/llContainer">
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
         android:background="@drawable/navbar_background"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="60dp"
         app:labelVisibilityMode="unlabeled"
         app:itemIconTint="@drawable/navbar_item_selector"
         app:itemIconSize="24dp"
         app:itemRippleColor="@android:color/transparent"
         app:menu="@menu/bottom_nav_menu"
         app:itemActiveIndicatorStyle="@style/Navbar.Flix"
+        android:layout_alignParentBottom="true"
         />
 
-</LinearLayout>
+</RelativeLayout>
