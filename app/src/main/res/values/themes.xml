@@ -21,5 +21,17 @@
         <item name="colorPrimary">#00000000</item>
     </style>
 
+    <style name="Navbar.Flix" parent="Base.Theme.Flixhub">
+        <item name="android:color">@color/background</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/background</item>
+        <item name="colorAccent">@color/background</item>
+        <item name="colorControlHighlight">@color/background</item>
+    </style>
+
     <style name="Theme.Flixhub" parent="Base.Theme.Flixhub" />
+
+    <style name="Toolbar.Flix" parent="Base.Theme.Flixhub">
+        <item name="android:textSize">18sp</item>
+    </style>
 </resources>

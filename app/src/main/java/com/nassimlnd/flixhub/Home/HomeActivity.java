@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.nassimlnd.flixhub.Home.Fragments.CategoryFragment;
 import com.nassimlnd.flixhub.LoginActivity;
 import com.nassimlnd.flixhub.Model.Media;
@@ -51,16 +52,17 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         imageView = findViewById(R.id.imageView);
 
+        Glide.with(imageView.getContext()).load("https://image.tmdb.org/t/p/w600_and_h900_bestv2/sHIz6PwGkyWD8dewnFnGPQgkWq5.jpg").into(imageView);
         ExecutorService executor =
                 Executors.newSingleThreadExecutor();
         Handler handler = new
                 Handler(Looper.getMainLooper());
 
         executor.execute(() -> {
-            Bitmap bitmap = downloadImage("https://image.tmdb.org/t/p/w600_and_h900_bestv2/sHIz6PwGkyWD8dewnFnGPQgkWq5.jpg");
             getMoviesByCategory("FILMS RÉCEMMENT AJOUTÉS", getApplicationContext());
+            getMoviesByCategory("MANGAS", getApplicationContext());
             handler.post(() -> {
-                imageView.setImageBitmap(bitmap);
+
             });
         });
 

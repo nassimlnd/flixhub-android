@@ -31,7 +31,7 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".Register.RegisterInterestsActivity" />
         <activity android:name=".Register.RegisterProfileActivity" />
-
+        <activity android:name=".Media.CategoryListActivity" />
         <activity android:name=".Home.HomeActivity" />
     </application>
 

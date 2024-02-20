@@ -1,5 +1,6 @@
 package com.nassimlnd.flixhub.Home.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.nassimlnd.flixhub.Media.CategoryListActivity;
 import com.nassimlnd.flixhub.Model.Media;
 import com.nassimlnd.flixhub.Model.Movie;
 import com.nassimlnd.flixhub.R;
@@ -22,6 +24,8 @@ public class CategoryFragment extends Fragment {
 
     TextView categoryTitle;
     private String title;
+
+    TextView seeAll;
     private ArrayList<Media> data;
 
     public CategoryFragment(String title, ArrayList<Media> data) {
@@ -41,7 +45,16 @@ public class CategoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home_category, container, false);
 
         categoryTitle = view.findViewById(R.id.categoryTitle);
+        seeAll = view.findViewById(R.id.seeAll);
+
         categoryTitle.setText(title);
+
+        seeAll.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), CategoryListActivity.class);
+            intent.putExtra("category", title);
+
+            startActivity(intent);
+        });
 
         FragmentManager fragmentManager = getChildFragmentManager();
 

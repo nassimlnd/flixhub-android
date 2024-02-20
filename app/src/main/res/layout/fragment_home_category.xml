@@ -21,6 +21,7 @@
             android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/seeAll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/home_category_see_all"
