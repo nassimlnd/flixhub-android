@@ -101,6 +101,8 @@ public class HomeFragment extends Fragment {
 
                     getMoviesByCategory("FILMS RÉCEMMENT AJOUTÉS", view.getContext());
                     getMoviesByCategory("MANGAS", view.getContext());
+                    getMoviesByCategory("DOCUMENTAIRES | EMISSION TV", view.getContext());
+                    getMoviesByCategory("ANIMATION | FAMILIALE | ENFANTS", view.getContext());
 
                     progressBar.setVisibility(ProgressBar.GONE);
                     content.setVisibility(ScrollView.VISIBLE);
@@ -149,21 +151,6 @@ public class HomeFragment extends Fragment {
                 }
             });
         } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void getRandomMedia(Context ctx) {
-        try {
-            ExecutorService executor =
-                    Executors.newSingleThreadExecutor();
-            Handler handler = new
-                    Handler(Looper.getMainLooper());
-
-            executor.execute(() -> {
-
-            });
-        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

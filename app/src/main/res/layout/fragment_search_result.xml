@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:id="@+id/searchResultImage"
+        />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        app:layout_flexGrow="1"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:paddingVertical="12dp"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchResultTitle"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchResultGroup"
+            android:textColor="@color/hint"
+            android:textSize="14sp"
+            />
+    </LinearLayout>
+
+</com.google.android.flexbox.FlexboxLayout>

@@ -46,6 +46,9 @@ public class APIClient {
             while ((line = bf.readLine()) != null) {
                 result.append(line);
             }
+
+            Log.d("Request GET", "responseCode: " + conn.getResponseCode());
+
             inputStream.close();
             bf.close();
             conn.disconnect();
@@ -90,6 +93,9 @@ public class APIClient {
             while ((line = bf.readLine()) != null) {
                 result.append(line);
             }
+
+            Log.d("Request GET", "responseCode: " + conn.getResponseCode());
+
             inputStream.close();
             bf.close();
             conn.disconnect();
@@ -293,6 +299,39 @@ public class APIClient {
 
     public static void deleteMethod(String param) {
         // ...
+    }
+
+    public static String getMethodExternalAPI(String urlString) {
+        StringBuilder result = new StringBuilder();
+        HttpURLConnection conn = null;
+
+        try {
+            URL url = new URL(urlString);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+
+            InputStream inputStream = conn.getInputStream();
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bf = new BufferedReader(inputStreamReader);
+            String line = "";
+            while ((line = bf.readLine()) != null) {
+                result.append(line);
+            }
+
+            Log.d("Request GET", "responseCode: " + conn.getResponseCode());
+
+            inputStream.close();
+            bf.close();
+            conn.disconnect();
+        } catch (ProtocolException e) {
+            throw new RuntimeException(e);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return result.toString();
     }
 
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/discoverContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -10,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@color/background"
+        android:paddingBottom="16dp"
         app:alignItems="center"
         app:flexDirection="row">
 
@@ -31,11 +33,39 @@
             android:textColorHint="@color/hint"
             android:textSize="14sp" />
 
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/sliders_horizontal"
-            />
     </com.google.android.flexbox.FlexboxLayout>
+
+    <ScrollView
+        android:id="@+id/randomContentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background"
+            android:padding="24dp"
+            app:alignItems="center"
+            app:flexDirection="row"
+            app:flexWrap="wrap"
+            app:justifyContent="space_between"
+            android:id="@+id/randomContent">
+
+        </com.google.android.flexbox.FlexboxLayout>
+    </ScrollView>
+
+    <ScrollView
+        android:id="@+id/searchListLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:id="@+id/searchListContent">
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
