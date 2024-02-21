@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.nassimlnd.flixhub.Media.Fragments.MediaActorFragment;
 import com.nassimlnd.flixhub.Model.Media;
 import com.nassimlnd.flixhub.Network.APIClient;
 import com.nassimlnd.flixhub.R;
@@ -23,6 +24,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -60,9 +62,6 @@ public class MediaActivity extends AppCompatActivity {
         int mediaId = getIntent().getIntExtra("mediaId", 0);
 
         if (mediaId != 0) {
-            loadingSpinner.setVisibility(View.GONE);
-            content.setVisibility(View.VISIBLE);
-
             getMedia(mediaId);
         } else {
             finish();
@@ -102,7 +101,6 @@ public class MediaActivity extends AppCompatActivity {
                         Glide.with(mediaImage.getContext())
                                 .load(media.getTvg_logo())
                                 .into(mediaImage);
-
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -206,8 +204,19 @@ public class MediaActivity extends AppCompatActivity {
                         Actor actor1 = new Actor(name, character, profilePath);
                         Log.d("MediaActivity", actor1.getName());
 
+                        HashMap<String, String> data = new HashMap<>();
+                        data.put("name", actor1.getName());
+                        data.put("character", actor1.getCharacter());
+                        data.put("profile_path", actor1.getProfilePath());
+
+                        getSupportFragmentManager().beginTransaction()
+                                .add(R.id.actorsContainer, new MediaActorFragment(data))
+                                .commit();
 
                     }
+
+                    loadingSpinner.setVisibility(View.GONE);
+                    content.setVisibility(View.VISIBLE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

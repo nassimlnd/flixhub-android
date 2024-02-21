@@ -1,5 +1,6 @@
 package com.nassimlnd.flixhub.Home.Fragments.Discover;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -20,6 +21,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.google.android.flexbox.FlexboxLayout;
+import com.nassimlnd.flixhub.Media.MediaActivity;
 import com.nassimlnd.flixhub.Model.Media;
 import com.nassimlnd.flixhub.Network.APIClient;
 import com.nassimlnd.flixhub.R;
@@ -113,6 +115,14 @@ public class DiscoverFragment extends Fragment {
                         ImageView imageView = new ImageView(getContext());
                         imageView.setLayoutParams(new ViewGroup.LayoutParams(450, ViewGroup.LayoutParams.WRAP_CONTENT));
                         imageView.setPadding(0, 0, 0, 24);
+
+                        imageView.setOnClickListener(v -> {
+                            Intent intent = new Intent(getContext(), MediaActivity.class);
+                            intent.putExtra("mediaId", media.getId());
+
+                            startActivity(intent);
+                        });
+
                         Glide.with(imageView.getContext())
                                 .load(media.getTvg_logo())
                                 .into(imageView);

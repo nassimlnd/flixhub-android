@@ -1,5 +1,7 @@
 package com.nassimlnd.flixhub.Home.Fragments.Discover;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +14,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.google.android.flexbox.FlexboxLayout;
 import com.nassimlnd.flixhub.Model.Media;
 import com.nassimlnd.flixhub.R;
+import com.nassimlnd.flixhub.Media.MediaActivity;
 
 public class SearchResultFragment extends Fragment {
+
+    FlexboxLayout searchResultContainer;
 
     TextView searchResultTitle;
     TextView searchResultGroup;
@@ -33,6 +39,7 @@ public class SearchResultFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @SuppressLint("MissingInflatedId")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,6 +49,14 @@ public class SearchResultFragment extends Fragment {
         searchResultTitle = view.findViewById(R.id.searchResultTitle);
         searchResultGroup = view.findViewById(R.id.searchResultGroup);
         searchResultImage = view.findViewById(R.id.searchResultImage);
+        searchResultContainer = view.findViewById(R.id.searchResultLayout);
+
+        searchResultContainer.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), MediaActivity.class);
+            intent.putExtra("mediaId", media.getId());
+
+            startActivity(intent);
+        });
 
         searchResultTitle.setText(media.getTvg_name());
         searchResultGroup.setText(media.getGroup_title());

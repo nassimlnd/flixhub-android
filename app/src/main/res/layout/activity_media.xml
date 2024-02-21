@@ -132,6 +132,20 @@
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginHorizontal="24dp">
+                <LinearLayout
+                    android:id="@+id/actorsContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingVertical="8dp">
+                </LinearLayout>
+            </HorizontalScrollView>
+
 
         </LinearLayout>
     </ScrollView>
