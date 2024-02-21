@@ -1,6 +1,8 @@
 package com.nassimlnd.flixhub.Home.Fragments.Home;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -21,6 +24,8 @@ import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.nassimlnd.flixhub.Media.MediaActivity;
 import com.nassimlnd.flixhub.Model.Media;
 import com.nassimlnd.flixhub.Network.APIClient;
 import com.nassimlnd.flixhub.R;
@@ -46,12 +51,32 @@ public class HomeFragment extends Fragment {
     Media highlightMedia;
     ScrollView content;
     ProgressBar progressBar;
+    Button playButton;
+    Button downloadButton;
+    ImageView searchButton;
+    ImageView notificationButton;
+    BottomNavigationView bottomNavigationView;
+
+    public static Bitmap downloadImage(String url) {
+        Bitmap bitmap = null;
+        try {
+            URL urlObject = new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) urlObject.openConnection();
+            InputStream inputStream = connection.getInputStream();
+            bitmap = BitmapFactory.decodeStream(inputStream);
+            return bitmap;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    @SuppressLint("MissingInflatedId")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -64,6 +89,10 @@ public class HomeFragment extends Fragment {
         highlightGroupTitle = view.findViewById(R.id.highlight_group_title);
         content = view.findViewById(R.id.content);
         progressBar = view.findViewById(R.id.loading_spinner);
+        playButton = view.findViewById(R.id.highlight_play_button);
+        downloadButton = view.findViewById(R.id.highlight_download_button);
+        searchButton = view.findViewById(R.id.home_search_button);
+        notificationButton = view.findViewById(R.id.home_notification_button);
 
         CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(view.getContext());
         circularProgressDrawable.setStrokeWidth(5f);
@@ -94,6 +123,12 @@ public class HomeFragment extends Fragment {
 
                     highlightTitle.setText(highlightMedia.getTvg_name());
                     highlightGroupTitle.setText(highlightMedia.getGroup_title());
+
+                    playButton.setOnClickListener(v -> {
+                        Intent intent = new Intent(getContext(), MediaActivity.class);
+                        intent.putExtra("mediaId", highlightMedia.getId());
+                        startActivity(intent);
+                    });
                     Glide.with(imageView.getContext())
                             .load(highlightMedia.getTvg_logo())
                             .placeholder(circularProgressDrawable)
@@ -113,20 +148,6 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
-    }
-
-    public static Bitmap downloadImage(String url) {
-        Bitmap bitmap = null;
-        try {
-            URL urlObject = new URL(url);
-            HttpURLConnection connection = (HttpURLConnection) urlObject.openConnection();
-            InputStream inputStream = connection.getInputStream();
-            bitmap = BitmapFactory.decodeStream(inputStream);
-            return bitmap;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
     public void getMoviesByCategory(String category, Context ctx) {

@@ -42,5 +42,6 @@
     <string name="home_add_list">Ma liste</string>
     <string name="media_download_button">Télécharger</string>
     <string name="media_play_button">Regarder</string>
+    <string name="media_trailer_title">Bande d\'annonces</string>
 
 </resources>
