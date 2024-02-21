@@ -128,6 +128,7 @@ public class DiscoverFragment extends Fragment {
                                 .into(imageView);
 
                         randomContent.addView(imageView);
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -1,6 +1,5 @@
 package com.nassimlnd.flixhub.Media;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -12,10 +11,10 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.nassimlnd.flixhub.Media.Fragments.MediaActorFragment;
+import com.nassimlnd.flixhub.Media.Fragments.MediaTrailersFragment;
 import com.nassimlnd.flixhub.Model.Media;
 import com.nassimlnd.flixhub.Network.APIClient;
 import com.nassimlnd.flixhub.R;
@@ -42,6 +41,7 @@ public class MediaActivity extends AppCompatActivity {
     TextView mediaGroupTitle;
 
     private Media media;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,7 +131,7 @@ public class MediaActivity extends AppCompatActivity {
                     break;
             }
 
-            String url = "https://api.themoviedb.org/3/search/movie?api_key=bee04557bade921aab4537b991dfb6df&query="+ URLEncoder.encode(title, "UTF-8") +"&language=" + lang;
+            String url = "https://api.themoviedb.org/3/search/movie?api_key=bee04557bade921aab4537b991dfb6df&query=" + URLEncoder.encode(title, "UTF-8") + "&language=" + lang;
 
             executorService.execute(() -> {
                 String result = APIClient.getMethodExternalAPI(url);
@@ -145,6 +145,7 @@ public class MediaActivity extends AppCompatActivity {
                         //mediaYear.setText(movie.getString("release_date"));
 
                         getMediaActors(movie.getString("id"));
+                        getMoviesTrailers(movie.getString("id"));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -156,37 +157,13 @@ public class MediaActivity extends AppCompatActivity {
         }
     }
 
-    class Actor {
-        private String name;
-        private String character;
-        private String profilePath;
-
-        public Actor(String name, String character, String profilePath) {
-            this.name = name;
-            this.character = character;
-            this.profilePath = profilePath;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getCharacter() {
-            return character;
-        }
-
-        public String getProfilePath() {
-            return profilePath;
-        }
-    }
-
     public void getMediaActors(String movieId) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(getMainLooper());
 
         executorService.execute(() -> {
 
-            String url = "http://api.themoviedb.org/3/movie/"+ movieId +"/casts?api_key=bee04557bade921aab4537b991dfb6df";
+            String url = "http://api.themoviedb.org/3/movie/" + movieId + "/casts?api_key=bee04557bade921aab4537b991dfb6df";
             String result = APIClient.getMethodExternalAPI(url);
 
             handler.post(() -> {
@@ -201,25 +178,72 @@ public class MediaActivity extends AppCompatActivity {
                         String character = actor.getString("character");
                         String profilePath = actor.getString("profile_path");
 
-                        Actor actor1 = new Actor(name, character, profilePath);
-                        Log.d("MediaActivity", actor1.getName());
-
                         HashMap<String, String> data = new HashMap<>();
-                        data.put("name", actor1.getName());
-                        data.put("character", actor1.getCharacter());
-                        data.put("profile_path", actor1.getProfilePath());
+                        data.put("name", name);
+                        data.put("character", character);
+                        data.put("profile_path", profilePath);
 
                         getSupportFragmentManager().beginTransaction()
                                 .add(R.id.actorsContainer, new MediaActorFragment(data))
                                 .commit();
 
                     }
-
-                    loadingSpinner.setVisibility(View.GONE);
-                    content.setVisibility(View.VISIBLE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            });
+        });
+    }
+
+    public void getMoviesTrailers(String movieId) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(getMainLooper());
+
+        executorService.execute(() -> {
+            String locale = Locale.getDefault().getLanguage();
+            StringBuilder lang = new StringBuilder();
+            switch (locale) {
+                case "fr":
+                    lang.append("fr-FR");
+                    break;
+                case "en":
+                    lang.append("en-US");
+                    break;
+                default:
+                    lang.append("fr-FR");
+                    break;
+            }
+
+            String url = "https://api.themoviedb.org/3/movie/" + movieId + "/videos?api_key=bee04557bade921aab4537b991dfb6df&language=" + lang;
+            String result = APIClient.getMethodExternalAPI(url);
+
+            handler.post(() -> {
+                Log.d("Trailers", result);
+
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray trailers = jsonObject.getJSONArray("results");
+
+                    for (int i = 0; i < trailers.length(); i++) {
+                        JSONObject trailer = trailers.getJSONObject(i);
+                        String trailerTitle = trailer.getString("name");
+                        String trailerDuration = trailer.getString("size");
+                        String trailerImage = "https://img.youtube.com/vi/" + trailer.getString("key") +"/hqdefault.jpg";
+
+                        MediaTrailersFragment mediaTrailersFragment = new MediaTrailersFragment(trailerTitle, trailerDuration, trailerImage);
+
+                        Log.d("Trailers", trailerTitle);
+
+                        getSupportFragmentManager().beginTransaction()
+                                .add(R.id.trailersContainer, mediaTrailersFragment)
+                                .commit();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                loadingSpinner.setVisibility(View.GONE);
+                content.setVisibility(View.VISIBLE);
             });
         });
     }

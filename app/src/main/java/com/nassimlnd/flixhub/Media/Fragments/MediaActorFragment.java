@@ -46,9 +46,13 @@ public class MediaActorFragment extends Fragment {
         actorName.setText(data.get("name"));
         actorCharacter.setText(data.get("character"));
 
-        Glide.with(profileImage.getContext())
-                .load("https://image.tmdb.org/t/p/w500" + data.get("profile_path"))
-                .into(profileImage);
+        if (data.get("profile_path") != null && !data.get("profile_path").equals("null")) {
+            Glide.with(getContext())
+                    .load("https://image.tmdb.org/t/p/w500" + data.get("profile_path"))
+                    .into(profileImage);
+        } else {
+            profileImage.setImageResource(R.drawable.user_round);
+        }
 
         return view;
     }

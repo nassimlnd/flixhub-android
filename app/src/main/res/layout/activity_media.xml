@@ -52,7 +52,7 @@
             <com.google.android.flexbox.FlexboxLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="24dp"
                 android:paddingHorizontal="24dp"
                 app:alignItems="center"
                 app:flexDirection="row"
@@ -77,11 +77,18 @@
             <com.google.android.flexbox.FlexboxLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:paddingHorizontal="24dp"
                 app:alignItems="center"
                 app:flexDirection="row"
-                app:justifyContent="space_between"></com.google.android.flexbox.FlexboxLayout>
+                app:justifyContent="space_between">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/hint"
+                    android:textSize="14sp"
+                    android:text="Year" />
+            </com.google.android.flexbox.FlexboxLayout>
 
             <com.google.android.flexbox.FlexboxLayout
                 android:layout_width="match_parent"
@@ -145,6 +152,29 @@
                     android:paddingVertical="8dp">
                 </LinearLayout>
             </HorizontalScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:paddingHorizontal="24dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:text="Trailers" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/trailersContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingHorizontal="24dp"
+                android:orientation="vertical">
+            </LinearLayout>
 
 
         </LinearLayout>
