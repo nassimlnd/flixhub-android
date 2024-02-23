@@ -1,16 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-        app:menu="@menu/toolbar_category_list_menu"
-        app:titleTextAppearance="@style/Toolbar.Flix"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background" />
+        android:background="@color/background"
+        app:menu="@menu/toolbar_category_list_menu"
+        app:titleTextAppearance="@style/Toolbar.Flix" />
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/flex1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="12dp"
+            app:alignItems="center"
+            app:flexDirection="row"
+            app:flexWrap="wrap">
+
+
+        </com.google.android.flexbox.FlexboxLayout>
+    </ScrollView>
 </LinearLayout>
