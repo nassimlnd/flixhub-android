@@ -16,4 +16,4 @@ FlixHub est une application mobile Android native qui propose une expérience si
 - Front-end: Native Android (Java)
 
 ## Contributors :
-- [Nassim LOUNADI](nassimlounadi.fr)
+- [Nassim LOUNADI](https://nassimlounadi.fr)
