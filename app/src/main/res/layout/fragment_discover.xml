@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/background"
-            android:padding="24dp"
+            android:paddingHorizontal="24dp"
             app:alignItems="center"
             app:flexDirection="row"
             app:flexWrap="wrap"

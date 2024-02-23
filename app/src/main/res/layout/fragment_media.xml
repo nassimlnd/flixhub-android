@@ -6,6 +6,7 @@
     android:layout_marginEnd="12dp">
 
     <ImageView
+        android:background="@drawable/media_card"
         android:id="@+id/imageView"
         android:layout_width="150dp"
         android:layout_height="wrap_content" />

@@ -10,7 +10,6 @@ public class Media {
     private String tvg_logo;
     private String group_title;
     private String url;
-
     private Date createdAt;
     private Date updatedAt;
 

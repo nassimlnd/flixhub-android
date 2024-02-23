@@ -13,10 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Flixhub"
-        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".Controller.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,15 +24,16 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".GettingStartedActivity" />
-        <activity android:name=".LogChoiceActivity"/>
-        <activity android:name=".Register.RegisterActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".Register.RegisterInterestsActivity" />
-        <activity android:name=".Register.RegisterProfileActivity" />
-        <activity android:name=".Media.CategoryListActivity" />
-        <activity android:name=".Home.HomeActivity" />
-        <activity android:name=".Media.MediaActivity"/>
+        <activity android:name=".Controller.GettingStartedActivity" />
+        <activity android:name=".Controller.LogChoiceActivity" />
+        <activity android:name=".Controller.Register.RegisterActivity" />
+        <activity android:name=".Controller.LoginActivity" />
+        <activity android:name=".Controller.Register.RegisterInterestsActivity" />
+        <activity android:name=".Controller.Register.RegisterProfileActivity" />
+        <activity android:name=".Controller.Media.CategoryListActivity" />
+        <activity android:name=".Controller.Home.HomeActivity" />
+        <activity android:name=".Controller.Media.MediaActivity" />
+        <activity android:name=".Controller.Player.PlayerActivity" />
     </application>
 
 </manifest>
