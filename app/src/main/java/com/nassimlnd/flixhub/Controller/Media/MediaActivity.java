@@ -67,7 +67,10 @@ public class MediaActivity extends AppCompatActivity {
 
         playButton.setOnClickListener(v -> {
             // TODO: 2024-02-23 Make the back-end system for converting the medias
-            Toast.makeText(this, R.string.media_play_warn, Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, PlayerActivity.class);
+            intent.putExtra("mediaUrl", media.getUrl());
+            startActivity(intent);
+            //Toast.makeText(this, R.string.media_play_warn, Toast.LENGTH_LONG).show();
         });
 
         int mediaId = getIntent().getIntExtra("mediaId", 0);

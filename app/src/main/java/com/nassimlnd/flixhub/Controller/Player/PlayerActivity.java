@@ -30,11 +30,12 @@ public class PlayerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_player);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
+        String url = getIntent().getExtras().getString("mediaUrl");
         playerView = findViewById(R.id.player_view);
 
         ExoPlayer player = new ExoPlayer.Builder(this).build();
         playerView.setPlayer(player);
-        MediaItem mediaItem = MediaItem.fromUri("http://r365mail.city:2103/movie/Cr5ZQUazyj/430866556543/109859.mkv");
+        MediaItem mediaItem = MediaItem.fromUri(url);
 
         DataSource.Factory dataSourceFactory = new DefaultHttpDataSource.Factory();
         MediaSource mediaSourceFactory = new ProgressiveMediaSource.Factory(dataSourceFactory)
@@ -43,6 +44,5 @@ public class PlayerActivity extends AppCompatActivity {
         player.setMediaSource(mediaSourceFactory);
         player.prepare();
         player.play();
-        Log.d(TAG, "onCreate: " + player.getAudioFormat());
     }
 }

@@ -82,8 +82,10 @@ public class DiscoverFragment extends Fragment {
 
         for (Media media : medias) {
             ImageView imageView = new ImageView(getContext());
-            imageView.setLayoutParams(new ViewGroup.LayoutParams(450, ViewGroup.LayoutParams.WRAP_CONTENT));
-            imageView.setPadding(0, 0, 0, 24);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(450, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMargins(0,0,0,24);
+
+            imageView.setLayoutParams(layoutParams);
             imageView.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.media_card));
             imageView.setClipToOutline(true);
 
