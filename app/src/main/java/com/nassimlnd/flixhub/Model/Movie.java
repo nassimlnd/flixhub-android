@@ -1,8 +1,11 @@
 package com.nassimlnd.flixhub.Model;
 
 import android.content.Context;
+import android.widget.Toast;
 
+import com.nassimlnd.flixhub.Controller.Home.Fragments.Home.Fragments.CategoryFragment;
 import com.nassimlnd.flixhub.Controller.Network.APIClient;
+import com.nassimlnd.flixhub.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,6 +19,11 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * It's the class that represents a movie.
+ * It extends the Media class.
+ * It contains methods to fetch movies from the server.
+ */
 public class Movie extends Media {
 
     public Movie() {
@@ -140,5 +148,47 @@ public class Movie extends Media {
         }
 
         return movie;
+    }
+
+    public static ArrayList<Movie> getMoviesByCategory(String category, Context ctx, int amount) {
+        ArrayList<Movie> movies = new ArrayList<>();
+        try {
+            String categoryFormatted = URLEncoder.encode(category, "UTF-8");
+            String param = "/movies/groups/" + categoryFormatted + "/" + amount;
+
+            ExecutorService executor =
+                    Executors.newSingleThreadExecutor();
+            CountDownLatch latch = new CountDownLatch(1);
+            executor.execute(() -> {
+                String result = APIClient.callGetMethodWithCookies(param, ctx);
+
+                try {
+                    JSONObject jsonResult = new JSONObject(result);
+                    JSONArray moviesJson = jsonResult.getJSONArray("movies");
+
+                    for (int i = 0; i < moviesJson.length(); i++) {
+                        JSONObject jsonMovie = moviesJson.getJSONObject(i);
+                        Movie movie = new Movie();
+                        movie.setId(Integer.parseInt(jsonMovie.getString("id")));
+                        movie.setTitle(jsonMovie.getString("title"));
+                        movie.setTvg_name(jsonMovie.getString("tvgName"));
+                        movie.setTvg_logo(jsonMovie.getString("tvgLogo"));
+                        movie.setGroup_title(jsonMovie.getString("groupTitle"));
+                        movie.setUrl(jsonMovie.getString("url"));
+
+                        movies.add(movie);
+                    }
+                } catch (JSONException e) {
+                    Toast.makeText(ctx, "An error occurred while fetching movies", Toast.LENGTH_SHORT).show();
+                }
+                latch.countDown();
+            });
+            latch.await();
+            return movies;
+        } catch (Exception e) {
+            Toast.makeText(ctx, "An error occurred while fetching movies", Toast.LENGTH_SHORT).show();
+        }
+
+        return null;
     }
 }

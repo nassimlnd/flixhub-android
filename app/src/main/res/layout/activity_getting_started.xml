@@ -9,12 +9,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/auto_layout_horizontal" />
+        android:src="@drawable/gettingstarted_background" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/rectangle" />
+        android:background="@drawable/gradient_linear_from_bottom" />
 
     <Button
         android:id="@+id/getStartedButton"

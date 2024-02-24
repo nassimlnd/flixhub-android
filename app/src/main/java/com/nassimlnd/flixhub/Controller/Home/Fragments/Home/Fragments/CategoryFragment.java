@@ -14,19 +14,23 @@ import androidx.fragment.app.FragmentManager;
 
 import com.nassimlnd.flixhub.Controller.Media.CategoryListActivity;
 import com.nassimlnd.flixhub.Model.Media;
+import com.nassimlnd.flixhub.Model.Movie;
 import com.nassimlnd.flixhub.R;
 
 import java.util.ArrayList;
 
 public class CategoryFragment extends Fragment {
 
-    TextView categoryTitle;
-    private String title;
-
+    // View elements
     TextView seeAll;
-    private ArrayList<Media> data;
+    TextView categoryTitle;
 
-    public CategoryFragment(String title, ArrayList<Media> data) {
+    // Data
+    private String title;
+    private ArrayList<Movie> data;
+
+
+    public CategoryFragment(String title, ArrayList<Movie> data) {
         super(R.layout.fragment_home_category);
         this.title = title;
         this.data = data;

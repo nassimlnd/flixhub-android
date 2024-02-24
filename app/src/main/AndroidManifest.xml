@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Controller.GettingStartedActivity" />
+        <activity android:name=".Controller.GettingStartedActivity" android:noHistory="true" />
         <activity android:name=".Controller.LogChoiceActivity" />
         <activity android:name=".Controller.Register.RegisterActivity" />
         <activity android:name=".Controller.LoginActivity" />

@@ -17,7 +17,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="24dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/vector" />
+        android:src="@drawable/logo" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
         android:layout_gravity="center"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="24dp"
-        android:background="@drawable/custom_edit_text_rounded"
+        android:background="@drawable/edit_text_rounded"
         android:drawableStart="@drawable/mail"
         android:drawablePadding="12dp"
         android:fontFamily="@font/lexend"
@@ -55,7 +55,7 @@
         android:layout_gravity="center"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="24dp"
-        android:background="@drawable/custom_edit_text_rounded"
+        android:background="@drawable/edit_text_rounded"
         android:drawableStart="@drawable/lock_keyhole"
         android:drawablePadding="12dp"
         android:fontFamily="@font/lexend"

@@ -11,10 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.appcompat.widget.Toolbar;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.nassimlnd.flixhub.Controller.Home.HomeActivity;
 import com.nassimlnd.flixhub.Controller.Network.APIClient;
@@ -38,38 +37,6 @@ public class LoginActivity extends AppCompatActivity {
     TextView loginRegister;
 
     Button loginButton;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        toolbar = findViewById(R.id.toolbar);
-        loginRegister = findViewById(R.id.loginRegister);
-        loginButton = findViewById(R.id.loginButton);
-        loginEmail = findViewById(R.id.loginEmail);
-        loginPassword = findViewById(R.id.loginPassword);
-
-        toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24);
-        toolbar.setNavigationOnClickListener(v -> {
-            getOnBackPressedDispatcher().onBackPressed();
-        });
-
-        loginRegister.setOnClickListener(v -> {
-            startActivity(new Intent(this, RegisterActivity.class));
-        });
-
-        loginButton.setOnClickListener(v -> {
-            String email = loginEmail.getText().toString();
-            String password = loginPassword.getText().toString();
-
-            if (email.isEmpty() || password.isEmpty()) {
-                return;
-            }
-
-            login(email, password, getApplicationContext());
-        });
-    }
 
     public static void login(String email, String password, Context ctx) {
         String param = "/auth/login";
@@ -115,11 +82,41 @@ public class LoginActivity extends AppCompatActivity {
             editor.putBoolean("isLoggedIn", true);
             editor.apply();
 
-            Log.d("TAG", "handleResult: " + userObject.getString("email"));
-
             ctx.startActivity(new Intent(ctx, HomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
+        toolbar = findViewById(R.id.toolbar);
+        loginRegister = findViewById(R.id.loginRegister);
+        loginButton = findViewById(R.id.loginButton);
+        loginEmail = findViewById(R.id.loginEmail);
+        loginPassword = findViewById(R.id.loginPassword);
+
+        toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24);
+        toolbar.setNavigationOnClickListener(v -> {
+            getOnBackPressedDispatcher().onBackPressed();
+        });
+
+        loginRegister.setOnClickListener(v -> {
+            startActivity(new Intent(this, RegisterActivity.class));
+        });
+
+        loginButton.setOnClickListener(v -> {
+            String email = loginEmail.getText().toString();
+            String password = loginPassword.getText().toString();
+
+            if (email.isEmpty() || password.isEmpty()) {
+                return;
+            }
+
+            login(email, password, getApplicationContext());
+        });
     }
 }

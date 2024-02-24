@@ -17,7 +17,8 @@ import com.nassimlnd.flixhub.R;
 public class LogChoiceActivity extends AppCompatActivity {
     Toolbar toolbar;
     TextView loginRegister;
-    Button  loginActivity;
+    Button loginActivity;
+
     @SuppressLint({"WrongViewCast", "MissingInflatedId"})
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,10 +33,12 @@ public class LogChoiceActivity extends AppCompatActivity {
                 getOnBackPressedDispatcher().onBackPressed();
             }
         });
+
         loginRegister = findViewById(R.id.loginRegister);
         loginRegister.setOnClickListener(v -> {
             startActivity(new Intent(this, RegisterActivity.class));
         });
+
         loginActivity = findViewById(R.id.loginActivity);
         loginActivity.setOnClickListener(v -> {
             startActivity(new Intent(this, LoginActivity.class));
