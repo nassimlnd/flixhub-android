@@ -30,10 +30,25 @@ android {
 
 
 dependencies {
-    implementation("androidx.media3:media3-exoplayer:1.2.1")
-    implementation("androidx.media3:media3-exoplayer-dash:1.2.1")
-    implementation("androidx.media3:media3-ui:1.2.1")
-    implementation("com.google.android.exoplayer:exoplayer:2.19.1")
+    var media3_version = "1.2.1"
+    var androidxCoreVersion = "1.8.0"
+    implementation("androidx.media3:media3-session:$media3_version")
+    implementation("androidx.media3:media3-datasource:$media3_version")
+    implementation("androidx.media3:media3-decoder:$media3_version")
+    implementation("androidx.media3:media3-common:$media3_version")
+    implementation("androidx.media3:media3-container:$media3_version")
+    implementation("androidx.media3:media3-exoplayer-dash:$media3_version") {
+        exclude("androidx.media3", "media3-exoplayer")
+    }
+    implementation("androidx.media3:media3-exoplayer-hls:$media3_version") {
+        exclude("androidx.media3", "media3-exoplayer")
+    }
+    implementation("androidx.media3:media3-exoplayer-smoothstreaming:$media3_version") {
+        exclude("androidx.media3", "media3-exoplayer")
+    }
+    implementation("androidx.media3:media3-exoplayer-rtsp:$media3_version") {
+        exclude("androidx.media3", "media3-exoplayer")
+    }
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
@@ -46,4 +61,5 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.google.android.flexbox:flexbox:3.0.0")
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("lib-*.aar"))))
 }
