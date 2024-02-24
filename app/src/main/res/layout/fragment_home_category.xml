@@ -10,16 +10,16 @@
     <com.google.android.flexbox.FlexboxLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:alignItems="center"
         android:paddingHorizontal="24dp"
+        app:alignItems="center"
         app:justifyContent="space_between">
 
         <TextView
             android:id="@+id/categoryTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLines="1"
             android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
@@ -38,13 +38,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp">
+
         <LinearLayout
             android:id="@+id/categoryMediaContainer"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="24dp"
-            android:orientation="horizontal">
-        </LinearLayout>
+            android:orientation="horizontal"
+            android:paddingLeft="24dp" />
     </HorizontalScrollView>
 
 </LinearLayout>

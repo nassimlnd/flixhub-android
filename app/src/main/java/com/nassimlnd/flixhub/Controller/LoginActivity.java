@@ -48,17 +48,11 @@ public class LoginActivity extends AppCompatActivity {
                 Executors.newSingleThreadExecutor();
         Handler handler = new
                 Handler(Looper.getMainLooper());
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                String result = APIClient.postMethod(param, data, ctx);
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        handleResult(result, ctx);
-                    }
-                });
-            }
+        executor.execute(() -> {
+            String result = APIClient.postMethod(param, data, ctx);
+            handler.post(() -> {
+                handleResult(result, ctx);
+            });
         });
     }
 
@@ -100,13 +94,9 @@ public class LoginActivity extends AppCompatActivity {
         loginPassword = findViewById(R.id.loginPassword);
 
         toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24);
-        toolbar.setNavigationOnClickListener(v -> {
-            getOnBackPressedDispatcher().onBackPressed();
-        });
+        toolbar.setNavigationOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
 
-        loginRegister.setOnClickListener(v -> {
-            startActivity(new Intent(this, RegisterActivity.class));
-        });
+        loginRegister.setOnClickListener(v -> startActivity(new Intent(this, RegisterActivity.class)));
 
         loginButton.setOnClickListener(v -> {
             String email = loginEmail.getText().toString();

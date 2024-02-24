@@ -15,7 +15,6 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="24dp"
         android:scaleType="centerCrop"
@@ -29,7 +28,7 @@
         android:fontFamily="@font/lexend"
         android:text="@string/log_choice_title"
         android:textColor="@color/white"
-        android:textSize="24dp" />
+        android:textSize="24sp" />
 
     <com.google.android.flexbox.FlexboxLayout
         android:layout_width="match_parent"

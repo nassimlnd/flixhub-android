@@ -3,9 +3,7 @@ package com.nassimlnd.flixhub.Model;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.nassimlnd.flixhub.Controller.Home.Fragments.Home.Fragments.CategoryFragment;
 import com.nassimlnd.flixhub.Controller.Network.APIClient;
-import com.nassimlnd.flixhub.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

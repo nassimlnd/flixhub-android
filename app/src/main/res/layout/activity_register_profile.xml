@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
@@ -41,6 +40,7 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <EditText
+        android:autofillHints="name"
         android:id="@+id/registerProfileFullName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -58,6 +58,7 @@
         android:textSize="14sp" />
 
     <EditText
+        android:autofillHints="name"
         android:id="@+id/registerProfileNickname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -75,6 +76,7 @@
         android:textSize="14sp" />
 
     <EditText
+        android:autofillHints="phone"
         android:id="@+id/registerProfilePhoneNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

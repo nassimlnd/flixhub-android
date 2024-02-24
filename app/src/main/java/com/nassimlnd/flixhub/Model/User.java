@@ -41,8 +41,8 @@ public class User {
     /**
      * Get the user from the shared preferences
      *
-     * @param ctx
-     * @return
+     * @param ctx The application context
+     * @return User stored in the shared preferences
      */
     public static User getUserFromSP(Context ctx) {
         User user = new User();

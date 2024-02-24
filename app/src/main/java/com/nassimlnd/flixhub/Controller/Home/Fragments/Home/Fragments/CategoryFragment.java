@@ -26,8 +26,8 @@ public class CategoryFragment extends Fragment {
     TextView categoryTitle;
 
     // Data
-    private String title;
-    private ArrayList<Movie> data;
+    private final String title;
+    private final ArrayList<Movie> data;
 
 
     public CategoryFragment(String title, ArrayList<Movie> data) {

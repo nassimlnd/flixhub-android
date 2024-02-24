@@ -51,4 +51,5 @@
     <string name="logout_cancel">Cancel</string>
     <string name="logout_confirm">Yes, log out</string>
     <string name="logout_message">Are you sure you want to log out?</string>
+    <string name="discover_search_hint">Search</string>
 </resources>

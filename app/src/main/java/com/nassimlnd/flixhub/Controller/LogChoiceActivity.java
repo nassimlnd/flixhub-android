@@ -3,7 +3,6 @@ package com.nassimlnd.flixhub.Controller;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -27,21 +26,12 @@ public class LogChoiceActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getOnBackPressedDispatcher().onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
 
         loginRegister = findViewById(R.id.loginRegister);
-        loginRegister.setOnClickListener(v -> {
-            startActivity(new Intent(this, RegisterActivity.class));
-        });
+        loginRegister.setOnClickListener(v -> startActivity(new Intent(this, RegisterActivity.class)));
 
         loginActivity = findViewById(R.id.loginActivity);
-        loginActivity.setOnClickListener(v -> {
-            startActivity(new Intent(this, LoginActivity.class));
-        });
+        loginActivity.setOnClickListener(v -> startActivity(new Intent(this, LoginActivity.class)));
     }
 }

@@ -71,9 +71,7 @@ public class ProfileFragment extends Fragment {
                 bottomSheetDialog.dismiss();
                 logout(getContext());
             });
-            bottomSheetDialog.findViewById(R.id.logout_cancel).setOnClickListener((v1) -> {
-                bottomSheetDialog.dismiss();
-            });
+            bottomSheetDialog.findViewById(R.id.logout_cancel).setOnClickListener((v1) -> bottomSheetDialog.dismiss());
         });
 
         return view;
@@ -87,19 +85,16 @@ public class ProfileFragment extends Fragment {
                 Executors.newSingleThreadExecutor();
         Handler handler = new
                 Handler(Looper.getMainLooper());
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                String result = APIClient.postMethodWithCookies(param, data, ctx);
-                handler.post(() -> {
-                    SharedPreferences sharedPreferences = ctx.getSharedPreferences("user", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.clear();
-                    editor.apply();
-                    getActivity().finish();
-                    ctx.startActivity(new Intent(ctx, GettingStartedActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                });
-            }
+        executor.execute(() -> {
+            APIClient.postMethodWithCookies(param, data, ctx);
+            handler.post(() -> {
+                SharedPreferences sharedPreferences = ctx.getSharedPreferences("user", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.apply();
+                getActivity().finish();
+                ctx.startActivity(new Intent(ctx, GettingStartedActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            });
         });
     }
 }

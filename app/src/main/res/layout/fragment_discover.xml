@@ -17,6 +17,7 @@
         app:flexDirection="row">
 
         <EditText
+            android:autofillHints="name"
             android:id="@+id/searchInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,7 +27,7 @@
             android:drawableStart="@drawable/search"
             android:drawablePadding="12dp"
             android:fontFamily="@font/lexend"
-            android:hint="Search"
+            android:hint="@string/discover_search_hint"
             android:inputType="textEmailAddress"
             android:paddingHorizontal="16dp"
             android:paddingVertical="16dp"
@@ -44,7 +45,7 @@
         <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/randomContent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/background"
             android:paddingHorizontal="24dp"
             app:alignItems="center"
@@ -67,7 +68,7 @@
             android:layout_height="wrap_content"
             android:background="@color/background"
             android:orientation="vertical"
-            android:padding="24dp"></LinearLayout>
+            android:padding="24dp" />
     </ScrollView>
 
 </LinearLayout>

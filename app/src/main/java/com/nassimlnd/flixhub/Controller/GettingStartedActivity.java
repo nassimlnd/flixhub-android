@@ -26,9 +26,7 @@ public class GettingStartedActivity extends AppCompatActivity {
 
         // Get the button and set the click listener
         getStartedButton = findViewById(R.id.getStartedButton);
-        getStartedButton.setOnClickListener(v -> {
-            startActivity(new Intent(this, LogChoiceActivity.class));
-        });
+        getStartedButton.setOnClickListener(v -> startActivity(new Intent(this, LogChoiceActivity.class)));
 
         // Disable the native effect of the back button
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {

@@ -27,9 +27,10 @@
         android:fontFamily="@font/lexend"
         android:text="@string/login_title"
         android:textColor="@color/white"
-        android:textSize="24dp" />
+        android:textSize="24sp" />
 
     <EditText
+        android:autofillHints="emailAddress"
         android:id="@+id/loginEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,6 +50,7 @@
         android:textSize="14sp" />
 
     <EditText
+        android:autofillHints="password"
         android:id="@+id/loginPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

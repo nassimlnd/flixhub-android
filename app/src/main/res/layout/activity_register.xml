@@ -27,9 +27,10 @@
         android:fontFamily="@font/lexend"
         android:text="@string/register_title"
         android:textColor="@color/white"
-        android:textSize="24dp" />
+        android:textSize="24sp" />
 
     <EditText
+        android:autofillHints="emailAddress"
         android:id="@+id/registerEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,7 +42,7 @@
         android:drawablePadding="12dp"
         android:fontFamily="@font/lexend"
         android:hint="@string/register_email"
-        android:inputType="text"
+        android:inputType="textEmailAddress"
         android:paddingHorizontal="16dp"
         android:paddingVertical="16dp"
         android:textColor="@color/white"
@@ -49,6 +50,7 @@
         android:textSize="14sp" />
 
     <EditText
+        android:autofillHints="password"
         android:id="@+id/registerPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
