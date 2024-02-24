@@ -40,4 +40,5 @@
     <string name="media_play_button">Play</string>
     <string name="media_trailer_title">Trailers</string>
     <string name="media_play_warn">It\'s illegal, we can\'t stream the movie without the distribution rights</string>
+    <string name="list_title">My List</string>
 </resources>

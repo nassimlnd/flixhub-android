@@ -113,7 +113,7 @@ public class CategoryListActivity extends AppCompatActivity {
                 image1.setClipToOutline(true);
 
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(450, ViewGroup.LayoutParams.WRAP_CONTENT);
-                layoutParams.setMargins(24,0,0,24);
+                layoutParams.setMargins(0,0,0,24);
 
                 image1.setLayoutParams(layoutParams);
 
