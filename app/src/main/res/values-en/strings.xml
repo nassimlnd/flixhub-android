@@ -41,4 +41,14 @@
     <string name="media_trailer_title">Trailers</string>
     <string name="media_play_warn">It\'s illegal, we can\'t stream the movie without the distribution rights</string>
     <string name="list_title">My List</string>
+    <string name="profile_toolbar">Profile</string>
+    <string name="profile_edit_profile">Edit profile</string>
+    <string name="profile_edit_notifications">Notifications</string>
+    <string name="profile_edit_security">Security</string>
+    <string name="profile_privacy_policy">Privacy policy</string>
+    <string name="profile_logout">Log out</string>
+    <string name="logout_title">Log out</string>
+    <string name="logout_cancel">Cancel</string>
+    <string name="logout_confirm">Yes, log out</string>
+    <string name="logout_message">Are you sure you want to log out?</string>
 </resources>

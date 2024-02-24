@@ -11,12 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:alignItems="center"
+        android:paddingHorizontal="24dp"
         app:justifyContent="space_between">
 
         <TextView
             android:id="@+id/categoryTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
@@ -24,6 +27,7 @@
             android:id="@+id/seeAll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             android:text="@string/home_category_see_all"
             android:textColor="@color/primary"
             android:textSize="14sp" />
@@ -38,6 +42,7 @@
             android:id="@+id/categoryMediaContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="24dp"
             android:orientation="horizontal">
         </LinearLayout>
     </HorizontalScrollView>

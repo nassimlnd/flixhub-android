@@ -4,6 +4,7 @@
     android:id="@+id/discoverContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_above="@+id/bottom_nav"
     android:orientation="vertical">
 
     <com.google.android.flexbox.FlexboxLayout
@@ -21,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginHorizontal="24dp"
-            android:background="@drawable/custom_edit_text_rounded"
+            android:background="@drawable/edit_text_rounded"
             android:drawableStart="@drawable/search"
             android:drawablePadding="12dp"
             android:fontFamily="@font/lexend"
@@ -39,7 +40,9 @@
         android:id="@+id/randomContentLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/randomContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/background"
@@ -47,8 +50,7 @@
             app:alignItems="center"
             app:flexDirection="row"
             app:flexWrap="wrap"
-            app:justifyContent="space_between"
-            android:id="@+id/randomContent">
+            app:justifyContent="space_between">
 
         </com.google.android.flexbox.FlexboxLayout>
     </ScrollView>
@@ -58,14 +60,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone">
+
         <LinearLayout
+            android:id="@+id/searchListContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/background"
             android:orientation="vertical"
-            android:padding="24dp"
-            android:id="@+id/searchListContent">
-        </LinearLayout>
+            android:padding="24dp"></LinearLayout>
     </ScrollView>
 
 </LinearLayout>

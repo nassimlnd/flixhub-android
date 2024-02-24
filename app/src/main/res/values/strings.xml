@@ -45,5 +45,14 @@
     <string name="media_trailer_title">Bande d\'annonces</string>
     <string name="media_play_warn">C\'est illégal, nous ne pouvons pas diffuser les films sans en avoir les droits de distribution</string>
     <string name="list_title">Ma Liste</string>
-
+    <string name="profile_toolbar">Profil</string>
+    <string name="profile_edit_profile">Modifier votre profil</string>
+    <string name="profile_edit_notifications">Notifications</string>
+    <string name="profile_edit_security">Sécurité</string>
+    <string name="profile_privacy_policy">Politique de confidentialité</string>
+    <string name="profile_logout">Se déconnecter</string>
+    <string name="logout_title">Déconnexion</string>
+    <string name="logout_cancel">Annuler</string>
+    <string name="logout_confirm">Oui, se déconnecter</string>
+    <string name="logout_message">Êtes-vous sûr de vouloir vous déconnecter ?</string>
 </resources>

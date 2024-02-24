@@ -25,7 +25,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
-                android:src="@drawable/vector" />
+                android:src="@drawable/logo" />
 
             <TextView
                 android:layout_width="wrap_content"

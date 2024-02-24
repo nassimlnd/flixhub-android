@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_above="@+id/bottom_nav"
     android:background="@color/background"
-    android:id="@+id/llContainer"
-    android:orientation="vertical"
-    android:layout_above="@+id/bottom_nav">
+    android:orientation="vertical">
 
     <ScrollView
         android:id="@+id/content"
-        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="24dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="24dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="300dp">
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/highlight_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop" />
@@ -34,7 +34,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/rectangle2" />
+                    android:background="@drawable/gradient_linear_from_top" />
 
                 <com.google.android.flexbox.FlexboxLayout
                     android:layout_width="match_parent"
@@ -49,7 +49,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="32dp"
-                        android:src="@drawable/vector" />
+                        android:src="@drawable/logo" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -106,8 +106,8 @@
                             android:id="@+id/highlight_play_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/home_play_button"
                             android:drawableLeft="@drawable/play"
+                            android:text="@string/home_play_button"
                             android:textColor="@color/white" />
 
                         <Button
@@ -127,7 +127,6 @@
                 android:id="@+id/categoryContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
                 android:orientation="vertical">
 
             </LinearLayout>
@@ -135,13 +134,14 @@
 
     </ScrollView>
 
-    <ProgressBar android:id="@+id/loading_spinner"
+    <ProgressBar
+        android:id="@+id/loading_spinner"
         style="?android:progressBarStyleLarge"
-        android:progressTint="@color/primary"
-        android:indeterminateTint="@color/primary"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:layout_gravity="center"
         android:layout_weight="1"
-        android:layout_gravity="center" />
+        android:indeterminateTint="@color/primary"
+        android:progressTint="@color/primary" />
 
 </LinearLayout>

@@ -8,4 +8,5 @@
     <color name="hint">#9E9E9E</color>f
     <color name="primary">#2563eb</color>
     <color name="secondary">#35383F</color>
+    <color name="danger">#F75555</color>
 </resources>
