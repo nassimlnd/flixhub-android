@@ -12,90 +12,56 @@
         android:layout_height="wrap_content"
         android:background="@color/background" />
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <com.google.android.flexbox.FlexboxLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="48dp"
+        app:flexDirection="column">
 
-        <View
-            android:id="@+id/backgroundGreyView"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/image_upload" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/registerProfileName"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:backgroundTint="@color/primary"
-            app:fabCustomSize="32dp"
-            app:layout_anchor="@+id/backgroundGreyView"
-            app:layout_anchorGravity="end|bottom"
-            app:maxImageSize="16dp"
-            app:srcCompat="@drawable/pencil"
-            app:tint="@color/white" />
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="40dp"
+            android:autofillHints="name"
+            android:background="@drawable/edit_text_rounded"
+            android:fontFamily="@font/lexend"
+            android:hint="@string/register_profile_name"
+            android:inputType="text"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="16dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/hint"
+            android:textSize="14sp" />
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <EditText
-        android:autofillHints="name"
-        android:id="@+id/registerProfileFullName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/edit_text_rounded"
-        android:fontFamily="@font/lexend"
-        android:hint="@string/register_profile_fullname"
-        android:inputType="text"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="16dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/hint"
-        android:textSize="14sp" />
-
-    <EditText
-        android:autofillHints="name"
-        android:id="@+id/registerProfileNickname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/edit_text_rounded"
-        android:fontFamily="@font/lexend"
-        android:hint="@string/register_profile_nickname"
-        android:inputType="text"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="16dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/hint"
-        android:textSize="14sp" />
-
-    <EditText
-        android:autofillHints="phone"
-        android:id="@+id/registerProfilePhoneNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/edit_text_rounded"
-        android:fontFamily="@font/lexend"
-        android:hint="@string/register_profile_phone_number"
-        android:inputType="phone"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="16dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/hint"
-        android:textSize="14sp" />
+        <EditText
+            android:id="@+id/registerProfileBirthdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/edit_text_rounded"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:fontFamily="@font/lexend"
+            android:hint="@string/register_profile_birthdate"
+            android:inputType="date"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="16dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/hint"
+            android:textSize="14sp" />
+    </com.google.android.flexbox.FlexboxLayout>
 
     <com.google.android.flexbox.FlexboxLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginVertical="24dp"
         android:paddingHorizontal="24dp"

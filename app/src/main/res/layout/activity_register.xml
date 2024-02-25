@@ -11,126 +11,165 @@
         android:layout_height="wrap_content"
         android:background="@color/background" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="24dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/logo" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/lexend"
-        android:text="@string/register_title"
-        android:textColor="@color/white"
-        android:textSize="24sp" />
-
-    <EditText
-        android:autofillHints="emailAddress"
-        android:id="@+id/registerEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/edit_text_rounded"
-        android:drawableStart="@drawable/mail"
-        android:drawablePadding="12dp"
-        android:fontFamily="@font/lexend"
-        android:hint="@string/register_email"
-        android:inputType="textEmailAddress"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="16dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/hint"
-        android:textSize="14sp" />
-
-    <EditText
-        android:autofillHints="password"
-        android:id="@+id/registerPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/edit_text_rounded"
-        android:drawableStart="@drawable/lock_keyhole"
-        android:drawablePadding="12dp"
-        android:fontFamily="@font/lexend"
-        android:hint="@string/register_password"
-        android:inputType="textPassword"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="16dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/hint"
-        android:textSize="14sp" />
-
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="24dp"
-        android:orientation="horizontal">
+        android:id="@+id/registerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <CheckBox
-            android:id="@+id/registerTerms"
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/lexend"
-            android:textColor="@color/white" />
-
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/logo" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="24dp"
             android:fontFamily="@font/lexend"
-            android:text="@string/register_cgu"
+            android:text="@string/register_title"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/registerFullName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="24dp"
+            android:autofillHints="name"
+            android:background="@drawable/edit_text_rounded"
+            android:drawableStart="@drawable/user_round"
+            android:drawablePadding="12dp"
+            android:drawableTint="@color/hint"
+            android:fontFamily="@font/lexend"
+            android:hint="@string/register_fullname"
+            android:inputType="textPersonName"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="16dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/hint"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/registerEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="24dp"
+            android:autofillHints="emailAddress"
+            android:background="@drawable/edit_text_rounded"
+            android:drawableStart="@drawable/mail"
+            android:drawablePadding="12dp"
+            android:fontFamily="@font/lexend"
+            android:hint="@string/register_email"
+            android:inputType="textEmailAddress"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="16dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/hint"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/registerPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="24dp"
+            android:autofillHints="password"
+            android:background="@drawable/edit_text_rounded"
+            android:drawableStart="@drawable/lock_keyhole"
+            android:drawablePadding="12dp"
+            android:fontFamily="@font/lexend"
+            android:hint="@string/register_password"
+            android:inputType="textPassword"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="16dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/hint"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/registerTerms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lexend"
+                android:textColor="@color/white" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/lexend"
+                android:text="@string/register_cgu"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/registerButton"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/lexend"
+            android:text="@string/register_button"
             android:textColor="@color/white"
             android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:fontFamily="@font/lexend"
+                android:text="@string/register_already_have_account"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/registerLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lexend"
+                android:text="@string/register_login"
+                android:textColor="@color/primary"
+                android:textSize="14sp" />
+
+        </LinearLayout>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/registerButton"
-        android:layout_width="match_parent"
-        android:layout_height="58dp"
-        android:layout_gravity="center"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/lexend"
-        android:text="@string/register_button"
-        android:textColor="@color/white"
-        android:textSize="14sp" />
-
-    <LinearLayout
+    <ProgressBar
+        android:id="@+id/loading_spinner"
+        style="?android:progressBarStyleLarge"
+        android:visibility="gone"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_marginTop="24dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/lexend"
-            android:text="@string/register_already_have_account"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:layout_marginEnd="4dp"/>
-
-        <TextView
-            android:id="@+id/registerLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/lexend"
-            android:text="@string/register_login"
-            android:textColor="@color/primary"
-            android:textSize="14sp" />
-
-    </LinearLayout>
+        android:layout_weight="1"
+        android:indeterminateTint="@color/primary"
+        android:progressTint="@color/primary" />
 
 </LinearLayout>

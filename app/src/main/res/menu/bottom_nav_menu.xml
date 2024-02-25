@@ -8,9 +8,7 @@
     <item
         android:id="@+id/discover"
         android:icon="@drawable/compass"
-        android:title="Discover"
-
-        />
+        android:title="Discover" />
 
     <item
         android:id="@+id/list"

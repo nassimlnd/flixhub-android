@@ -26,23 +26,17 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".Service.MessagingService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
         <activity android:name=".Controller.GettingStartedActivity" android:noHistory="true" />
         <activity android:name=".Controller.LogChoiceActivity" />
-        <activity android:name=".Controller.Register.RegisterActivity" />
-        <activity android:name=".Controller.LoginActivity" />
-        <activity android:name=".Controller.Register.RegisterInterestsActivity" />
-        <activity android:name=".Controller.Register.RegisterProfileActivity" />
+        <activity android:name=".Controller.Auth.Register.RegisterActivity" />
+        <activity android:name=".Controller.Auth.LoginActivity" />
+        <activity android:name=".Controller.Auth.Register.RegisterInterestsActivity" />
+        <activity android:name=".Controller.Auth.Register.RegisterProfileActivity" />
         <activity android:name=".Controller.Media.CategoryListActivity" />
         <activity android:name=".Controller.Home.HomeActivity" />
         <activity android:name=".Controller.Media.MediaActivity" />
         <activity android:name=".Controller.Player.PlayerActivity" />
+        <activity android:name=".Controller.Profile.ProfileChooserActivity" />
     </application>
 
 </manifest>

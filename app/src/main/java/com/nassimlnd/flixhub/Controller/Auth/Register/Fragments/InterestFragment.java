@@ -1,4 +1,4 @@
-package com.nassimlnd.flixhub.Controller.Register.Fragments;
+package com.nassimlnd.flixhub.Controller.Auth.Register.Fragments;
 
 import android.graphics.BlendMode;
 import android.graphics.BlendModeColorFilter;

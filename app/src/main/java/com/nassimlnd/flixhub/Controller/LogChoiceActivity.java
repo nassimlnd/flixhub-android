@@ -10,7 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.nassimlnd.flixhub.Controller.Register.RegisterActivity;
+import com.nassimlnd.flixhub.Controller.Auth.LoginActivity;
+import com.nassimlnd.flixhub.Controller.Auth.Register.RegisterActivity;
 import com.nassimlnd.flixhub.R;
 
 public class LogChoiceActivity extends AppCompatActivity {

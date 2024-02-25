@@ -28,11 +28,9 @@
     <string name="register_interests_submit">Continuer</string>
     <string name="register_interests_error">Veuillez sélectionner au moins 3 centres d\'intérêt</string>
 
-    <string name="register_profile_title">Remplissez vos informations</string>
-    <string name="register_profile_fullname">Nom complet</string>
-    <string name="register_profile_nickname">Surnom</string>
+    <string name="register_profile_title">Créer votre profil</string>
+    <string name="register_profile_name">Nom</string>
     <string name="register_profile_email">Email</string>
-    <string name="register_profile_phone_number">Numéro de téléphone</string>
     <string name="register_profile_skip">Passer</string>
     <string name="register_profile_submit">Continuer</string>
     <string name="register_input_error">Tous les champs sont obligatoires</string>
@@ -65,4 +63,12 @@
     <string name="logout_message">Êtes-vous sûr de vouloir vous déconnecter ?</string>
 
     <string name="discover_search_hint">Rechercher</string>
+    <string name="register_profile_birthdate">Date de naissance</string>
+    <string name="register_fullname">Nom complet</string>
+    <string name="register_error">Une erreur est survenue lors de l\'inscription</string>
+    <string name="register_success">L\'inscription s\'est déroulée avec succès</string>
+    <string name="profile_chooser_title">Qui est-ce ?</string>
+    <string name="profile_chooser_add">Ajouter un profil</string>
+    <string name="modal_create_profile_title">Créer un profil</string>
+    <string name="modal_create_profile_choose_avatar">Choisir un avatar</string>
 </resources>

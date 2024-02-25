@@ -24,6 +24,7 @@
         android:layout_marginHorizontal="24dp"
         android:layout_marginBottom="36dp"
         android:text="@string/gettingStarted_button"
+        android:textColor="@color/white"
         android:fontFamily="@font/lexend"
         />
 

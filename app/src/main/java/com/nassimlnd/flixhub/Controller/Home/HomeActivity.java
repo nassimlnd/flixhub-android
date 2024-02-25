@@ -22,7 +22,7 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.nassimlnd.flixhub.Controller.Home.Fragments.Discover.DiscoverFragment;
 import com.nassimlnd.flixhub.Controller.Home.Fragments.Home.HomeFragment;
 import com.nassimlnd.flixhub.Controller.Home.Fragments.Profile.ProfileFragment;
-import com.nassimlnd.flixhub.Controller.LoginActivity;
+import com.nassimlnd.flixhub.Controller.Auth.LoginActivity;
 import com.nassimlnd.flixhub.Controller.Network.APIClient;
 import com.nassimlnd.flixhub.R;
 

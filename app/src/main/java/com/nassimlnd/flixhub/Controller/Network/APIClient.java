@@ -7,7 +7,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import com.nassimlnd.flixhub.Controller.LoginActivity;
+import com.nassimlnd.flixhub.Controller.Auth.LoginActivity;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -106,70 +106,62 @@ public class APIClient {
         return result.toString();
     }
 
-    public static String postMethod(String param, HashMap<String, String> data, Context ctx) {
+    public static String postMethod(String param, HashMap<String, String> data, Context ctx) throws Exception {
         HttpURLConnection conn = null;
 
-        try {
-            URL url = new URL(BASE_URL + param);
-            conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setDoOutput(true);
+        URL url = new URL(BASE_URL + param);
+        conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("POST");
+        conn.setDoOutput(true);
 
-            OutputStream outputStream = conn.getOutputStream();
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
-            BufferedWriter writer = new BufferedWriter(outputStreamWriter);
-            if (data != null) {
-                for (String key : data.keySet()) {
-                    writer.write(key + "=" + data.get(key) + "&");
+        OutputStream outputStream = conn.getOutputStream();
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
+        BufferedWriter writer = new BufferedWriter(outputStreamWriter);
+        if (data != null) {
+            for (String key : data.keySet()) {
+                writer.write(key + "=" + data.get(key) + "&");
+            }
+        }
+
+        writer.close();
+        outputStream.close();
+
+        int responseCode = conn.getResponseCode();
+        Log.d("TAG", "postMethod: " + responseCode);
+
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            Map<String, List<String>> headerFields = conn.getHeaderFields();
+            List<String> cookiesHeader = headerFields.get("Set-Cookie");
+
+            if (cookiesHeader != null) {
+                for (String cookie : cookiesHeader) {
+                    // Store the cookie in the SharedPreferences
+                    SharedPreferences sharedPreferences = ctx.getSharedPreferences("cookies", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("cookie_" + cookie.substring(0, cookie.indexOf("=")), cookie);
+                    editor.apply();
+
+                    Log.d("TAG", "postMethod: " + "cookie_" + cookie.substring(0, cookie.indexOf("=")) + " " + cookie);
                 }
             }
 
-            writer.close();
-            outputStream.close();
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
 
-            int responseCode = conn.getResponseCode();
-            Log.d("TAG", "postMethod: " + responseCode);
-
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                Map<String, List<String>> headerFields = conn.getHeaderFields();
-                List<String> cookiesHeader = headerFields.get("Set-Cookie");
-
-                if (cookiesHeader != null) {
-                    for (String cookie : cookiesHeader) {
-                        // Store the cookie in the SharedPreferences
-                        SharedPreferences sharedPreferences = ctx.getSharedPreferences("cookies", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("cookie_" + cookie.substring(0, cookie.indexOf("=")), cookie);
-                        editor.apply();
-
-                        Log.d("TAG", "postMethod: " + "cookie_" + cookie.substring(0, cookie.indexOf("=")) + " " + cookie);
-                    }
-                }
-
-                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                String inputLine;
-                StringBuffer response = new StringBuffer();
-
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-                conn.disconnect();
-                return response.toString();
-            } else if (responseCode == HttpURLConnection.HTTP_UNAUTHORIZED) {
-                conn.disconnect();
-                ctx.startActivity(new Intent(ctx, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                return null;
-            } else {
-                conn.disconnect();
-                throw new RuntimeException("HTTP response code: " + responseCode);
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
             }
-        } catch (ProtocolException e) {
-            throw new RuntimeException(e);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            in.close();
+            conn.disconnect();
+            return response.toString();
+        } else if (responseCode == HttpURLConnection.HTTP_UNAUTHORIZED) {
+            conn.disconnect();
+            ctx.startActivity(new Intent(ctx, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            return null;
+        } else {
+            conn.disconnect();
+            throw new Exception("HTTP response code: " + responseCode);
         }
     }
 
@@ -254,7 +246,7 @@ public class APIClient {
         }
     }
 
-    public static void callPostMethod(String param, HashMap<String, String> data, Context ctx) {
+    /*public static void callPostMethod(String param, HashMap<String, String> data, Context ctx) {
         ExecutorService executor =
                 Executors.newSingleThreadExecutor();
         Handler handler = new
@@ -271,7 +263,7 @@ public class APIClient {
                 });
             }
         });
-    }
+    }*/
 
     public static String callGetMethod(String param) {
         final StringBuilder[] result = {new StringBuilder()};

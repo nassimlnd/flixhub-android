@@ -7,6 +7,8 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/background</item>
 
+        <item name="colorPrimaryDark">@color/primary</item>
+
         <item name="android:statusBarColor">@color/background</item>
         <item name="android:fontFamily">@font/lexend</item>
 
@@ -34,5 +36,13 @@
 
     <style name="Toolbar.Flix" parent="Base.Theme.Flixhub">
         <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="DatePicker.Flix" parent="@style/ThemeOverlay.MaterialComponents.Dialog">
+        <item name="colorSecondary">@color/primary</item>
+        <item name="colorPrimary">@color/primary</item> <!-- button text color -->
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
     </style>
 </resources>

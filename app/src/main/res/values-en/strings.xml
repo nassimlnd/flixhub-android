@@ -24,10 +24,8 @@
     <string name="register_profile_title">Fill your profile</string>
     <string name="register_interests_skip">Skip</string>
     <string name="register_interests_submit">Continue</string>
-    <string name="register_profile_fullname">Full name</string>
-    <string name="register_profile_nickname">Nickname</string>
+    <string name="register_profile_name">Name</string>
     <string name="register_profile_email">Email</string>
-    <string name="register_profile_phone_number">Phone number</string>
     <string name="register_profile_skip">Skip</string>
     <string name="register_profile_submit">Continue</string>
     <string name="register_input_error">All fields needed.</string>
@@ -54,4 +52,8 @@
     <string name="logout_confirm">Yes, log out</string>
     <string name="logout_message">Are you sure you want to log out?</string>
     <string name="discover_search_hint">Search</string>
+    <string name="register_profile_birthdate">Birthdate</string>
+    <string name="register_fullname">Full name</string>
+    <string name="register_error">An error occurred during registration</string>
+    <string name="register_success">Registration successfully completed</string>
 </resources>

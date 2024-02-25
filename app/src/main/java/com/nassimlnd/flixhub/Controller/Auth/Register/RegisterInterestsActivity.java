@@ -1,4 +1,4 @@
-package com.nassimlnd.flixhub.Controller.Register;
+package com.nassimlnd.flixhub.Controller.Auth.Register;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,7 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.gson.Gson;
 import com.nassimlnd.flixhub.Controller.Home.HomeActivity;
 import com.nassimlnd.flixhub.Controller.Network.APIClient;
-import com.nassimlnd.flixhub.Controller.Register.Fragments.InterestFragment;
+import com.nassimlnd.flixhub.Controller.Auth.Register.Fragments.InterestFragment;
 import com.nassimlnd.flixhub.R;
 
 import org.json.JSONArray;

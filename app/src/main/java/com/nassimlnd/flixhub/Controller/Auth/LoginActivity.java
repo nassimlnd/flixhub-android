@@ -1,4 +1,4 @@
-package com.nassimlnd.flixhub.Controller;
+package com.nassimlnd.flixhub.Controller.Auth;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,9 +15,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.nassimlnd.flixhub.Controller.Home.HomeActivity;
+import com.nassimlnd.flixhub.Controller.Auth.Register.RegisterActivity;
 import com.nassimlnd.flixhub.Controller.Network.APIClient;
-import com.nassimlnd.flixhub.Controller.Register.RegisterActivity;
+import com.nassimlnd.flixhub.Controller.Profile.ProfileChooserActivity;
 import com.nassimlnd.flixhub.R;
 
 import org.json.JSONException;
@@ -49,10 +49,16 @@ public class LoginActivity extends AppCompatActivity {
         Handler handler = new
                 Handler(Looper.getMainLooper());
         executor.execute(() -> {
-            String result = APIClient.postMethod(param, data, ctx);
-            handler.post(() -> {
-                handleResult(result, ctx);
-            });
+
+            try {
+                String result = APIClient.postMethod(param, data, ctx);
+                handler.post(() -> {
+                    handleResult(result, ctx);
+                });
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
         });
     }
 
@@ -68,15 +74,12 @@ public class LoginActivity extends AppCompatActivity {
 
             editor.putString("email", userObject.getString("email"));
             editor.putString("fullName", userObject.getString("fullName"));
-            editor.putString("nickname", userObject.getString("nickname"));
-            editor.putString("phoneNumber", userObject.getString("phoneNumber"));
             editor.putString("createdAt", userObject.getString("createdAt"));
             editor.putString("updatedAt", userObject.getString("updatedAt"));
-            editor.putString("interests", userObject.getString("interests"));
             editor.putBoolean("isLoggedIn", true);
             editor.apply();
 
-            ctx.startActivity(new Intent(ctx, HomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            ctx.startActivity(new Intent(ctx, ProfileChooserActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }

@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.nassimlnd.flixhub.Controller.Home.HomeActivity;
+import com.nassimlnd.flixhub.Controller.Profile.ProfileChooserActivity;
 
 /**
  * This activity is used to check if the user is already logged in or not
@@ -28,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
         isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
 
         if (isLoggedIn) {
-            // If the user is already logged in, redirect to the HomeActivity
-            startActivity(new Intent(this, HomeActivity.class));
+            // If the user is already logged in, redirect to the ProfileChooserActivity
+            startActivity(new Intent(this, ProfileChooserActivity.class));
         } else {
             // If the user is not logged in, redirect to the GettingStartedActivity
             startActivity(new Intent(this, GettingStartedActivity.class));
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (isLoggedIn) {
             // If the user is already logged in, redirect to the HomeActivity
-            startActivity(new Intent(this, HomeActivity.class));
+            startActivity(new Intent(this, ProfileChooserActivity.class));
         } else {
             // If the user is not logged in, redirect to the GettingStartedActivity
             startActivity(new Intent(this, GettingStartedActivity.class));

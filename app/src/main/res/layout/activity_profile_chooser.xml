@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:alignItems="center"
+        app:flexDirection="row"
+        android:paddingHorizontal="12dp"
+        app:justifyContent="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/lexend"
+            android:text="@string/profile_chooser_title"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/button_ripple"
+            android:src="@drawable/pencil" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/profileContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="50dp"
+            app:alignItems="center"
+            app:flexDirection="row"
+            app:flexWrap="wrap"
+            app:justifyContent="center">
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/profileAddButton"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/button_ripple"
+                android:clickable="true"
+                android:focusable="true"
+                app:alignItems="center"
+                app:flexDirection="column"
+                app:justifyContent="center">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/plus" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/lexend"
+                    android:text="@string/profile_chooser_add"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+            </com.google.android.flexbox.FlexboxLayout>
+
+        </com.google.android.flexbox.FlexboxLayout>
+    </LinearLayout>
+
+</LinearLayout>
