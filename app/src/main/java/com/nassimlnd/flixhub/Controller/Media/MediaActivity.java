@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,15 +17,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.nassimlnd.flixhub.Controller.Media.Fragments.MediaActorFragment;
 import com.nassimlnd.flixhub.Controller.Media.Fragments.MediaTrailersFragment;
-import com.nassimlnd.flixhub.Model.Media;
 import com.nassimlnd.flixhub.Controller.Network.APIClient;
 import com.nassimlnd.flixhub.Controller.Player.PlayerActivity;
+import com.nassimlnd.flixhub.Model.Media;
 import com.nassimlnd.flixhub.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.URLEncoder;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
@@ -34,17 +34,14 @@ import java.util.concurrent.Executors;
 
 public class MediaActivity extends AppCompatActivity {
 
+    // View elements
     ProgressBar loadingSpinner;
-    ImageView backBtn;
-    ScrollView content;
-    ImageView mediaImage;
-    TextView mediaTitle;
-    TextView mediaDescription;
-    TextView mediaRating;
-    TextView mediaYear;
-    TextView mediaGroupTitle;
+    ImageView backBtn, mediaImage;
     Button playButton;
+    ScrollView content;
+    TextView mediaTitle, mediaDescription, mediaRating, mediaYear, mediaGroupTitle, trailerTitle;
 
+    // Data
     private Media media;
 
     @Override
@@ -58,8 +55,10 @@ public class MediaActivity extends AppCompatActivity {
         mediaTitle = findViewById(R.id.mediaTitle);
         mediaDescription = findViewById(R.id.mediaDescription);
         mediaGroupTitle = findViewById(R.id.mediaGroupTitle);
+        mediaYear = findViewById(R.id.mediaYear);
         backBtn = findViewById(R.id.backButton);
         playButton = findViewById(R.id.playButton);
+        trailerTitle = findViewById(R.id.trailerTitle);
 
         backBtn.setOnClickListener(v -> {
             getOnBackPressedDispatcher().onBackPressed();
@@ -156,7 +155,8 @@ public class MediaActivity extends AppCompatActivity {
                         JSONObject movie = jsonObject.getJSONArray("results").getJSONObject(0);
 
                         mediaDescription.setText(movie.getString("overview"));
-                        //mediaYear.setText(movie.getString("release_date"));
+                        String year = movie.getString("release_date").split("-")[0];
+                        mediaYear.setText(year);
 
                         getMediaActors(movie.getString("id"));
                         getMoviesTrailers(movie.getString("id"));
@@ -238,11 +238,18 @@ public class MediaActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     JSONArray trailers = jsonObject.getJSONArray("results");
 
+                    if (trailers.length() == 0) {
+                        trailerTitle.setVisibility(View.GONE);
+                        loadingSpinner.setVisibility(View.GONE);
+                        content.setVisibility(View.VISIBLE);
+                        return;
+                    }
+
                     for (int i = 0; i < trailers.length(); i++) {
                         JSONObject trailer = trailers.getJSONObject(i);
                         String trailerTitle = trailer.getString("name");
                         String trailerDuration = trailer.getString("size");
-                        String trailerImage = "https://img.youtube.com/vi/" + trailer.getString("key") +"/hqdefault.jpg";
+                        String trailerImage = "https://img.youtube.com/vi/" + trailer.getString("key") + "/hqdefault.jpg";
 
                         MediaTrailersFragment mediaTrailersFragment = new MediaTrailersFragment(trailerTitle, trailerDuration, trailerImage);
 

@@ -2,7 +2,9 @@ package com.nassimlnd.flixhub.Controller.Home.Fragments.Home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,7 +27,12 @@ import com.nassimlnd.flixhub.Controller.Media.MediaActivity;
 import com.nassimlnd.flixhub.Model.Movie;
 import com.nassimlnd.flixhub.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * It's the fragment where are shown the favorites categories and highlighted media
@@ -34,6 +42,7 @@ public class HomeFragment extends Fragment {
 
     // Constants
     private final int AMOUNT_MOVIES_PER_CATEGORY = 10;
+    private final String TAG = "HomeFragment";
 
     // View elements
     ImageView highlightImage;
@@ -73,19 +82,36 @@ public class HomeFragment extends Fragment {
         circularProgressDrawable.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.primary));
         circularProgressDrawable.start();
 
-        // Setting the content of the view
-        showHighlightedMedia(view.getContext());
-
-        getMoviesByCategory("FILMS RÉCEMMENT AJOUTÉS", getContext());
-        getMoviesByCategory("MANGAS", getContext());
-        getMoviesByCategory("DOCUMENTAIRES | EMISSION TV", getContext());
-        getMoviesByCategory("ANIMATION | FAMILIALE | ENFANTS", getContext());
-
-        // Hide the progress bar and show the content
-        progressBar.setVisibility(ProgressBar.GONE);
-        content.setVisibility(ScrollView.VISIBLE);
+        showHighlightedMedia(getContext());
+        getContent();
 
         return view;
+    }
+
+    public void getContent() {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            // Getting the shared preferences to get the user's favorites categories
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
+            String favoritesCategories = sharedPreferences.getString("interests", "");
+            try {
+                JSONArray jsonArray = new JSONArray(favoritesCategories);
+                // Setting the content of the view
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    getMoviesByCategory(jsonArray.getString(i), getContext());
+                }
+            } catch (JSONException e) {
+                getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Error while getting the favorites categories", Toast.LENGTH_SHORT).show());
+            }
+
+            // Hide the progress bar and show the content
+            getActivity().runOnUiThread(() -> {
+                progressBar.setVisibility(View.GONE);
+                content.setVisibility(View.VISIBLE);
+            });
+        });
+
+
     }
 
     public void showHighlightedMedia(Context ctx) {

@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
             editor.putString("phoneNumber", userObject.getString("phoneNumber"));
             editor.putString("createdAt", userObject.getString("createdAt"));
             editor.putString("updatedAt", userObject.getString("updatedAt"));
-            //editor.putBoolean("haveInterests", jsonArray.getJSONObject(0).getBoolean("haveInterests"));
+            editor.putString("interests", userObject.getString("interests"));
             editor.putBoolean("isLoggedIn", true);
             editor.apply();
 

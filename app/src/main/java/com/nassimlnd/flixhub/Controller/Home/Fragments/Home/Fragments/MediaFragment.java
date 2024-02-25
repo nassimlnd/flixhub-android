@@ -1,5 +1,7 @@
 package com.nassimlnd.flixhub.Controller.Home.Fragments.Home.Fragments;
 
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -64,6 +66,7 @@ public class MediaFragment extends Fragment {
 
         Glide.with(mediaImage.getContext())
                 .load(media.getTvg_logo())
+                .transition(withCrossFade())
                 .into(mediaImage);
 
         return view;

@@ -84,9 +84,9 @@
                 app:justifyContent="space_between">
 
                 <TextView
+                    android:id="@+id/mediaYear"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Year"
                     android:textColor="@color/hint"
                     android:textSize="14sp" />
             </com.google.android.flexbox.FlexboxLayout>
@@ -105,7 +105,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="12dp"
-                    android:drawableStart="@drawable/play"
+                    android:drawableLeft="@drawable/play"
                     android:drawablePadding="4dp"
                     android:text="@string/media_play_button"
                     android:textColor="@color/white"
@@ -115,7 +115,7 @@
                     android:id="@+id/downloadButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/download"
+                    android:drawableLeft="@drawable/download"
                     android:drawablePadding="4dp"
                     android:text="@string/media_download_button"
                     android:textColor="@color/white"
@@ -138,6 +138,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:maxLines="5"
                 android:paddingHorizontal="24dp"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
@@ -164,6 +166,7 @@
                 android:paddingHorizontal="24dp">
 
                 <TextView
+                    android:id="@+id/trailerTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/media_trailer_title"
@@ -177,7 +180,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:orientation="vertical"
-                android:paddingHorizontal="24dp"></LinearLayout>
+                android:paddingHorizontal="24dp" />
 
 
         </LinearLayout>

@@ -1,5 +1,7 @@
 package com.nassimlnd.flixhub.Controller.Home.Fragments.Discover;
 
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
@@ -27,14 +30,18 @@ import com.nassimlnd.flixhub.R;
 
 import java.util.ArrayList;
 
+/**
+ * It's the fragment where the user can discover new movies and series
+ * It shows random movies and series and a search bar to search for a specific movie or serie
+ */
 public class DiscoverFragment extends Fragment {
 
-    ScrollView mediaContainer;
-    ScrollView searchListLayout;
-    ArrayList<Media> medias;
+    // View elements
+    ScrollView mediaContainer, searchListLayout;
     EditText searchInput;
     FlexboxLayout randomContent;
     LinearLayout searchContent;
+    ProgressBar loadingSpinner;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +59,7 @@ public class DiscoverFragment extends Fragment {
         searchListLayout = view.findViewById(R.id.searchListLayout);
         searchContent = view.findViewById(R.id.searchListContent);
         randomContent = view.findViewById(R.id.randomContent);
+        loadingSpinner = view.findViewById(R.id.loading_spinner);
 
         showRandomMovies();
 
@@ -63,14 +71,13 @@ public class DiscoverFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (searchInput.getText().toString().length() > 2) {
-                    showSearchedMovies();
-                }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                if (searchInput.getText().toString().length() > 2) {
+                    showSearchedMovies();
+                }
             }
         });
 
@@ -83,7 +90,7 @@ public class DiscoverFragment extends Fragment {
         for (Media media : medias) {
             ImageView imageView = new ImageView(getContext());
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(450, ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutParams.setMargins(0,0,0,24);
+            layoutParams.setMargins(0, 0, 0, 24);
 
             imageView.setLayoutParams(layoutParams);
             imageView.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.media_card));
@@ -98,10 +105,14 @@ public class DiscoverFragment extends Fragment {
 
             Glide.with(imageView.getContext())
                     .load(media.getTvg_logo())
+                    .transition(withCrossFade())
                     .into(imageView);
 
             randomContent.addView(imageView);
         }
+
+        loadingSpinner.setVisibility(View.GONE);
+        mediaContainer.setVisibility(View.VISIBLE);
     }
 
     public void showSearchedMovies() {

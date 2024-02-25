@@ -30,23 +30,22 @@ android {
 
 
 dependencies {
-    var media3_version = "1.2.1"
-    var androidxCoreVersion = "1.8.0"
-    implementation("androidx.media3:media3-session:$media3_version")
-    implementation("androidx.media3:media3-datasource:$media3_version")
-    implementation("androidx.media3:media3-decoder:$media3_version")
-    implementation("androidx.media3:media3-common:$media3_version")
-    implementation("androidx.media3:media3-container:$media3_version")
-    implementation("androidx.media3:media3-exoplayer-dash:$media3_version") {
+    val media3Version = "1.2.1"
+    implementation("androidx.media3:media3-session:$media3Version")
+    implementation("androidx.media3:media3-datasource:$media3Version")
+    implementation("androidx.media3:media3-decoder:$media3Version")
+    implementation("androidx.media3:media3-common:$media3Version")
+    implementation("androidx.media3:media3-container:$media3Version")
+    implementation("androidx.media3:media3-exoplayer-dash:$media3Version") {
         exclude("androidx.media3", "media3-exoplayer")
     }
-    implementation("androidx.media3:media3-exoplayer-hls:$media3_version") {
+    implementation("androidx.media3:media3-exoplayer-hls:$media3Version") {
         exclude("androidx.media3", "media3-exoplayer")
     }
-    implementation("androidx.media3:media3-exoplayer-smoothstreaming:$media3_version") {
+    implementation("androidx.media3:media3-exoplayer-smoothstreaming:$media3Version") {
         exclude("androidx.media3", "media3-exoplayer")
     }
-    implementation("androidx.media3:media3-exoplayer-rtsp:$media3_version") {
+    implementation("androidx.media3:media3-exoplayer-rtsp:$media3Version") {
         exclude("androidx.media3", "media3-exoplayer")
     }
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")

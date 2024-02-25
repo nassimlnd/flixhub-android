@@ -26,6 +26,7 @@
     <string name="register_interests_subtitle">Sélectionnez vos centres d\'intérêt</string>
     <string name="register_interests_skip">Passer</string>
     <string name="register_interests_submit">Continuer</string>
+    <string name="register_interests_error">Veuillez sélectionner au moins 3 centres d\'intérêt</string>
 
     <string name="register_profile_title">Remplissez vos informations</string>
     <string name="register_profile_fullname">Nom complet</string>
@@ -35,25 +36,32 @@
     <string name="register_profile_skip">Passer</string>
     <string name="register_profile_submit">Continuer</string>
     <string name="register_input_error">Tous les champs sont obligatoires</string>
+
     <string name="home_category_see_all">Voir tout</string>
-    <string name="log_choice_button">Connectez vous</string>
-    <string name="log_choice_title">Let\'s you in</string>
     <string name="home_play_button">Regarder</string>
     <string name="home_add_list">Ma liste</string>
+
+    <string name="log_choice_button">Connectez vous</string>
+    <string name="log_choice_title">Let\'s you in</string>
+
     <string name="media_download_button">Télécharger</string>
     <string name="media_play_button">Regarder</string>
     <string name="media_trailer_title">Bande d\'annonces</string>
     <string name="media_play_warn">C\'est illégal, nous ne pouvons pas diffuser les films sans en avoir les droits de distribution</string>
+
     <string name="list_title">Ma Liste</string>
+
     <string name="profile_toolbar">Profil</string>
     <string name="profile_edit_profile">Modifier votre profil</string>
     <string name="profile_edit_notifications">Notifications</string>
     <string name="profile_edit_security">Sécurité</string>
     <string name="profile_privacy_policy">Politique de confidentialité</string>
     <string name="profile_logout">Se déconnecter</string>
+
     <string name="logout_title">Déconnexion</string>
     <string name="logout_cancel">Annuler</string>
     <string name="logout_confirm">Oui, se déconnecter</string>
     <string name="logout_message">Êtes-vous sûr de vouloir vous déconnecter ?</string>
+
     <string name="discover_search_hint">Rechercher</string>
 </resources>

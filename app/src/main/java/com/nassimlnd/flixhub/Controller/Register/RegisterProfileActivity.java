@@ -80,6 +80,7 @@ public class RegisterProfileActivity extends AppCompatActivity {
                 String email = sharedPreferences.getString("email", "");
                 String password = sharedPreferences.getString("password", "");
                 boolean haveInterests = sharedPreferences.getBoolean("haveInterests", false);
+                String interests = sharedPreferences.getString("interests", "");
 
                 HashMap<String, String> data = new HashMap<>();
                 data.put("email", email);
@@ -88,6 +89,7 @@ public class RegisterProfileActivity extends AppCompatActivity {
                 data.put("nickname", nickname);
                 data.put("phoneNumber", phoneNumber);
                 data.put("haveInterests", String.valueOf(haveInterests));
+                data.put("interests", interests);
 
                 Log.d("TAG", "onCreate: " + data.toString());
                 Log.d("TAG", "Calling /auth/register");
@@ -119,7 +121,6 @@ public class RegisterProfileActivity extends AppCompatActivity {
     }
 
     public static void handleResult(String result) {
-
         SharedPreferences sharedPreferences = ctx.getSharedPreferences("user", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
@@ -135,7 +136,8 @@ public class RegisterProfileActivity extends AppCompatActivity {
             editor.putString("phoneNumber", userObject.getString("phoneNumber"));
             editor.putString("createdAt", userObject.getString("createdAt"));
             editor.putString("updatedAt", userObject.getString("updatedAt"));
-            //editor.putBoolean("haveInterests", jsonArray.getJSONObject(0).getBoolean("haveInterests"));
+            editor.putBoolean("haveInterests", userObject.getBoolean("haveInterests"));
+            editor.putString("interests", userObject.getString("interests"));
             editor.putBoolean("isLoggedIn", true);
             editor.apply();
 
