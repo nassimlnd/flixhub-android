@@ -3,253 +3,266 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_above="@+id/bottom_nav">
 
-    <com.google.android.flexbox.FlexboxLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="12dp"
-        android:paddingStart="12dp"
-        android:paddingEnd="24dp"
-        app:alignItems="center"
-        app:flexDirection="row">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:contentDescription="Logo FlixHub"
-            android:src="@drawable/logo" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/profile_toolbar"
-            android:textFontWeight="700"
-            android:textSize="18sp" />
-
-    </com.google.android.flexbox.FlexboxLayout>
-
-    <com.google.android.flexbox.FlexboxLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:alignItems="center"
-        app:flexDirection="column"
-        app:justifyContent="center">
+        android:padding="16dp">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_foreground" />
-
-        <TextView
-            android:id="@+id/profile_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/white"
-            android:textFontWeight="700"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/profile_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textColor="@color/hint"
-            android:textSize="16sp" />
-    </com.google.android.flexbox.FlexboxLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:orientation="vertical"
-        android:paddingHorizontal="24dp">
-
-        <com.google.android.flexbox.FlexboxLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:paddingHorizontal="10dp"
-            app:alignItems="center"
-            app:flexDirection="row"
-            app:justifyContent="space_between">
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+            <com.google.android.flexbox.FlexboxLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="12dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="24dp"
+                app:alignItems="center"
+                app:flexDirection="row">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/user_round"
-                    app:tint="@color/white" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:contentDescription="Logo FlixHub"
+                    android:src="@drawable/logo" />
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/profile_edit_profile"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-            </LinearLayout>
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/profile_toolbar"
+                    android:textFontWeight="700"
+                    android:textSize="18sp" />
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/chevron_right"
-                app:tint="@color/white" />
-        </com.google.android.flexbox.FlexboxLayout>
+            </com.google.android.flexbox.FlexboxLayout>
 
-        <com.google.android.flexbox.FlexboxLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:paddingHorizontal="10dp"
-            app:alignItems="center"
-            app:flexDirection="row"
-            app:justifyContent="space_between">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <com.google.android.flexbox.FlexboxLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginTop="24dp"
+                app:alignItems="center"
+                app:flexDirection="column"
+                app:justifyContent="center">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/bell"
-                    app:tint="@color/white" />
+                    android:id="@+id/imageView"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_launcher_foreground" />
 
                 <TextView
+                    android:id="@+id/profile_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/profile_edit_notifications"
+                    android:layout_marginTop="8dp"
                     android:textColor="@color/white"
+                    android:textFontWeight="700"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/profile_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/hint"
                     android:textSize="16sp" />
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/chevron_right"
-                app:tint="@color/white" />
-        </com.google.android.flexbox.FlexboxLayout>
-
-        <com.google.android.flexbox.FlexboxLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:paddingHorizontal="10dp"
-            app:alignItems="center"
-            app:flexDirection="row"
-            app:justifyContent="space_between">
+            </com.google.android.flexbox.FlexboxLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginTop="48dp"
+                android:orientation="vertical"
+                android:paddingHorizontal="24dp">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/shield_check"
-                    app:tint="@color/white" />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/profile_edit_security"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-            </LinearLayout>
+                    android:layout_marginBottom="24dp"
+                    android:paddingHorizontal="10dp"
+                    app:alignItems="center"
+                    app:flexDirection="row"
+                    app:justifyContent="space_between">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/chevron_right"
-                app:tint="@color/white" />
-        </com.google.android.flexbox.FlexboxLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-        <com.google.android.flexbox.FlexboxLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:paddingHorizontal="10dp"
-            app:alignItems="center"
-            app:flexDirection="row"
-            app:justifyContent="space_between">
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/user_round"
+                            app:tint="@color/white" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/profile_edit_profile"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
+                    </LinearLayout>
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/info"
-                    app:tint="@color/white" />
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/chevron_right"
+                        app:tint="@color/white" />
+                </com.google.android.flexbox.FlexboxLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/profile_privacy_policy"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-            </LinearLayout>
+                    android:layout_marginBottom="24dp"
+                    android:paddingHorizontal="10dp"
+                    app:alignItems="center"
+                    app:flexDirection="row"
+                    app:justifyContent="space_between">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/chevron_right"
-                app:tint="@color/white" />
-        </com.google.android.flexbox.FlexboxLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-        <com.google.android.flexbox.FlexboxLayout
-            android:id="@+id/logout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:paddingHorizontal="10dp"
-            app:alignItems="center"
-            app:flexDirection="row"
-            app:justifyContent="space_between">
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/bell"
+                            app:tint="@color/white" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/profile_edit_notifications"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
+                    </LinearLayout>
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/log_out"
-                    app:tint="@color/white" />
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/chevron_right"
+                        app:tint="@color/white" />
+                </com.google.android.flexbox.FlexboxLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/profile_logout"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-            </LinearLayout>
+                    android:layout_marginBottom="24dp"
+                    android:paddingHorizontal="10dp"
+                    app:alignItems="center"
+                    app:flexDirection="row"
+                    app:justifyContent="space_between">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/chevron_right"
-                app:tint="@color/white" />
-        </com.google.android.flexbox.FlexboxLayout>
-    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/shield_check"
+                            app:tint="@color/white" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/profile_edit_security"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/chevron_right"
+                        app:tint="@color/white" />
+                </com.google.android.flexbox.FlexboxLayout>
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:paddingHorizontal="10dp"
+                    app:alignItems="center"
+                    app:flexDirection="row"
+                    app:justifyContent="space_between">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/info"
+                            app:tint="@color/white" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/profile_privacy_policy"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/chevron_right"
+                        app:tint="@color/white" />
+                </com.google.android.flexbox.FlexboxLayout>
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:id="@+id/logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:paddingHorizontal="10dp"
+                    app:alignItems="center"
+                    app:flexDirection="row"
+                    app:justifyContent="space_between">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/log_out"
+                            app:tint="@color/white" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/profile_logout"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/chevron_right"
+                        app:tint="@color/white" />
+                </com.google.android.flexbox.FlexboxLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

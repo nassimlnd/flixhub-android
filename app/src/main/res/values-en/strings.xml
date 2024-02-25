@@ -41,6 +41,7 @@
     <string name="media_play_button">Play</string>
     <string name="media_trailer_title">Trailers</string>
     <string name="media_play_warn">It\'s illegal, we can\'t stream the movie without the distribution rights</string>
+    <string name="media_play_warn_confirmation">Are you sure you want to watch the film illegally?</string>
     <string name="list_title">My List</string>
     <string name="profile_toolbar">Profile</string>
     <string name="profile_edit_profile">Edit profile</string>

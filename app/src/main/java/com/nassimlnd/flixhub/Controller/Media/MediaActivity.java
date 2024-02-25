@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +27,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.URLEncoder;
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
@@ -43,6 +43,7 @@ public class MediaActivity extends AppCompatActivity {
 
     // Data
     private Media media;
+    private int count = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,11 +66,17 @@ public class MediaActivity extends AppCompatActivity {
         });
 
         playButton.setOnClickListener(v -> {
-            // TODO: 2024-02-23 Make the back-end system for converting the medias
-            Intent intent = new Intent(this, PlayerActivity.class);
-            intent.putExtra("mediaUrl", media.getUrl());
-            startActivity(intent);
-            //Toast.makeText(this, R.string.media_play_warn, Toast.LENGTH_LONG).show();
+            if (count == 0) {
+                count++;
+                Toast.makeText(this, R.string.media_play_warn, Toast.LENGTH_LONG).show();
+            } else if (count == 1) {
+                count++;
+                Toast.makeText(this, R.string.media_play_warn_confirmation, Toast.LENGTH_LONG).show();
+            } else {
+                Intent intent = new Intent(this, PlayerActivity.class);
+                intent.putExtra("mediaUrl", media.getUrl());
+                startActivity(intent);
+            }
         });
 
         int mediaId = getIntent().getIntExtra("mediaId", 0);

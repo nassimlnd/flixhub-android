@@ -48,6 +48,7 @@
     <string name="media_play_button">Regarder</string>
     <string name="media_trailer_title">Bande d\'annonces</string>
     <string name="media_play_warn">C\'est illégal, nous ne pouvons pas diffuser les films sans en avoir les droits de distribution</string>
+    <string name="media_play_warn_confirmation">Êtes-vous sûr de vouloir regarder le film illégalement ?</string>
 
     <string name="list_title">Ma Liste</string>
 
