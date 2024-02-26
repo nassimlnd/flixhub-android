@@ -31,7 +31,6 @@
         <activity android:name=".Controller.Auth.Register.RegisterActivity" />
         <activity android:name=".Controller.Auth.LoginActivity" />
         <activity android:name=".Controller.Auth.Register.RegisterInterestsActivity" />
-        <activity android:name=".Controller.Auth.Register.RegisterProfileActivity" />
         <activity android:name=".Controller.Media.CategoryListActivity" />
         <activity android:name=".Controller.Home.HomeActivity" />
         <activity android:name=".Controller.Media.MediaActivity" />

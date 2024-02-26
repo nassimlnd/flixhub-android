@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         app:alignItems="center"
         app:flexDirection="row"
-        android:paddingHorizontal="12dp"
+        android:layout_marginTop="24dp"
+        android:paddingHorizontal="24dp"
         app:justifyContent="center">
 
         <TextView
@@ -43,9 +44,8 @@
 
         <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/profileContainer"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="50dp"
             app:alignItems="center"
             app:flexDirection="row"
             app:flexWrap="wrap"

@@ -87,8 +87,7 @@
         android:paddingVertical="16dp"
         android:textColor="@color/white"
         android:textColorHint="@color/hint"
-        android:textSize="14sp"
-        android:visibility="gone" />
+        android:textSize="14sp" />
 
     <LinearLayout
         android:layout_width="wrap_content"

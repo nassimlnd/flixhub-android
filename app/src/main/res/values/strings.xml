@@ -71,4 +71,5 @@
     <string name="profile_chooser_add">Ajouter un profil</string>
     <string name="modal_create_profile_title">Créer un profil</string>
     <string name="modal_create_profile_choose_avatar">Choisir un avatar</string>
+    <string name="profile_edit_account">Informations du compte</string>
 </resources>

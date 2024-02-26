@@ -3,7 +3,10 @@ package com.nassimlnd.flixhub.Controller.Profile;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -15,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.nassimlnd.flixhub.Controller.Auth.Register.RegisterInterestsActivity;
 import com.nassimlnd.flixhub.Controller.Profile.Fragments.ProfileCardFragment;
 import com.nassimlnd.flixhub.Model.Profile;
 import com.nassimlnd.flixhub.R;
@@ -32,14 +36,12 @@ public class ProfileChooserActivity extends AppCompatActivity {
     final Calendar calendar = Calendar.getInstance();
 
     // View elements
-    FlexboxLayout profileAddButton;
-    FlexboxLayout profileCardsLayout;
-    EditText registerProfileBirthdate;
-    EditText registerProfileName;
+    FlexboxLayout profileAddButton, profileCardsLayout;
+    EditText registerProfileBirthdate, registerProfileName;
+    ImageView avatarImageView;
 
     // Data
     private ArrayList<Profile> profiles;
-    private Profile newProfile = new Profile();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class ProfileChooserActivity extends AppCompatActivity {
 
         // For each profile, create a card
         for (Profile profile : profiles) {
+            Log.d("Profile", "onCreate: " + profile.getInterests());
             ProfileCardFragment profileCardFragment = new ProfileCardFragment(profile);
             getSupportFragmentManager().beginTransaction().add(R.id.profileContainer, profileCardFragment).commit();
         }
@@ -68,22 +71,8 @@ public class ProfileChooserActivity extends AppCompatActivity {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(R.layout.modal_create_profile);
 
-        profileAddButton.setOnClickListener(v -> {
-            bottomSheetDialog.show();
-            bottomSheetDialog.findViewById(R.id.registerProfileCancel).setOnClickListener(v1 -> bottomSheetDialog.dismiss());
-            bottomSheetDialog.findViewById(R.id.registerProfileSubmit).setOnClickListener(v1 -> {
-                newProfile.setName(registerProfileName.getText().toString());
-                newProfile.setAvatar("avatar1.png");
-
-                // Send the new profile to the back-end
-
-                // Close the modal
-                bottomSheetDialog.dismiss();
-            });
-        });
-
         // Initialize bottom sheet view elements
-        ImageView avatarImageView = bottomSheetDialog.findViewById(R.id.avatarImageView);
+        avatarImageView = bottomSheetDialog.findViewById(R.id.avatarImageView);
         registerProfileBirthdate = bottomSheetDialog.findViewById(R.id.registerProfileBirthdate);
         registerProfileName = bottomSheetDialog.findViewById(R.id.registerProfileName);
 
@@ -92,6 +81,22 @@ public class ProfileChooserActivity extends AppCompatActivity {
                 .load("https://api.nassimlounadi.fr/avatars/avatar1.png")
                 .transition(withCrossFade())
                 .into(avatarImageView);
+
+        profileAddButton.setOnClickListener(v -> {
+            bottomSheetDialog.show();
+            bottomSheetDialog.findViewById(R.id.registerProfileCancel).setOnClickListener(v1 -> bottomSheetDialog.dismiss());
+            bottomSheetDialog.findViewById(R.id.registerProfileSubmit).setOnClickListener(v1 -> {
+                SharedPreferences.Editor editor = getSharedPreferences("profile", MODE_PRIVATE).edit();
+                editor.putString("name", registerProfileName.getText().toString());
+                editor.putString("birthdate", registerProfileBirthdate.getText().toString());
+                editor.putString("avatar", "avatar1.png");
+                editor.apply();
+
+                bottomSheetDialog.dismiss();
+                Intent intent = new Intent(this, RegisterInterestsActivity.class);
+                startActivity(intent);
+            });
+        });
 
 
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {

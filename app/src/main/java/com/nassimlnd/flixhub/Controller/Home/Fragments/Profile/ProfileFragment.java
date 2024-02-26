@@ -1,5 +1,7 @@
 package com.nassimlnd.flixhub.Controller.Home.Fragments.Profile;
 
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,12 +11,14 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.nassimlnd.flixhub.Controller.GettingStartedActivity;
@@ -31,9 +35,12 @@ import java.util.concurrent.Executors;
  */
 public class ProfileFragment extends Fragment {
 
+    // Constants
+    private static String BASE_URL = "https://api.nassimlounadi.fr/avatars/";
+
     // View elements
     TextView profileName;
-    TextView profileEmail;
+    ImageView profileAvatar;
     FlexboxLayout logout;
 
     @Override
@@ -49,17 +56,21 @@ public class ProfileFragment extends Fragment {
 
         // Get the view elements
         profileName = view.findViewById(R.id.profile_name);
-        profileEmail = view.findViewById(R.id.profile_email);
+        profileAvatar = view.findViewById(R.id.imageView);
         logout = view.findViewById(R.id.logout);
 
         // Get the user's name and email from the shared preferences
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user", 0);
-        String name = sharedPreferences.getString("fullName", "");
-        String email = sharedPreferences.getString("email", "");
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("profile", Context.MODE_PRIVATE);
+        String name = sharedPreferences.getString("name", "");
+        String avatar = sharedPreferences.getString("avatar", "");
 
-        // Set the user's name and email
+        // Set the user's name and avatar
         profileName.setText(name);
-        profileEmail.setText(email);
+
+        Glide.with(profileAvatar.getContext())
+                .load(BASE_URL + avatar)
+                .transition(withCrossFade())
+                .into(profileAvatar);
 
         // Logout bottom sheet dialog
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());

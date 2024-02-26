@@ -56,4 +56,9 @@
     <string name="register_fullname">Full name</string>
     <string name="register_error">An error occurred during registration</string>
     <string name="register_success">Registration successfully completed</string>
+    <string name="profile_chooser_title">Who is it?</string>
+    <string name="profile_chooser_add">Add a profile</string>
+    <string name="modal_create_profile_title">Create a profile</string>
+    <string name="modal_create_profile_choose_avatar">Choose an avatar</string>
+    <string name="profile_edit_account">Account informations</string>
 </resources>

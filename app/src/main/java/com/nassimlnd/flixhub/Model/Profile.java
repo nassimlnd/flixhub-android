@@ -6,8 +6,11 @@ import android.util.Log;
 import com.nassimlnd.flixhub.Controller.Network.APIClient;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -74,10 +77,39 @@ public class Profile {
         }
     }
 
-    public void createProfile() {
+    public static Profile createProfile(HashMap<String, String> data, Context ctx) {
+        Profile profile = new Profile();
+        try {
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
+            CountDownLatch latch = new CountDownLatch(1);
 
+            executorService.execute(() -> {
+                // Post the new profile
+                String result = APIClient.postMethodWithCookies(PROFILE_ROUTE, data, ctx);
+                Log.d(TAG, "createProfile: " + result);
+
+                // Parse the result
+                try {
+                    JSONObject profileObject = new JSONObject(result);
+
+                    profile.setAvatar(profileObject.getString("avatar"));
+                    profile.setId(profileObject.getInt("id"));
+                    profile.setInterests(profileObject.getString("interests"));
+                    profile.setName(profileObject.getString("name"));
+
+                    latch.countDown();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            });
+
+            latch.await();
+            return profile;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
-
 
     // Getters and setters
 

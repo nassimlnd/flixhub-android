@@ -203,7 +203,7 @@ public class APIClient {
             int responseCode = conn.getResponseCode();
             Log.d("TAG", "postMethod: " + responseCode);
 
-            if (responseCode == HttpURLConnection.HTTP_OK) {
+            if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
                 Map<String, List<String>> headerFields = conn.getHeaderFields();
                 List<String> cookiesHeader = headerFields.get("Set-Cookie");
 
