@@ -68,6 +68,7 @@ public class ProfileCardFragment extends Fragment {
             editor.putInt("id", profile.getId());
             editor.putString("name", profile.getName());
             editor.putString("avatar", profile.getAvatar());
+            editor.putString("interests", profile.getInterests());
             editor.apply();
 
             requireActivity().finish();

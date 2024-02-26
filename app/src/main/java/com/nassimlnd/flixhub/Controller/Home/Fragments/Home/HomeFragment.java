@@ -92,7 +92,7 @@ public class HomeFragment extends Fragment {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
             // Getting the shared preferences to get the user's favorites categories
-            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("profile", Context.MODE_PRIVATE);
             String favoritesCategories = sharedPreferences.getString("interests", "");
             try {
                 JSONArray jsonArray = new JSONArray(favoritesCategories);
