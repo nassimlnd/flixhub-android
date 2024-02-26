@@ -61,4 +61,8 @@
     <string name="modal_create_profile_title">Create a profile</string>
     <string name="modal_create_profile_choose_avatar">Choose an avatar</string>
     <string name="profile_edit_account">Account informations</string>
+    <string name="modal_edit_profile_title">Edit the profile of</string>
+    <string name="modal_edit_profile_delete">Delete the profile</string>
+    <string name="modal_edit_profile_submit">Edit</string>
+    <string name="profile_change_profile">Change profile</string>
 </resources>

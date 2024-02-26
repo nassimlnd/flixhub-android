@@ -85,6 +85,7 @@
                 android:paddingHorizontal="24dp">
 
                 <com.google.android.flexbox.FlexboxLayout
+                    android:id="@+id/profile_change_profile_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
@@ -101,14 +102,14 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/user_round"
+                            android:src="@drawable/repeat_2"
                             app:tint="@color/white" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
-                            android:text="@string/profile_edit_profile"
+                            android:text="@string/profile_change_profile"
                             android:textColor="@color/white"
                             android:textSize="16sp" />
                     </LinearLayout>

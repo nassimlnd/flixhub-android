@@ -1,6 +1,7 @@
 package com.nassimlnd.flixhub.Model;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.nassimlnd.flixhub.Controller.Network.APIClient;
@@ -25,6 +26,7 @@ public class Profile {
     private int id;
     private String name;
     private String avatar;
+    private String birthdate;
     private String interests;
 
     public Profile(int id, String name, String avatar, String interests) {
@@ -111,6 +113,25 @@ public class Profile {
         }
     }
 
+    public static boolean deleteProfile(Context ctx, int id) {
+        try {
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
+            CountDownLatch latch = new CountDownLatch(1);
+
+            executorService.execute(() -> {
+                String result = APIClient.postMethodWithCookies(PROFILE_ROUTE + "/delete/" + id, new HashMap<>(), ctx);
+
+                Log.d(TAG, "deleteProfile: " + result);
+                latch.countDown();
+            });
+            latch.await();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     // Getters and setters
 
     public int getId() {
@@ -143,5 +164,13 @@ public class Profile {
 
     public void setInterests(String interests) {
         this.interests = interests;
+    }
+
+    public String getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
     }
 }

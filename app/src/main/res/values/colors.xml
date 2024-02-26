@@ -9,4 +9,5 @@
     <color name="primary">#2563eb</color>
     <color name="secondary">#35383F</color>
     <color name="danger">#F75555</color>
+    <color name="black_opacity_40">#99000000</color>
 </resources>

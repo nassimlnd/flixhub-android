@@ -20,6 +20,10 @@
         <item name="colorPrimary">@color/secondary</item>
     </style>
 
+    <style name="Button.Danger" parent="Base.Theme.Flixhub">
+        <item name="colorPrimary">@color/danger</item>
+    </style>
+
     <style name="Button.Outline" parent="Base.Theme.Flixhub">
         <item name="colorPrimary">#00000000</item>
     </style>

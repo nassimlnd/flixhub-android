@@ -12,6 +12,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,10 +39,11 @@ public class ProfileChooserActivity extends AppCompatActivity {
     // View elements
     FlexboxLayout profileAddButton, profileCardsLayout;
     EditText registerProfileBirthdate, registerProfileName;
-    ImageView avatarImageView;
+    ImageView avatarImageView, editModeButton;
 
     // Data
     private ArrayList<Profile> profiles;
+    private ArrayList<ProfileCardFragment> profileCardFragments = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class ProfileChooserActivity extends AppCompatActivity {
         // Initialize view elements
         profileAddButton = findViewById(R.id.profileAddButton);
         profileCardsLayout = findViewById(R.id.profileContainer);
+        editModeButton = findViewById(R.id.editModeButton);
 
         // Getting profiles of the user from the back-end
         profiles = Profile.getProfiles(this);
@@ -60,6 +63,7 @@ public class ProfileChooserActivity extends AppCompatActivity {
             Log.d("Profile", "onCreate: " + profile.getInterests());
             ProfileCardFragment profileCardFragment = new ProfileCardFragment(profile);
             getSupportFragmentManager().beginTransaction().add(R.id.profileContainer, profileCardFragment).commit();
+            profileCardFragments.add(profileCardFragment);
         }
 
         // If there are already 8 profiles, hide the add button
@@ -98,6 +102,18 @@ public class ProfileChooserActivity extends AppCompatActivity {
             });
         });
 
+        editModeButton.setOnClickListener(v -> {
+            for (ProfileCardFragment profileCardFragment : profileCardFragments) {
+                profileCardFragment.setEditMode(!profileCardFragment.isEditMode());
+            }
+        });
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Log.d("ProfileChooserActivity", "handleOnBackPressed: " + profileCardFragments.size());
+            }
+        });
 
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override

@@ -23,6 +23,7 @@ import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.nassimlnd.flixhub.Controller.GettingStartedActivity;
 import com.nassimlnd.flixhub.Controller.Network.APIClient;
+import com.nassimlnd.flixhub.Controller.Profile.ProfileChooserActivity;
 import com.nassimlnd.flixhub.R;
 
 import java.util.HashMap;
@@ -41,7 +42,7 @@ public class ProfileFragment extends Fragment {
     // View elements
     TextView profileName;
     ImageView profileAvatar;
-    FlexboxLayout logout;
+    FlexboxLayout logout, changeProfile;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,6 +59,7 @@ public class ProfileFragment extends Fragment {
         profileName = view.findViewById(R.id.profile_name);
         profileAvatar = view.findViewById(R.id.imageView);
         logout = view.findViewById(R.id.logout);
+        changeProfile = view.findViewById(R.id.profile_change_profile_button);
 
         // Get the user's name and email from the shared preferences
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("profile", Context.MODE_PRIVATE);
@@ -66,6 +68,7 @@ public class ProfileFragment extends Fragment {
 
         // Set the user's name and avatar
         profileName.setText(name);
+        profileAvatar.setClipToOutline(true);
 
         Glide.with(profileAvatar.getContext())
                 .load(BASE_URL + avatar)
@@ -83,6 +86,11 @@ public class ProfileFragment extends Fragment {
                 logout(getContext());
             });
             bottomSheetDialog.findViewById(R.id.logout_cancel).setOnClickListener((v1) -> bottomSheetDialog.dismiss());
+        });
+
+        changeProfile.setOnClickListener((v) -> {
+            getActivity().finish();
+            startActivity(new Intent(getContext(), ProfileChooserActivity.class));
         });
 
         return view;

@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.google.android.flexbox.FlexboxLayout;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.nassimlnd.flixhub.Controller.Home.HomeActivity;
 import com.nassimlnd.flixhub.Model.Profile;
 import com.nassimlnd.flixhub.R;
@@ -30,15 +33,18 @@ public class ProfileCardFragment extends Fragment {
 
     // Data
     private Profile profile;
+    private boolean editMode;
 
     // View elements
     private ImageView profileAvatar;
     private TextView profileName;
-    private FlexboxLayout profileCardLayout;
+    private FlexboxLayout profileCardLayout, editLayout;
+    private RelativeLayout profileCard;
 
     public ProfileCardFragment(Profile profile) {
         super(R.layout.fragment_profile_card);
         this.profile = profile;
+        this.editMode = false;
     }
 
     @Override
@@ -55,27 +61,85 @@ public class ProfileCardFragment extends Fragment {
         profileAvatar = view.findViewById(R.id.profileAvatar);
         profileName = view.findViewById(R.id.profileName);
         profileCardLayout = view.findViewById(R.id.profileCardLayout);
+        editLayout = view.findViewById(R.id.editLayout);
+        profileCard = view.findViewById(R.id.profileCard);
 
         profileName.setText(profile.getName());
+
+        profileAvatar.setClipToOutline(true);
+        profileCard.setClipToOutline(true);
+
 
         Glide.with(profileAvatar.getContext())
                 .load(AVATAR_URL + profile.getAvatar())
                 .transition(withCrossFade())
                 .into(profileAvatar);
 
-        profileCardLayout.setOnClickListener(v -> {
-            SharedPreferences.Editor editor = requireActivity().getSharedPreferences("profile", Context.MODE_PRIVATE).edit();
-            editor.putInt("id", profile.getId());
-            editor.putString("name", profile.getName());
-            editor.putString("avatar", profile.getAvatar());
-            editor.putString("interests", profile.getInterests());
-            editor.apply();
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(view.getContext());
+        bottomSheetDialog.setContentView(R.layout.modal_edit_profile);
 
-            requireActivity().finish();
-            Intent intent = new Intent(getContext(), HomeActivity.class);
-            startActivity(intent);
+        TextView editProfileTitle = bottomSheetDialog.findViewById(R.id.editProfileTitle);
+        TextView editProfileName = bottomSheetDialog.findViewById(R.id.editProfileName);
+        TextView editProfileBirthdate = bottomSheetDialog.findViewById(R.id.editProfileBirthdate);
+        ImageView editProfileAvatar = bottomSheetDialog.findViewById(R.id.editAvatarImage);
+
+        Button editProfileDeleteButton = bottomSheetDialog.findViewById(R.id.editProfileEditButton);
+        Button editProfileCancelButton = bottomSheetDialog.findViewById(R.id.editProfileCancelButton);
+        Button editProfileSubmitButton = bottomSheetDialog.findViewById(R.id.editProfileSubmitButton);
+
+        editProfileTitle.setText(getContext().getString(R.string.modal_edit_profile_title) + " " + profile.getName());
+        editProfileName.setText(profile.getName());
+        editProfileBirthdate.setText(profile.getBirthdate());
+
+        Glide.with(editProfileAvatar.getContext())
+                .load(AVATAR_URL + profile.getAvatar())
+                .transition(withCrossFade())
+                .into(editProfileAvatar);
+
+        editProfileAvatar.setClipToOutline(true);
+
+        editProfileCancelButton.setOnClickListener(v -> bottomSheetDialog.dismiss());
+
+        editProfileDeleteButton.setOnClickListener(v -> {
+            boolean isDeleted = Profile.deleteProfile(getContext(), profile.getId());
+
+            if (isDeleted) {
+                bottomSheetDialog.dismiss();
+                profileCardLayout.setVisibility(View.GONE);
+            }
+        });
+
+
+        profileCardLayout.setOnClickListener(v -> {
+            if (!editMode) {
+                SharedPreferences.Editor editor = requireActivity().getSharedPreferences("profile", Context.MODE_PRIVATE).edit();
+                editor.putInt("id", profile.getId());
+                editor.putString("name", profile.getName());
+                editor.putString("avatar", profile.getAvatar());
+                editor.putString("interests", profile.getInterests());
+                editor.apply();
+
+                requireActivity().finish();
+                Intent intent = new Intent(getContext(), HomeActivity.class);
+                startActivity(intent);
+            } else {
+                bottomSheetDialog.show();
+            }
         });
 
         return view;
+    }
+
+    public boolean isEditMode() {
+        return editMode;
+    }
+
+    public void setEditMode(boolean editMode) {
+        this.editMode = editMode;
+        if (this.editMode) {
+            editLayout.setVisibility(View.VISIBLE);
+        } else {
+            editLayout.setVisibility(View.GONE);
+        }
     }
 }

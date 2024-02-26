@@ -2,21 +2,44 @@
 <com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/profileCardLayout"
-    android:layout_width="wrap_content"
+    android:layout_width="120dp"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="12dp"
-    android:layout_marginBottom="12dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginBottom="16dp"
     app:alignItems="center"
     app:flexDirection="column"
     app:justifyContent="center">
 
-    <ImageView
-        android:id="@+id/profileAvatar"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
+    <RelativeLayout
+        android:id="@+id/profileCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@drawable/media_card"
-        android:clipToOutline="true" />
+        android:clipToOutline="true">
+
+        <ImageView
+            android:id="@+id/profileAvatar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:background="@drawable/media_card"
+            android:clipToOutline="true" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/editLayout"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@color/black_opacity_40"
+            android:visibility="gone"
+            app:alignItems="center"
+            app:justifyContent="center">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/pencil" />
+        </com.google.android.flexbox.FlexboxLayout>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/profileName"
