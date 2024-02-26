@@ -142,7 +142,25 @@ public class RegisterInterestsActivity extends AppCompatActivity {
         editor.putBoolean("haveInterests", true);
         editor.apply();
 
-        startActivity(new Intent(this, HomeActivity.class));
+        SharedPreferences sharedPreferences = getSharedPreferences("profile", Context.MODE_PRIVATE);
+        HashMap<String, String> data = new HashMap<>();
+        data.put("name", sharedPreferences.getString("name", ""));
+        data.put("avatar", sharedPreferences.getString("avatar", "avatar1.png"));
+        data.put("birthdate", sharedPreferences.getString("birthdate", ""));
+        data.put("interests", json);
+        data.put("haveInterests", String.valueOf(sharedPreferences.getBoolean("haveInterests", false)));
+
+        Profile newProfile = Profile.createProfile(data, getApplicationContext());
+
+        if (newProfile.getName().equals(sharedPreferences.getString("name", ""))) {
+            editor.clear();
+            editor.putString("name", newProfile.getName());
+            editor.putString("avatar", newProfile.getAvatar());
+            editor.putString("birthdate", newProfile.getBirthdate());
+            editor.putString("interests", newProfile.getInterests());
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+        }
     }
 }
 

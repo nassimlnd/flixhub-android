@@ -26,6 +26,7 @@ import com.nassimlnd.flixhub.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Locale;
 
 /**
@@ -51,8 +52,8 @@ public class ProfileChooserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_chooser);
 
         // Initialize view elements
-        profileAddButton = findViewById(R.id.profileAddButton);
         profileCardsLayout = findViewById(R.id.profileContainer);
+        profileAddButton = findViewById(R.id.profileAddButton);
         editModeButton = findViewById(R.id.editModeButton);
 
         // Getting profiles of the user from the back-end
@@ -62,9 +63,13 @@ public class ProfileChooserActivity extends AppCompatActivity {
         for (Profile profile : profiles) {
             Log.d("Profile", "onCreate: " + profile.getInterests());
             ProfileCardFragment profileCardFragment = new ProfileCardFragment(profile);
+
             getSupportFragmentManager().beginTransaction().add(R.id.profileContainer, profileCardFragment).commit();
+
             profileCardFragments.add(profileCardFragment);
         }
+
+
 
         // If there are already 8 profiles, hide the add button
         if (profiles.size() == 8) {
@@ -85,6 +90,8 @@ public class ProfileChooserActivity extends AppCompatActivity {
                 .load("https://api.nassimlounadi.fr/avatars/avatar1.png")
                 .transition(withCrossFade())
                 .into(avatarImageView);
+
+        avatarImageView.setClipToOutline(true);
 
         profileAddButton.setOnClickListener(v -> {
             bottomSheetDialog.show();

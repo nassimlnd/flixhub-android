@@ -1,7 +1,6 @@
 package com.nassimlnd.flixhub.Model;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 
 import com.nassimlnd.flixhub.Controller.Network.APIClient;
@@ -29,10 +28,11 @@ public class Profile {
     private String birthdate;
     private String interests;
 
-    public Profile(int id, String name, String avatar, String interests) {
+    public Profile(int id, String name, String avatar, String birthdate, String interests) {
         this.id = id;
         this.name = name;
         this.avatar = avatar;
+        this.birthdate = birthdate;
         this.interests = interests;
     }
 
@@ -62,6 +62,7 @@ public class Profile {
                                 profilesArray.getJSONObject(i).getInt("id"),
                                 profilesArray.getJSONObject(i).getString("name"),
                                 profilesArray.getJSONObject(i).getString("avatar"),
+                                profilesArray.getJSONObject(i).getString("birthdate"),
                                 profilesArray.getJSONObject(i).getString("interests")
                         ));
                     }
@@ -96,6 +97,7 @@ public class Profile {
 
                     profile.setAvatar(profileObject.getString("avatar"));
                     profile.setId(profileObject.getInt("id"));
+                    profile.setBirthdate(profileObject.getString("birthdate"));
                     profile.setInterests(profileObject.getString("interests"));
                     profile.setName(profileObject.getString("name"));
 

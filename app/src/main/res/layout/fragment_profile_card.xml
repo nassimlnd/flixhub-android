@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="16dp"
     android:layout_marginBottom="16dp"
+    app:layout_order="-1"
     app:alignItems="center"
     app:flexDirection="column"
     app:justifyContent="center">

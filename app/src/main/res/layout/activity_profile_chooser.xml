@@ -69,6 +69,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:background="@drawable/media_card">
+
                     <ImageView
                         android:layout_width="36dp"
                         android:layout_height="36dp"
