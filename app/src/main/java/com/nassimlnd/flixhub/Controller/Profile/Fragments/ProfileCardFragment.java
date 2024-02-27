@@ -2,6 +2,7 @@ package com.nassimlnd.flixhub.Controller.Profile.Fragments;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,11 +27,15 @@ import com.nassimlnd.flixhub.Controller.Home.HomeActivity;
 import com.nassimlnd.flixhub.Model.Profile;
 import com.nassimlnd.flixhub.R;
 
+import java.util.Calendar;
+import java.util.Locale;
+
 public class ProfileCardFragment extends Fragment {
 
     // Constants
     private static final String TAG = "ProfileCardFragment";
     private static final String AVATAR_URL = "https://api.nassimlounadi.fr/avatars/";
+    final Calendar calendar = Calendar.getInstance();
 
     // Data
     private Profile profile;
@@ -37,7 +43,7 @@ public class ProfileCardFragment extends Fragment {
 
     // View elements
     private ImageView profileAvatar;
-    private TextView profileName;
+    private TextView profileName, editProfileBirthdate;
     private FlexboxLayout profileCardLayout, editLayout;
     private RelativeLayout profileCard;
 
@@ -80,7 +86,7 @@ public class ProfileCardFragment extends Fragment {
 
         TextView editProfileTitle = bottomSheetDialog.findViewById(R.id.editProfileTitle);
         TextView editProfileName = bottomSheetDialog.findViewById(R.id.editProfileName);
-        TextView editProfileBirthdate = bottomSheetDialog.findViewById(R.id.editProfileBirthdate);
+        editProfileBirthdate = bottomSheetDialog.findViewById(R.id.editProfileBirthdate);
         ImageView editProfileAvatar = bottomSheetDialog.findViewById(R.id.editAvatarImage);
 
         Button editProfileDeleteButton = bottomSheetDialog.findViewById(R.id.editProfileEditButton);
@@ -127,6 +133,51 @@ public class ProfileCardFragment extends Fragment {
             }
         });
 
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateDateLabel();
+            }
+        };
+
+        editProfileBirthdate.setOnClickListener(v -> {
+            new DatePickerDialog(bottomSheetDialog.getContext(), R.style.DatePicker_Flix, date, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+        });
+
+        editProfileSubmitButton.setOnClickListener(v -> {
+            Profile updatedProfile = new Profile();
+
+            updatedProfile.setId(profile.getId());
+            updatedProfile.setName(editProfileName.getText().toString());
+            updatedProfile.setBirthdate(editProfileBirthdate.getText().toString());
+            updatedProfile.setAvatar(profile.getAvatar());
+            updatedProfile.setInterests(profile.getInterests());
+
+            profile = Profile.updateProfile(getContext(), profile.getId(), updatedProfile);
+
+            editProfileTitle.setText(getContext().getString(R.string.modal_edit_profile_title) + " " + updatedProfile.getName());
+            editProfileName.setText(updatedProfile.getName());
+            editProfileBirthdate.setText(updatedProfile.getBirthdate());
+
+            Glide.with(editProfileAvatar.getContext())
+                    .load(AVATAR_URL + updatedProfile.getAvatar())
+                    .transition(withCrossFade())
+                    .into(editProfileAvatar);
+
+            profileName.setText(updatedProfile.getName());
+
+            Glide.with(profileAvatar.getContext())
+                    .load(AVATAR_URL + updatedProfile.getAvatar())
+                    .transition(withCrossFade())
+                    .into(profileAvatar);
+
+
+            bottomSheetDialog.dismiss();
+        });
+
         return view;
     }
 
@@ -141,5 +192,11 @@ public class ProfileCardFragment extends Fragment {
         } else {
             editLayout.setVisibility(View.GONE);
         }
+    }
+
+    public void updateDateLabel() {
+        String myFormat = "dd/MM/yyyy";
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(myFormat, Locale.FRANCE);
+        editProfileBirthdate.setText(sdf.format(calendar.getTime()));
     }
 }

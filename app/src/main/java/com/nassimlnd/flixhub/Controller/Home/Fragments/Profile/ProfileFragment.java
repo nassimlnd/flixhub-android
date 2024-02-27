@@ -111,6 +111,12 @@ public class ProfileFragment extends Fragment {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.clear();
                 editor.apply();
+
+                sharedPreferences = ctx.getSharedPreferences("profile", Context.MODE_PRIVATE);
+                editor = sharedPreferences.edit();
+                editor.clear();
+                editor.apply();
+
                 getActivity().finish();
                 ctx.startActivity(new Intent(ctx, GettingStartedActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             });

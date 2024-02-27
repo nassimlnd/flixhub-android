@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -134,6 +135,45 @@ public class Profile {
         }
     }
 
+    public static Profile updateProfile(Context ctx, int id, Profile profile) {
+        try {
+            Profile updatedProfile = new Profile();
+
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
+            CountDownLatch latch = new CountDownLatch(1);
+
+            executorService.execute(() -> {
+                String result = APIClient.postMethodWithCookies(PROFILE_ROUTE + "/update/" + id, profile.toHashMap(), ctx);
+
+                Log.d(TAG, "updateProfile: " + result);
+
+                try {
+                    JSONObject profileObject = new JSONObject(result);
+
+                    updatedProfile.setAvatar(profileObject.getString("avatar"));
+                    updatedProfile.setId(profileObject.getInt("id"));
+                    updatedProfile.setBirthdate(profileObject.getString("birthdate"));
+                    updatedProfile.setInterests(profileObject.getString("interests"));
+                    updatedProfile.setName(profileObject.getString("name"));
+
+                    if (updatedProfile.equals(profile)) {
+                        latch.countDown();
+                    } else {
+                        throw new RuntimeException("Profile not updated");
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+            latch.await();
+            return updatedProfile;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     // Getters and setters
 
     public int getId() {
@@ -174,5 +214,28 @@ public class Profile {
 
     public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
+    }
+
+    public HashMap<String, String> toHashMap() {
+        HashMap<String, String> data = new HashMap<>();
+        data.put("id", String.valueOf(id));
+        data.put("name", name);
+        data.put("avatar", avatar);
+        data.put("birthdate", birthdate);
+        data.put("interests", interests);
+        return data;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Profile profile = (Profile) o;
+        return getId() == profile.getId() && Objects.equals(getName(), profile.getName()) && Objects.equals(getAvatar(), profile.getAvatar()) && Objects.equals(getBirthdate(), profile.getBirthdate()) && Objects.equals(getInterests(), profile.getInterests());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getAvatar(), getBirthdate(), getInterests());
     }
 }
