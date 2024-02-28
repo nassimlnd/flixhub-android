@@ -1,5 +1,7 @@
 package com.nassimlnd.flixhub.Controller.Player;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,7 +24,13 @@ import androidx.media3.extractor.ts.DefaultTsPayloadReaderFactory;
 import androidx.media3.extractor.ts.TsExtractor;
 import androidx.media3.ui.PlayerView;
 
+import com.nassimlnd.flixhub.Controller.Network.APIClient;
 import com.nassimlnd.flixhub.R;
+
+import java.util.HashMap;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class PlayerActivity extends AppCompatActivity {
 

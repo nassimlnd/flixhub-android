@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,8 +35,6 @@ public class CategoryListActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     FlexboxLayout flex1;
-    ImageView imageView;
-    private ArrayList<Media> data;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -54,12 +51,11 @@ public class CategoryListActivity extends AppCompatActivity {
         toolbar.setTitle(category);
         toolbar.setTitleTextColor(Color.WHITE);
 
-
         toolbar.setNavigationOnClickListener(v -> {
             getOnBackPressedDispatcher().onBackPressed();
         });
 
-        flex1 = (FlexboxLayout) findViewById(R.id.flex1);
+        flex1 = findViewById(R.id.flex1);
 
         try {
             getMoviesbyCategory(category, getApplicationContext());
@@ -113,7 +109,7 @@ public class CategoryListActivity extends AppCompatActivity {
                 image1.setClipToOutline(true);
 
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(450, ViewGroup.LayoutParams.WRAP_CONTENT);
-                layoutParams.setMargins(0,0,0,24);
+                layoutParams.setMargins(0, 0, 0, 24);
 
                 image1.setLayoutParams(layoutParams);
 

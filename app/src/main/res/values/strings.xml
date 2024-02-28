@@ -76,4 +76,6 @@
     <string name="modal_edit_profile_delete">Supprimer le profil</string>
     <string name="modal_edit_profile_submit">Modifier</string>
     <string name="profile_change_profile">Changer de profil</string>
+    <string name="profile_history">Historique</string>
+    <string name="profile_history_title">Historique</string>
 </resources>

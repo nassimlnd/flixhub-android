@@ -65,4 +65,6 @@
     <string name="modal_edit_profile_delete">Delete the profile</string>
     <string name="modal_edit_profile_submit">Edit</string>
     <string name="profile_change_profile">Change profile</string>
+    <string name="profile_history">History</string>
+    <string name="profile_history_title">History</string>
 </resources>

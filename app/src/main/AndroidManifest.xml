@@ -36,6 +36,7 @@
         <activity android:name=".Controller.Media.MediaActivity" />
         <activity android:name=".Controller.Player.PlayerActivity" />
         <activity android:name=".Controller.Profile.ProfileChooserActivity" />
+        <activity android:name=".Controller.Profile.ProfileHistoryActivity" />
     </application>
 
 </manifest>

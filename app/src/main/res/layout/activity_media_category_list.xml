@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -15,7 +13,7 @@
         android:background="@color/background"
         app:titleTextAppearance="@style/Toolbar.Flix" />
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
@@ -28,9 +26,7 @@
             app:alignItems="center"
             app:flexDirection="row"
             app:flexWrap="wrap"
-            app:justifyContent="space_between"
-            >
-
+            app:justifyContent="space_between">
 
         </com.google.android.flexbox.FlexboxLayout>
     </ScrollView>

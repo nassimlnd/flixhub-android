@@ -24,6 +24,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.nassimlnd.flixhub.Controller.GettingStartedActivity;
 import com.nassimlnd.flixhub.Controller.Network.APIClient;
 import com.nassimlnd.flixhub.Controller.Profile.ProfileChooserActivity;
+import com.nassimlnd.flixhub.Controller.Profile.ProfileHistoryActivity;
 import com.nassimlnd.flixhub.R;
 
 import java.util.HashMap;
@@ -42,7 +43,7 @@ public class ProfileFragment extends Fragment {
     // View elements
     TextView profileName;
     ImageView profileAvatar;
-    FlexboxLayout logout, changeProfile;
+    FlexboxLayout logout, changeProfile, historyButton;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class ProfileFragment extends Fragment {
         profileAvatar = view.findViewById(R.id.imageView);
         logout = view.findViewById(R.id.logout);
         changeProfile = view.findViewById(R.id.profile_change_profile_button);
+        historyButton = view.findViewById(R.id.profile_history_button);
 
         // Get the user's name and email from the shared preferences
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("profile", Context.MODE_PRIVATE);
@@ -88,10 +90,14 @@ public class ProfileFragment extends Fragment {
             bottomSheetDialog.findViewById(R.id.logout_cancel).setOnClickListener((v1) -> bottomSheetDialog.dismiss());
         });
 
+        // Change profile button
         changeProfile.setOnClickListener((v) -> {
             getActivity().finish();
             startActivity(new Intent(getContext(), ProfileChooserActivity.class));
         });
+
+        // History button
+        historyButton.setOnClickListener(v -> startActivity(new Intent(getContext(), ProfileHistoryActivity.class)));
 
         return view;
     }

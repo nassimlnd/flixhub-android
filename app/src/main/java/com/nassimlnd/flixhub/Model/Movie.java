@@ -1,6 +1,8 @@
 package com.nassimlnd.flixhub.Model;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.nassimlnd.flixhub.Controller.Network.APIClient;
@@ -23,6 +25,9 @@ import java.util.concurrent.Executors;
  * It contains methods to fetch movies from the server.
  */
 public class Movie extends Media {
+
+    // Constants
+    private static final String TAG = "Movie";
 
     public Movie() {
         super();
@@ -188,5 +193,79 @@ public class Movie extends Media {
         }
 
         return null;
+    }
+
+    public static ArrayList<Movie> getMovieHistoryByProfile(Context ctx) {
+        // Get the profile id from the shared preferences
+        SharedPreferences sharedPreferences = ctx.getSharedPreferences("profile", Context.MODE_PRIVATE);
+        int profileId = sharedPreferences.getInt("id", 0);
+        String mediaType = "movie";
+        String interactionType = "view";
+
+        if (profileId == 0) {
+            return null;
+        }
+
+        ArrayList<Movie> movies = new ArrayList<>();
+        try {
+            String url = "/profile/" + profileId + "/interaction/" + interactionType + "/" + mediaType + "/";
+
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            CountDownLatch latch = new CountDownLatch(1);
+
+            executor.execute(() -> {
+                String result = APIClient.callGetMethodWithCookies(url, ctx);
+                Log.d(TAG, "getMovieHistoryByProfile: " + result);
+
+                try {
+                    JSONArray resultArray = new JSONArray(result);
+                    for (int i = 0; i < resultArray.length(); i++) {
+                        JSONObject interactionObject = resultArray.getJSONObject(i);
+                        int mediaId = interactionObject.getInt("mediaId");
+
+                        Movie movie = getMovieById(mediaId, ctx);
+                        movies.add(movie);
+                    }
+                    latch.countDown();
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+            latch.await();
+            return movies;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Movie getMovieById(int movieId, Context ctx) {
+        Movie movie = new Movie();
+        try {
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
+            CountDownLatch latch = new CountDownLatch(1);
+
+            executorService.execute(() -> {
+                String result = APIClient.callGetMethodWithCookies("/movies/" + movieId, ctx);
+                try {
+                    JSONObject mediaObject = new JSONObject(result);
+                    JSONObject mediaJson = mediaObject.getJSONObject("movie");
+                    movie.setId(mediaJson.getInt("id"));
+                    movie.setTitle(mediaJson.getString("title"));
+                    movie.setTvg_name(mediaJson.getString("tvgName"));
+                    movie.setTvg_logo(mediaJson.getString("tvgLogo"));
+                    movie.setGroup_title(mediaJson.getString("groupTitle"));
+                    movie.setUrl(mediaJson.getString("url"));
+                    latch.countDown();
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            latch.await();
+            return movie;
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

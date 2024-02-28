@@ -1,6 +1,8 @@
 package com.nassimlnd.flixhub.Controller.Media;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -29,6 +31,7 @@ import org.json.JSONObject;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -75,6 +78,9 @@ public class MediaActivity extends AppCompatActivity {
             } else {
                 Intent intent = new Intent(this, PlayerActivity.class);
                 intent.putExtra("mediaUrl", media.getUrl());
+                intent.putExtra("mediaId", getIntent().getIntExtra("mediaId", 0));
+
+                sendInteraction();
                 startActivity(intent);
             }
         });
@@ -274,5 +280,41 @@ public class MediaActivity extends AppCompatActivity {
                 content.setVisibility(View.VISIBLE);
             });
         });
+    }
+
+    public void sendInteraction() {
+        // Get the profile from the shared preferences
+        SharedPreferences sharedPreferences = getSharedPreferences("profile", Context.MODE_PRIVATE);
+        int profileId = sharedPreferences.getInt("id", 0);
+
+        if (profileId == 0) {
+            return;
+        }
+
+        HashMap<String, String> data = new HashMap<>();
+        data.put("mediaId", String.valueOf(media.getId()));
+        data.put("profileId", String.valueOf(profileId));
+        data.put("mediaType", "movie");
+        data.put("interactionType", "view");
+
+        // Send the interaction to the server
+        try {
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
+            CountDownLatch latch = new CountDownLatch(1);
+
+            executorService.execute(() -> {
+                try {
+                    String result = APIClient.postMethodWithCookies("/profile/" + profileId + "/interaction/", data, getApplicationContext());
+                    latch.countDown();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+
+            latch.await();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
