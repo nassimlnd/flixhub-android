@@ -67,4 +67,5 @@
     <string name="profile_change_profile">Change profile</string>
     <string name="profile_history">History</string>
     <string name="profile_history_title">History</string>
+    <string name="media_add_list_button">My list</string>
 </resources>

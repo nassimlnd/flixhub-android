@@ -19,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.bumptech.glide.Glide;
 import com.google.android.flexbox.FlexboxLayout;
 import com.nassimlnd.flixhub.Controller.Network.APIClient;
+import com.nassimlnd.flixhub.Model.Interaction;
 import com.nassimlnd.flixhub.Model.Media;
 import com.nassimlnd.flixhub.R;
 
@@ -122,6 +123,12 @@ public class CategoryListActivity extends AppCompatActivity {
                 image1.setOnClickListener(v -> {
                     Intent intent = new Intent(getApplicationContext(), MediaActivity.class);
                     intent.putExtra("mediaId", movie.getId());
+
+                    Interaction interaction = new Interaction();
+                    interaction.setMediaId(movie.getId());
+                    interaction.setMediaType("movie");
+                    interaction.setInteractionType("click");
+                    interaction.sendInteraction(getApplicationContext());
 
                     startActivity(intent);
                 });

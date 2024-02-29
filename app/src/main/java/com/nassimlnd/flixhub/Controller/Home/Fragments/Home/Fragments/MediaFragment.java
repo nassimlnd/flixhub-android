@@ -19,6 +19,7 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.bumptech.glide.Glide;
 import com.nassimlnd.flixhub.Controller.Media.MediaActivity;
+import com.nassimlnd.flixhub.Model.Interaction;
 import com.nassimlnd.flixhub.Model.Media;
 import com.nassimlnd.flixhub.R;
 
@@ -60,6 +61,13 @@ public class MediaFragment extends Fragment {
         mediaLayout.setOnClickListener(v -> {
             Intent intent = new Intent(view.getContext(), MediaActivity.class);
             intent.putExtra("mediaId", media.getId());
+
+            Interaction interaction = new Interaction();
+            interaction.setMediaId(media.getId());
+            interaction.setMediaType("movie");
+            interaction.setInteractionType("click");
+            interaction.sendInteraction(view.getContext());
+
             startActivity(intent);
         });
 

@@ -24,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.flexbox.FlexboxLayout;
 import com.nassimlnd.flixhub.Controller.Home.Fragments.Discover.Fragments.SearchResultFragment;
 import com.nassimlnd.flixhub.Controller.Media.MediaActivity;
+import com.nassimlnd.flixhub.Model.Interaction;
 import com.nassimlnd.flixhub.Model.Media;
 import com.nassimlnd.flixhub.Model.Movie;
 import com.nassimlnd.flixhub.R;
@@ -99,6 +100,12 @@ public class DiscoverFragment extends Fragment {
             imageView.setOnClickListener(v -> {
                 Intent intent = new Intent(getContext(), MediaActivity.class);
                 intent.putExtra("mediaId", media.getId());
+
+                Interaction interaction = new Interaction();
+                interaction.setMediaId(media.getId());
+                interaction.setMediaType("movie");
+                interaction.setInteractionType("click");
+                interaction.sendInteraction(getContext());
 
                 startActivity(intent);
             });

@@ -83,10 +83,41 @@
                 app:flexDirection="row"
                 app:justifyContent="space_between">
 
+                <com.google.android.flexbox.FlexboxLayout
+                    android:id="@+id/mediaRatingButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:alignItems="center"
+                    app:flexDirection="row">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/star"
+                        app:tint="@color/primary" />
+
+                    <TextView
+                        android:id="@+id/mediaRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:text="-"
+                        android:textColor="@color/primary"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/chevron_right"
+                        android:layout_marginLeft="4dp"
+                        app:tint="@color/primary" />
+                </com.google.android.flexbox.FlexboxLayout>
+
                 <TextView
                     android:id="@+id/mediaYear"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
                     android:textColor="@color/hint"
                     android:textSize="14sp" />
             </com.google.android.flexbox.FlexboxLayout>
@@ -115,9 +146,9 @@
                     android:id="@+id/downloadButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/download"
+                    android:drawableLeft="@drawable/plus"
                     android:drawablePadding="4dp"
-                    android:text="@string/media_download_button"
+                    android:text="@string/media_add_list_button"
                     android:textColor="@color/white"
                     android:theme="@style/Button.Secondary"
                     app:layout_flexGrow="1" />

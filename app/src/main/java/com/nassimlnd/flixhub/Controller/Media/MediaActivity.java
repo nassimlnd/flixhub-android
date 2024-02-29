@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.google.android.flexbox.FlexboxLayout;
 import com.nassimlnd.flixhub.Controller.Media.Fragments.MediaActorFragment;
 import com.nassimlnd.flixhub.Controller.Media.Fragments.MediaTrailersFragment;
 import com.nassimlnd.flixhub.Controller.Network.APIClient;
@@ -43,6 +44,7 @@ public class MediaActivity extends AppCompatActivity {
     Button playButton;
     ScrollView content;
     TextView mediaTitle, mediaDescription, mediaRating, mediaYear, mediaGroupTitle, trailerTitle;
+    FlexboxLayout mediaRatingButton;
 
     // Data
     private Media media;
@@ -63,6 +65,7 @@ public class MediaActivity extends AppCompatActivity {
         backBtn = findViewById(R.id.backButton);
         playButton = findViewById(R.id.playButton);
         trailerTitle = findViewById(R.id.trailerTitle);
+        mediaRatingButton = findViewById(R.id.mediaRatingButton);
 
         backBtn.setOnClickListener(v -> {
             getOnBackPressedDispatcher().onBackPressed();
@@ -75,7 +78,7 @@ public class MediaActivity extends AppCompatActivity {
             } else if (count == 1) {
                 count++;
                 Toast.makeText(this, R.string.media_play_warn_confirmation, Toast.LENGTH_LONG).show();
-            } else {
+            } else if (count == 2) {
                 Intent intent = new Intent(this, PlayerActivity.class);
                 intent.putExtra("mediaUrl", media.getUrl());
                 intent.putExtra("mediaId", getIntent().getIntExtra("mediaId", 0));
