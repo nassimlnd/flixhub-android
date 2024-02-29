@@ -18,6 +18,7 @@
         tools:targetApi="31">
         <activity
             android:name=".Controller.MainActivity"
+            android:configChanges="orientation"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,17 +27,39 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Controller.GettingStartedActivity" android:noHistory="true" />
-        <activity android:name=".Controller.LogChoiceActivity" />
-        <activity android:name=".Controller.Auth.Register.RegisterActivity" />
-        <activity android:name=".Controller.Auth.LoginActivity" />
-        <activity android:name=".Controller.Auth.Register.RegisterInterestsActivity" />
-        <activity android:name=".Controller.Media.CategoryListActivity" />
-        <activity android:name=".Controller.Home.HomeActivity" />
-        <activity android:name=".Controller.Media.MediaActivity" />
-        <activity android:name=".Controller.Player.PlayerActivity" />
-        <activity android:name=".Controller.Profile.ProfileChooserActivity" />
-        <activity android:name=".Controller.Profile.ProfileHistoryActivity" />
+        <activity
+            android:name=".Controller.GettingStartedActivity"
+            android:noHistory="true" />
+        <activity
+            android:name=".Controller.LogChoiceActivity"
+            android:configChanges="orientation" />
+        <activity
+            android:name=".Controller.Auth.Register.RegisterActivity"
+            android:configChanges="orientation" />
+        <activity
+            android:name=".Controller.Auth.LoginActivity"
+            android:configChanges="orientation" />
+        <activity
+            android:name=".Controller.Auth.Register.RegisterInterestsActivity"
+            android:configChanges="orientation" />
+        <activity
+            android:name=".Controller.Media.CategoryListActivity"
+            android:configChanges="orientation" />
+        <activity
+            android:name=".Controller.Home.HomeActivity"
+            android:configChanges="orientation" />
+        <activity
+            android:name=".Controller.Media.MediaActivity"
+            android:configChanges="orientation" />
+        <activity
+            android:name=".Controller.Player.PlayerActivity"
+            android:configChanges="orientation" />
+        <activity
+            android:name=".Controller.Profile.ProfileChooserActivity"
+            android:configChanges="orientation" />
+        <activity
+            android:name=".Controller.Profile.ProfileHistoryActivity"
+            android:configChanges="orientation" />
     </application>
 
 </manifest>
