@@ -1,14 +1,13 @@
 package com.nassimlnd.flixhub.Controller.Player;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.OptIn;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.media3.common.MediaItem;
 import androidx.media3.common.util.UnstableApi;
 import androidx.media3.datasource.DataSource;
@@ -24,13 +23,7 @@ import androidx.media3.extractor.ts.DefaultTsPayloadReaderFactory;
 import androidx.media3.extractor.ts.TsExtractor;
 import androidx.media3.ui.PlayerView;
 
-import com.nassimlnd.flixhub.Controller.Network.APIClient;
 import com.nassimlnd.flixhub.R;
-
-import java.util.HashMap;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class PlayerActivity extends AppCompatActivity {
 
@@ -43,7 +36,6 @@ public class PlayerActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
-        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         String url = getIntent().getExtras().getString("mediaUrl");
         playerView = findViewById(R.id.player_view);
@@ -69,6 +61,19 @@ public class PlayerActivity extends AppCompatActivity {
         player.setMediaSource(mediaSourceFactory);
         player.prepare();
         player.play();
+
+        WindowInsetsControllerCompat windowInsetsControllerCompat = WindowCompat.getInsetsController(getWindow(), playerView);
+
+        // When the user clicks on the screen, we show the system bars
+        playerView.setOnClickListener(v -> {
+            if (windowInsetsControllerCompat.getSystemBarsBehavior() == WindowInsetsControllerCompat.BEHAVIOR_SHOW_BARS_BY_SWIPE) {
+                windowInsetsControllerCompat.show(WindowInsetsCompat.Type.systemBars());
+                windowInsetsControllerCompat.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+            } else {
+                windowInsetsControllerCompat.hide(WindowInsetsCompat.Type.systemBars());
+                windowInsetsControllerCompat.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_BARS_BY_SWIPE);
+            }
+        });
     }
 
     @Override
