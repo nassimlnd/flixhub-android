@@ -69,8 +69,6 @@ public class ProfileChooserActivity extends AppCompatActivity {
             profileCardFragments.add(profileCardFragment);
         }
 
-
-
         // If there are already 8 profiles, hide the add button
         if (profiles.size() == 8) {
             profileAddButton.setVisibility(View.GONE);

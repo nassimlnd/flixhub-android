@@ -115,6 +115,37 @@ public class ProfileCardFragment extends Fragment {
             }
         });
 
+        editProfileSubmitButton.setOnClickListener(v -> {
+            Profile updatedProfile = new Profile();
+
+            updatedProfile.setId(profile.getId());
+            updatedProfile.setName(editProfileName.getText().toString());
+            updatedProfile.setBirthdate(editProfileBirthdate.getText().toString());
+            updatedProfile.setAvatar(profile.getAvatar());
+            updatedProfile.setInterests(profile.getInterests());
+
+            profile = Profile.updateProfile(getContext(), updatedProfile);
+
+            editProfileTitle.setText(getContext().getString(R.string.modal_edit_profile_title) + " " + updatedProfile.getName());
+            editProfileName.setText(updatedProfile.getName());
+            editProfileBirthdate.setText(updatedProfile.getBirthdate());
+
+            Glide.with(editProfileAvatar.getContext())
+                    .load(AVATAR_URL + updatedProfile.getAvatar())
+                    .transition(withCrossFade())
+                    .into(editProfileAvatar);
+
+            profileName.setText(updatedProfile.getName());
+
+            Glide.with(profileAvatar.getContext())
+                    .load(AVATAR_URL + updatedProfile.getAvatar())
+                    .transition(withCrossFade())
+                    .into(profileAvatar);
+
+
+            bottomSheetDialog.dismiss();
+        });
+
 
         profileCardLayout.setOnClickListener(v -> {
             if (!editMode) {
@@ -145,37 +176,6 @@ public class ProfileCardFragment extends Fragment {
 
         editProfileBirthdate.setOnClickListener(v -> {
             new DatePickerDialog(bottomSheetDialog.getContext(), R.style.DatePicker_Flix, date, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-        });
-
-        editProfileSubmitButton.setOnClickListener(v -> {
-            Profile updatedProfile = new Profile();
-
-            updatedProfile.setId(profile.getId());
-            updatedProfile.setName(editProfileName.getText().toString());
-            updatedProfile.setBirthdate(editProfileBirthdate.getText().toString());
-            updatedProfile.setAvatar(profile.getAvatar());
-            updatedProfile.setInterests(profile.getInterests());
-
-            profile = Profile.updateProfile(getContext(), profile.getId(), updatedProfile);
-
-            editProfileTitle.setText(getContext().getString(R.string.modal_edit_profile_title) + " " + updatedProfile.getName());
-            editProfileName.setText(updatedProfile.getName());
-            editProfileBirthdate.setText(updatedProfile.getBirthdate());
-
-            Glide.with(editProfileAvatar.getContext())
-                    .load(AVATAR_URL + updatedProfile.getAvatar())
-                    .transition(withCrossFade())
-                    .into(editProfileAvatar);
-
-            profileName.setText(updatedProfile.getName());
-
-            Glide.with(profileAvatar.getContext())
-                    .load(AVATAR_URL + updatedProfile.getAvatar())
-                    .transition(withCrossFade())
-                    .into(profileAvatar);
-
-
-            bottomSheetDialog.dismiss();
         });
 
         return view;

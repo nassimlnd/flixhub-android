@@ -79,4 +79,8 @@
     <string name="profile_history">Historique</string>
     <string name="profile_history_title">Historique</string>
     <string name="media_add_list_button">Ma liste</string>
+    <string name="modal_erase_history_title">Effacer l\'historique</string>
+    <string name="modal_erase_history_subtitle">Êtes-vous sûr de vouloir effacer votre historique ? Cette action est irréversible.</string>
+    <string name="modal_erase_history_cancel">Annuler</string>
+    <string name="modal_erase_history_erase">Effacer</string>
 </resources>

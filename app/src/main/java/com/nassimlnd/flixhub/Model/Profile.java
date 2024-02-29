@@ -121,8 +121,11 @@ public class Profile {
             ExecutorService executorService = Executors.newSingleThreadExecutor();
             CountDownLatch latch = new CountDownLatch(1);
 
+            HashMap<String, String> data = new HashMap<>();
+            data.put("id", String.valueOf(id));
+
             executorService.execute(() -> {
-                String result = APIClient.postMethodWithCookies(PROFILE_ROUTE + "/delete/" + id, new HashMap<>(), ctx);
+                String result = APIClient.postMethodWithCookies(PROFILE_ROUTE + "/delete", data, ctx);
 
                 Log.d(TAG, "deleteProfile: " + result);
                 latch.countDown();
@@ -135,7 +138,7 @@ public class Profile {
         }
     }
 
-    public static Profile updateProfile(Context ctx, int id, Profile profile) {
+    public static Profile updateProfile(Context ctx, Profile profile) {
         try {
             Profile updatedProfile = new Profile();
 
@@ -143,7 +146,7 @@ public class Profile {
             CountDownLatch latch = new CountDownLatch(1);
 
             executorService.execute(() -> {
-                String result = APIClient.postMethodWithCookies(PROFILE_ROUTE + "/update/" + id, profile.toHashMap(), ctx);
+                String result = APIClient.postMethodWithCookies(PROFILE_ROUTE + "/update", profile.toHashMap(), ctx);
 
                 Log.d(TAG, "updateProfile: " + result);
 
@@ -171,6 +174,26 @@ public class Profile {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public void eraseProfileHistory(Context ctx) {
+        try {
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
+            CountDownLatch latch = new CountDownLatch(1);
+
+            HashMap<String, String> data = new HashMap<>();
+            data.put("id", String.valueOf(id));
+
+            executorService.execute(() -> {
+                String result = APIClient.postMethodWithCookies(PROFILE_ROUTE + "/history/remove", data, ctx);
+                Log.d(TAG, "eraseProfileHistory: " + result);
+                latch.countDown();
+            });
+
+            latch.await();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
