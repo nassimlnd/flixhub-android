@@ -29,9 +29,8 @@ import java.net.URL;
 public class MediaFragment extends Fragment {
 
     RelativeLayout mediaLayout;
-    private Media media;
-
     ImageView mediaImage;
+    private Media media;
 
     public MediaFragment(Media media) {
         super(R.layout.fragment_media);
@@ -64,25 +63,17 @@ public class MediaFragment extends Fragment {
             startActivity(intent);
         });
 
+        if (media.getTvg_logo().equals("https://image.tmdb.org/t/p/w600_and_h900_bestv2")) {
+            media.setTvg_logo("");
+        }
+
         Glide.with(mediaImage.getContext())
                 .load(media.getTvg_logo())
                 .transition(withCrossFade())
+                .error(R.drawable.image)
                 .into(mediaImage);
 
-        return view;
-    }
 
-    public static Bitmap downloadImage(String url) {
-        Bitmap bitmap = null;
-        try {
-            URL urlObject = new URL(url);
-            HttpURLConnection connection = (HttpURLConnection) urlObject.openConnection();
-            InputStream inputStream = connection.getInputStream();
-            bitmap = BitmapFactory.decodeStream(inputStream);
-            return bitmap;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        return view;
     }
 }
