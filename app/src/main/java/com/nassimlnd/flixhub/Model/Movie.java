@@ -2,7 +2,6 @@ package com.nassimlnd.flixhub.Model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.nassimlnd.flixhub.Controller.Network.APIClient;
@@ -13,7 +12,6 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -24,21 +22,38 @@ import java.util.concurrent.Executors;
  * It extends the Media class.
  * It contains methods to fetch movies from the server.
  */
-public class Movie extends Media {
+public class Movie {
 
     // Constants
     private static final String TAG = "Movie";
 
+    // Attributes
+
+    private int id;
+    private String title;
+    private String streamId;
+    private String poster;
+    private int categoryId;
+    private String url;
+    private String tmdbId;
+
+    // Constructor
     public Movie() {
-        super();
     }
 
-    public Movie(int id, String title, String tvg_id, String tvg_name, String tvg_logo, String group_title, String url, Date createdAt, Date updatedAt) {
-        super(id, title, tvg_id, tvg_name, tvg_logo, group_title, url, createdAt, updatedAt);
+    public Movie(int id, String title, String streamId, String poster, int categoryId, String url, String tmdbId) {
+        this.id = id;
+        this.title = title;
+        this.streamId = streamId;
+        this.poster = poster;
+        this.categoryId = categoryId;
+        this.url = url;
+        this.tmdbId = tmdbId;
     }
 
-    public static ArrayList<Media> getRandomMovies(Context ctx, int amount) {
-        ArrayList<Media> medias = new ArrayList<>();
+    // Back-end methods
+    public static ArrayList<Movie> getRandomMovies(Context ctx, int amount) {
+        ArrayList<Movie> movies = new ArrayList<>();
         try {
             ExecutorService executor = Executors.newSingleThreadExecutor();
             CountDownLatch latch = new CountDownLatch(1);
@@ -50,17 +65,18 @@ public class Movie extends Media {
                     JSONArray moviesArray = jsonObject.getJSONArray("movies");
 
                     for (int i = 0; i < moviesArray.length(); i++) {
-                        JSONObject movie = moviesArray.getJSONObject(i);
+                        JSONObject movieObject = moviesArray.getJSONObject(i);
 
-                        Media media = new Media();
-                        media.setId(movie.getInt("id"));
-                        media.setTitle(movie.getString("title"));
-                        media.setTvg_name(movie.getString("tvgName"));
-                        media.setGroup_title(movie.getString("groupTitle"));
-                        media.setUrl(movie.getString("url"));
-                        media.setTvg_logo(movie.getString("tvgLogo"));
+                        Movie movie = new Movie();
+                        movie.setId(movieObject.getInt("id"));
+                        movie.setTitle(movieObject.getString("title"));
+                        movie.setCategoryId(movieObject.getInt("categoryId"));
+                        movie.setPoster(movieObject.getString("poster"));
+                        movie.setStreamId(movieObject.getString("streamId"));
+                        movie.setUrl(movieObject.getString("url"));
+                        movie.setTmdbId(movieObject.getString("tmdbId"));
 
-                        medias.add(media);
+                        movies.add(movie);
                     }
                     latch.countDown();
                 } catch (JSONException e) {
@@ -73,7 +89,7 @@ public class Movie extends Media {
             throw new RuntimeException(e);
         }
 
-        return medias;
+        return movies;
     }
 
     public static ArrayList<Movie> getSearchedMovies(String input, Context ctx) {
@@ -96,10 +112,11 @@ public class Movie extends Media {
 
                             movie.setId(movieJson.getInt("id"));
                             movie.setTitle(movieJson.getString("title"));
-                            movie.setTvg_name(movieJson.getString("tvgName"));
-                            movie.setGroup_title(movieJson.getString("groupTitle"));
+                            movie.setCategoryId(movieJson.getInt("categoryId"));
+                            movie.setPoster(movieJson.getString("poster"));
+                            movie.setStreamId(movieJson.getString("streamId"));
                             movie.setUrl(movieJson.getString("url"));
-                            movie.setTvg_logo(movieJson.getString("tvgLogo"));
+                            movie.setTmdbId(movieJson.getString("tmdbId"));
 
                             movies.add(movie);
                         }
@@ -133,9 +150,9 @@ public class Movie extends Media {
 
                     movie.setId(Integer.parseInt(jsonMovie.getString("id")));
                     movie.setTitle(jsonMovie.getString("title"));
-                    movie.setTvg_name(jsonMovie.getString("tvgName"));
-                    movie.setTvg_logo(jsonMovie.getString("tvgLogo"));
-                    movie.setGroup_title(jsonMovie.getString("groupTitle"));
+                    movie.setCategoryId(jsonMovie.getInt("categoryId"));
+                    movie.setPoster(jsonMovie.getString("poster"));
+                    movie.setStreamId(jsonMovie.getString("streamId"));
                     movie.setUrl(jsonMovie.getString("url"));
 
                     latch.countDown();
@@ -174,9 +191,10 @@ public class Movie extends Media {
                         Movie movie = new Movie();
                         movie.setId(Integer.parseInt(jsonMovie.getString("id")));
                         movie.setTitle(jsonMovie.getString("title"));
-                        movie.setTvg_name(jsonMovie.getString("tvgName"));
-                        movie.setTvg_logo(jsonMovie.getString("tvgLogo"));
-                        movie.setGroup_title(jsonMovie.getString("groupTitle"));
+                        movie.setCategoryId(jsonMovie.getInt("categoryId"));
+                        movie.setPoster(jsonMovie.getString("poster"));
+                        movie.setStreamId(jsonMovie.getString("streamId"));
+                        movie.setTmdbId(jsonMovie.getString("tmdbId"));
                         movie.setUrl(jsonMovie.getString("url"));
 
                         movies.add(movie);
@@ -209,14 +227,11 @@ public class Movie extends Media {
         ArrayList<Movie> movies = new ArrayList<>();
         try {
             String url = "/profile/" + profileId + "/interaction/" + interactionType + "/" + mediaType + "/";
-
             ExecutorService executor = Executors.newSingleThreadExecutor();
             CountDownLatch latch = new CountDownLatch(1);
 
             executor.execute(() -> {
                 String result = APIClient.callGetMethodWithCookies(url, ctx);
-                Log.d(TAG, "getMovieHistoryByProfile: " + result);
-
                 try {
                     JSONArray resultArray = new JSONArray(result);
                     for (int i = 0; i < resultArray.length(); i++) {
@@ -253,9 +268,10 @@ public class Movie extends Media {
                     JSONObject mediaJson = mediaObject.getJSONObject("movie");
                     movie.setId(mediaJson.getInt("id"));
                     movie.setTitle(mediaJson.getString("title"));
-                    movie.setTvg_name(mediaJson.getString("tvgName"));
-                    movie.setTvg_logo(mediaJson.getString("tvgLogo"));
-                    movie.setGroup_title(mediaJson.getString("groupTitle"));
+                    movie.setCategoryId(mediaJson.getInt("categoryId"));
+                    movie.setPoster(mediaJson.getString("poster"));
+                    movie.setStreamId(mediaJson.getString("streamId"));
+                    movie.setTmdbId(mediaJson.getString("tmdbId"));
                     movie.setUrl(mediaJson.getString("url"));
                     latch.countDown();
                 } catch (JSONException e) {
@@ -267,5 +283,63 @@ public class Movie extends Media {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    // Getters and Setters
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getStreamId() {
+        return streamId;
+    }
+
+    public void setStreamId(String streamId) {
+        this.streamId = streamId;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getTmdbId() {
+        return tmdbId;
+    }
+
+    public void setTmdbId(String tmdbId) {
+        this.tmdbId = tmdbId;
     }
 }

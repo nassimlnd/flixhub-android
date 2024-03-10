@@ -126,7 +126,7 @@ public class Profile {
 
             executorService.execute(() -> {
                 String result = APIClient.postMethodWithCookies(PROFILE_ROUTE + "/delete", data, ctx);
-
+ 
                 Log.d(TAG, "deleteProfile: " + result);
                 latch.countDown();
             });
