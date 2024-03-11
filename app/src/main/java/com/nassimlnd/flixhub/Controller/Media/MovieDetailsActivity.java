@@ -83,14 +83,14 @@ public class MovieDetailsActivity extends AppCompatActivity {
             } else if (count == 2) {
                 Intent intent = new Intent(this, PlayerActivity.class);
                 intent.putExtra("mediaUrl", movie.getUrl());
-                intent.putExtra("mediaId", getIntent().getIntExtra("mediaId", 0));
+                intent.putExtra("mediaId", getIntent().getIntExtra("movieId", 0));
 
                 sendInteraction();
                 startActivity(intent);
             }
         });
 
-        int mediaId = getIntent().getIntExtra("mediaId", 0);
+        int mediaId = getIntent().getIntExtra("movieId", 0);
 
         if (mediaId != 0) {
             getMedia(mediaId);
@@ -178,8 +178,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
                         String year = movieJson.getString("release_date").split("-")[0];
                         mediaYear.setText(year);
 
-                        getMediaActors(movieJson.getString("id"));
-                        getMoviesTrailers(movieJson.getString("id"));
+                        getMediaActors(movie.getTmdbId());
+                        getMoviesTrailers(movie.getTmdbId());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -272,8 +272,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
                         String trailerImage = "https://img.youtube.com/vi/" + trailer.getString("key") + "/hqdefault.jpg";
 
                         MediaTrailersFragment mediaTrailersFragment = new MediaTrailersFragment(trailerTitle, trailerDuration, trailerImage);
-
-                        Log.d("Trailers", trailerTitle);
 
                         getSupportFragmentManager().beginTransaction()
                                 .add(R.id.trailersContainer, mediaTrailersFragment)

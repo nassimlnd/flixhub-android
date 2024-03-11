@@ -110,7 +110,7 @@ public class DiscoverFragment extends Fragment {
             });
 
             Glide.with(imageView.getContext())
-                    .load(media.getTvg_logo())
+                    .load(movie.getPoster())
                     .transition(withCrossFade())
                     .into(imageView);
 

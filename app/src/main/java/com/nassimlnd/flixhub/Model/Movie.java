@@ -144,9 +144,8 @@ public class Movie {
             executor.execute(() -> {
                 String result = APIClient.callGetMethodWithCookies("/movies/random", ctx);
                 try {
-                    JSONObject jsonResult = new JSONObject(result);
-                    JSONArray movies = jsonResult.getJSONArray("movie");
-                    JSONObject jsonMovie = movies.getJSONObject(0);
+                    JSONArray jsonArray = new JSONArray(result);
+                    JSONObject jsonMovie = jsonArray.getJSONObject(0);
 
                     movie.setId(Integer.parseInt(jsonMovie.getString("id")));
                     movie.setTitle(jsonMovie.getString("title"));
@@ -173,8 +172,7 @@ public class Movie {
     public static ArrayList<Movie> getMoviesByCategory(String category, Context ctx, int amount) {
         ArrayList<Movie> movies = new ArrayList<>();
         try {
-            String categoryFormatted = URLEncoder.encode(category, "UTF-8");
-            String param = "/movies/groups/" + categoryFormatted + "/" + amount;
+            String param = "/movies/category/" + category + "/" + amount;
 
             ExecutorService executor =
                     Executors.newSingleThreadExecutor();

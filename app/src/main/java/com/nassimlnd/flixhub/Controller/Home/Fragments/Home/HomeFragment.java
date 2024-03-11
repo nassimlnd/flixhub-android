@@ -21,9 +21,10 @@ import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.bumptech.glide.Glide;
-import com.nassimlnd.flixhub.Controller.Home.Fragments.Home.Fragments.CategoryFragment;
+import com.nassimlnd.flixhub.Controller.Home.Fragments.Home.Fragments.MovieCategoryFragment;
 import com.nassimlnd.flixhub.Controller.Media.MovieDetailsActivity;
 import com.nassimlnd.flixhub.Model.Movie;
+import com.nassimlnd.flixhub.Model.MovieCategory;
 import com.nassimlnd.flixhub.R;
 
 import org.json.JSONArray;
@@ -118,8 +119,9 @@ public class HomeFragment extends Fragment {
         Movie highlightedMedia = Movie.getSingleRandomMovie(ctx);
 
         // Set the content of the view
-        highlightTitle.setText(highlightedMedia.getTvg_name());
-        highlightGroupTitle.setText(highlightedMedia.getGroup_title());
+        highlightTitle.setText(highlightedMedia.getTitle());
+        MovieCategory movieCategory = MovieCategory.getMovieCategoryById(ctx, highlightedMedia.getCategoryId());
+        highlightGroupTitle.setText(movieCategory.getName());
 
         // Set the listener for the play button of the highlitghted media
         playButton.setOnClickListener(v -> {
@@ -129,15 +131,19 @@ public class HomeFragment extends Fragment {
         });
 
         // Loading the image of the highlighted media
-        Glide.with(highlightImage.getContext()).load(highlightedMedia.getTvg_logo()).placeholder(circularProgressDrawable).into(highlightImage);
+        Glide.with(highlightImage.getContext())
+                .load(highlightedMedia.getPoster())
+                .placeholder(circularProgressDrawable)
+                .into(highlightImage);
     }
 
     public void getMoviesByCategory(String category, Context ctx) {
         // Get the movies of the category
-        ArrayList<Movie> moviesList = Movie.getMoviesByCategory(category, ctx, AMOUNT_MOVIES_PER_CATEGORY);
+        MovieCategory movieCategory = MovieCategory.getMovieCategoryById(ctx, Integer.parseInt(category));
+        ArrayList<Movie> moviesList = Movie.getMoviesByCategory(mo, ctx, AMOUNT_MOVIES_PER_CATEGORY);
 
         // Create the fragment for the category
-        CategoryFragment categoryFragment = new CategoryFragment(category, moviesList);
-        getActivity().getSupportFragmentManager().beginTransaction().add(R.id.categoryContainer, categoryFragment).commit();
+        MovieCategoryFragment movieCategoryFragment = new MovieCategoryFragment(category, moviesList);
+        getActivity().getSupportFragmentManager().beginTransaction().add(R.id.categoryContainer, movieCategoryFragment).commit();
     }
 }

@@ -17,6 +17,9 @@ import com.bumptech.glide.Glide;
 import com.google.android.flexbox.FlexboxLayout;
 import com.nassimlnd.flixhub.Model.Interaction;
 import com.nassimlnd.flixhub.Model.Media;
+import com.nassimlnd.flixhub.Model.Movie;
+import com.nassimlnd.flixhub.Model.MovieCategory;
+import com.nassimlnd.flixhub.Model.Serie;
 import com.nassimlnd.flixhub.R;
 import com.nassimlnd.flixhub.Controller.Media.MovieDetailsActivity;
 
@@ -28,11 +31,17 @@ public class SearchResultFragment extends Fragment {
     TextView searchResultGroup;
     ImageView searchResultImage;
 
-    Media media;
+    private Movie movie;
+    private Serie serie;
 
-    public SearchResultFragment(Media media) {
+    public SearchResultFragment(Movie movie) {
         super(R.layout.fragment_search_result);
-        this.media = media;
+        this.movie = movie;
+    }
+
+    public SearchResultFragment(Serie serie) {
+        super(R.layout.fragment_search_result);
+        this.serie = serie;
     }
 
     @Override
@@ -53,24 +62,32 @@ public class SearchResultFragment extends Fragment {
         searchResultContainer = view.findViewById(R.id.searchResultLayout);
 
         searchResultContainer.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), MovieDetailsActivity.class);
-            intent.putExtra("mediaId", media.getId());
+            if (movie != null) {
+                Intent intent = new Intent(getContext(), MovieDetailsActivity.class);
+                intent.putExtra("movieId", movie.getId());
 
-            Interaction interaction = new Interaction();
-            interaction.setMediaId(media.getId());
-            interaction.setMediaType("movie");
-            interaction.setInteractionType("click");
-            interaction.sendInteraction(view.getContext());
+                Interaction interaction = new Interaction();
+                interaction.setMediaId(movie.getId());
+                interaction.setMediaType("movie");
+                interaction.setInteractionType("click");
+                interaction.sendInteraction(view.getContext());
 
-            startActivity(intent);
+                startActivity(intent);
+            }
         });
 
-        searchResultTitle.setText(media.getTvg_name());
-        searchResultGroup.setText(media.getGroup_title());
+        if (movie != null) {
+            searchResultTitle.setText(movie.getTitle());
 
-        Glide.with(view.getContext())
-                .load(media.getTvg_logo())
-                .into(searchResultImage);
+            MovieCategory movieCategory = MovieCategory.getMovieCategoryById(view.getContext(), movie.getCategoryId());
+            searchResultGroup.setText(movieCategory.getName());
+
+            Glide.with(view.getContext())
+                    .load(movie.getPoster())
+                    .into(searchResultImage);
+        } else {
+
+        }
 
         return view;
     }

@@ -19,7 +19,7 @@ import com.nassimlnd.flixhub.R;
 
 import java.util.ArrayList;
 
-public class CategoryFragment extends Fragment {
+public class MovieCategoryFragment extends Fragment {
 
     // View elements
     TextView seeAll;
@@ -30,7 +30,7 @@ public class CategoryFragment extends Fragment {
     private final ArrayList<Movie> data;
 
 
-    public CategoryFragment(String title, ArrayList<Movie> data) {
+    public MovieCategoryFragment(String title, ArrayList<Movie> data) {
         super(R.layout.fragment_home_category);
         this.title = title;
         this.data = data;
@@ -60,8 +60,8 @@ public class CategoryFragment extends Fragment {
 
         FragmentManager fragmentManager = getChildFragmentManager();
 
-        for (Media media : data) {
-            MediaFragment movieFragment = new MediaFragment(media);
+        for (Movie movie : data) {
+            MediaFragment movieFragment = new MediaFragment(movie);
             fragmentManager.beginTransaction().add(R.id.categoryMediaContainer, movieFragment).commit();
         }
 

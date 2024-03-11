@@ -20,6 +20,8 @@ import com.bumptech.glide.Glide;
 import com.nassimlnd.flixhub.Controller.Media.MovieDetailsActivity;
 import com.nassimlnd.flixhub.Model.Interaction;
 import com.nassimlnd.flixhub.Model.Movie;
+import com.nassimlnd.flixhub.Model.MovieCategory;
+import com.nassimlnd.flixhub.Model.Serie;
 import com.nassimlnd.flixhub.R;
 
 public class ProfileMediaHistoryFragment extends Fragment {
@@ -32,10 +34,16 @@ public class ProfileMediaHistoryFragment extends Fragment {
 
     // Data
     private Movie movie;
+    private Serie serie;
 
     public ProfileMediaHistoryFragment(Movie movie) {
         super(R.layout.fragment_profile_history_media);
         this.movie = movie;
+    }
+
+    public ProfileMediaHistoryFragment(Serie serie) {
+        super(R.layout.fragment_profile_history_media);
+        this.serie = serie;
     }
 
     @Override
@@ -56,30 +64,37 @@ public class ProfileMediaHistoryFragment extends Fragment {
         profileHistoryMediaContainer = view.findViewById(R.id.ll_profile_history_media);
 
         // Set the data
-        mediaTitle.setText(movie.getTitle());
-        mediaGroup.setText(movie.getGroup_title());
+        if (movie != null) {
+            mediaTitle.setText(movie.getTitle());
+            MovieCategory movieCategory = MovieCategory.getMovieCategoryById(view.getContext(), movie.getCategoryId());
+            mediaGroup.setText(movieCategory.getName());
+        }
 
         // Load the image
         mediaImage.setClipToOutline(true);
-        Glide.with(mediaImage.getContext())
-                .load(movie.getTvg_logo())
-                .transition(withCrossFade())
-                .into(mediaImage);
+        if (movie != null) {
+            Glide.with(mediaImage.getContext())
+                    .load(movie.getPoster())
+                    .transition(withCrossFade())
+                    .into(mediaImage);
+        } else {
+
+        }
 
         // Set the click listener
         profileHistoryMediaContainer.setOnClickListener(v -> {
-            Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
-            intent.putExtra("mediaId", movie.getId());
+            if (movie != null) {
+                Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
+                intent.putExtra("movieId", movie.getId());
 
-            Log.d(TAG, "onCreateView: " + movie.getId());
+                Interaction interaction = new Interaction();
+                interaction.setMediaId(movie.getId());
+                interaction.setMediaType("movie");
+                interaction.setInteractionType("click");
+                interaction.sendInteraction(view.getContext());
 
-            Interaction interaction = new Interaction();
-            interaction.setMediaId(movie.getId());
-            interaction.setMediaType("movie");
-            interaction.setInteractionType("click");
-            interaction.sendInteraction(view.getContext());
-
-            startActivity(intent);
+                startActivity(intent);
+            }
         });
 
         return view;

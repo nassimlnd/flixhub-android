@@ -67,7 +67,7 @@ public class MovieCategory {
             CountDownLatch countDownLatch = new CountDownLatch(1);
 
             executorService.execute(() -> {
-                String result = APIClient.callGetMethodWithCookies("/movies/categories/" + movieCategoryId, ctx);
+                String result = APIClient.callGetMethodWithCookies("/movies/category/" + movieCategoryId, ctx);
                 try {
                     JSONObject movieCategoryObject = new JSONObject(result);
                     movieCategory.setId(movieCategoryObject.getInt("id"));
@@ -84,6 +84,18 @@ public class MovieCategory {
             throw new RuntimeException(e);
         }
     }
+
+//    public static MovieCategory getMovieCategoryByName(Context ctx, String category) {
+//        MovieCategory movieCategory = new MovieCategory();
+//        try {
+//            ExecutorService executorService = Executors.newSingleThreadExecutor();
+//            CountDownLatch countDownLatch = new CountDownLatch(1);
+//
+//            executorService.execute(() -> {
+//                String result = APIClient.callGetMethodWithCookies("/movies/category/")
+//            });
+//        }
+//    }
 
     // Getters and Setters
     public int getId() {

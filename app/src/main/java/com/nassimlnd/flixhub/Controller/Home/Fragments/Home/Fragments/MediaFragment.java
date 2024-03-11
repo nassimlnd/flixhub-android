@@ -18,18 +18,25 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 import com.bumptech.glide.Glide;
 import com.nassimlnd.flixhub.Controller.Media.MovieDetailsActivity;
 import com.nassimlnd.flixhub.Model.Interaction;
-import com.nassimlnd.flixhub.Model.Media;
+import com.nassimlnd.flixhub.Model.Movie;
+import com.nassimlnd.flixhub.Model.Serie;
 import com.nassimlnd.flixhub.R;
 
 public class MediaFragment extends Fragment {
 
     RelativeLayout mediaLayout;
     ImageView mediaImage;
-    private Media media;
+    private Movie movie;
+    private Serie serie;
 
-    public MediaFragment(Media media) {
+    public MediaFragment(Movie movie) {
         super(R.layout.fragment_media);
-        this.media = media;
+        this.movie = movie;
+    }
+
+    public MediaFragment(Serie serie) {
+        super(R.layout.fragment_media);
+        this.serie = serie;
     }
 
     @Override
@@ -53,27 +60,31 @@ public class MediaFragment extends Fragment {
         circularProgressDrawable.start();
 
         mediaLayout.setOnClickListener(v -> {
-            Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
-            intent.putExtra("mediaId", media.getId());
+            if (movie != null) {
+                Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
+                intent.putExtra("movieId", movie.getId());
 
-            Interaction interaction = new Interaction();
-            interaction.setMediaId(media.getId());
-            interaction.setMediaType("movie");
-            interaction.setInteractionType("click");
-            interaction.sendInteraction(view.getContext());
+                Interaction interaction = new Interaction();
+                interaction.setMediaId(movie.getId());
+                interaction.setMediaType("movie");
+                interaction.setInteractionType("click");
+                interaction.sendInteraction(view.getContext());
 
-            startActivity(intent);
+                startActivity(intent);
+            }
         });
 
-        if (media.getTvg_logo().equals("https://image.tmdb.org/t/p/w600_and_h900_bestv2")) {
-            media.setTvg_logo("");
-        }
+        if (movie != null) {
+            if (movie.getPoster().equals("https://image.tmdb.org/t/p/w600_and_h900_bestv2")) {
+                movie.setPoster("");
+            }
 
-        Glide.with(mediaImage.getContext())
-                .load(media.getTvg_logo())
-                .transition(withCrossFade())
-                .error(R.drawable.image)
-                .into(mediaImage);
+            Glide.with(mediaImage.getContext())
+                    .load(movie.getPoster())
+                    .transition(withCrossFade())
+                    .error(R.drawable.image)
+                    .into(mediaImage);
+        }
 
 
         return view;
