@@ -17,7 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-import com.nassimlnd.flixhub.Controller.Media.MediaActivity;
+import com.nassimlnd.flixhub.Controller.Media.MovieDetailsActivity;
 import com.nassimlnd.flixhub.Model.Interaction;
 import com.nassimlnd.flixhub.Model.Movie;
 import com.nassimlnd.flixhub.R;
@@ -68,7 +68,7 @@ public class ProfileMediaHistoryFragment extends Fragment {
 
         // Set the click listener
         profileHistoryMediaContainer.setOnClickListener(v -> {
-            Intent intent = new Intent(view.getContext(), MediaActivity.class);
+            Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
             intent.putExtra("mediaId", movie.getId());
 
             Log.d(TAG, "onCreateView: " + movie.getId());

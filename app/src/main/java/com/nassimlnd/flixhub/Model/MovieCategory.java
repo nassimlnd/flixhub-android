@@ -60,6 +60,31 @@ public class MovieCategory {
         }
     }
 
+    public static MovieCategory getMovieCategoryById(Context ctx, int movieCategoryId) {
+        MovieCategory movieCategory = new MovieCategory();
+        try {
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
+            CountDownLatch countDownLatch = new CountDownLatch(1);
+
+            executorService.execute(() -> {
+                String result = APIClient.callGetMethodWithCookies("/movies/categories/" + movieCategoryId, ctx);
+                try {
+                    JSONObject movieCategoryObject = new JSONObject(result);
+                    movieCategory.setId(movieCategoryObject.getInt("id"));
+                    movieCategory.setName(movieCategoryObject.getString("name"));
+                    countDownLatch.countDown();
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+            countDownLatch.await();
+            return movieCategory;
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     // Getters and Setters
     public int getId() {
         return id;

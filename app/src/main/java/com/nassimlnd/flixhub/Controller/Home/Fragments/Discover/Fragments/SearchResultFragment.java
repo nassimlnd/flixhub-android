@@ -18,7 +18,7 @@ import com.google.android.flexbox.FlexboxLayout;
 import com.nassimlnd.flixhub.Model.Interaction;
 import com.nassimlnd.flixhub.Model.Media;
 import com.nassimlnd.flixhub.R;
-import com.nassimlnd.flixhub.Controller.Media.MediaActivity;
+import com.nassimlnd.flixhub.Controller.Media.MovieDetailsActivity;
 
 public class SearchResultFragment extends Fragment {
 
@@ -53,7 +53,7 @@ public class SearchResultFragment extends Fragment {
         searchResultContainer = view.findViewById(R.id.searchResultLayout);
 
         searchResultContainer.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), MediaActivity.class);
+            Intent intent = new Intent(getContext(), MovieDetailsActivity.class);
             intent.putExtra("mediaId", media.getId());
 
             Interaction interaction = new Interaction();

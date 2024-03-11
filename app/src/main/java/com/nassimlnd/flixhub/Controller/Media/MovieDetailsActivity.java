@@ -24,6 +24,8 @@ import com.nassimlnd.flixhub.Controller.Media.Fragments.MediaTrailersFragment;
 import com.nassimlnd.flixhub.Controller.Network.APIClient;
 import com.nassimlnd.flixhub.Controller.Player.PlayerActivity;
 import com.nassimlnd.flixhub.Model.Media;
+import com.nassimlnd.flixhub.Model.Movie;
+import com.nassimlnd.flixhub.Model.MovieCategory;
 import com.nassimlnd.flixhub.R;
 
 import org.json.JSONArray;
@@ -36,7 +38,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class MediaActivity extends AppCompatActivity {
+public class MovieDetailsActivity extends AppCompatActivity {
 
     // View elements
     ProgressBar loadingSpinner;
@@ -47,7 +49,7 @@ public class MediaActivity extends AppCompatActivity {
     FlexboxLayout mediaRatingButton;
 
     // Data
-    private Media media;
+    private Movie movie;
     private int count = 0;
 
     @Override
@@ -80,7 +82,7 @@ public class MediaActivity extends AppCompatActivity {
                 Toast.makeText(this, R.string.media_play_warn_confirmation, Toast.LENGTH_LONG).show();
             } else if (count == 2) {
                 Intent intent = new Intent(this, PlayerActivity.class);
-                intent.putExtra("mediaUrl", media.getUrl());
+                intent.putExtra("mediaUrl", movie.getUrl());
                 intent.putExtra("mediaId", getIntent().getIntExtra("mediaId", 0));
 
                 sendInteraction();
@@ -113,22 +115,26 @@ public class MediaActivity extends AppCompatActivity {
 
                         Log.d("MediaActivity", mediaJson.toString());
 
-                        media = new Media();
+                        movie = new Movie();
 
-                        media.setId(mediaJson.getInt("id"));
-                        media.setTitle(mediaJson.getString("title"));
-                        media.setTvg_logo(mediaJson.getString("tvgLogo"));
-                        media.setTvg_name(mediaJson.getString("tvgName"));
-                        media.setGroup_title(mediaJson.getString("groupTitle"));
-                        media.setUrl(mediaJson.getString("url"));
+                        movie.setId(mediaJson.getInt("id"));
+                        movie.setTitle(mediaJson.getString("title"));
+                        movie.setPoster(mediaJson.getString("poster"));
+                        movie.setTmdbId(mediaJson.getString("tmdbId"));
+                        movie.setCategoryId(mediaJson.getInt("categoryId"));
+                        movie.setStreamId(mediaJson.getString("streamId"));
+                        movie.setUrl(mediaJson.getString("url"));
 
-                        mediaTitle.setText(media.getTvg_name().split(String.valueOf("\\("))[0].trim());
-                        mediaGroupTitle.setText(media.getGroup_title());
+                        mediaTitle.setText(movie.getTitle().split(String.valueOf("\\("))[0].trim());
 
-                        getMediaDetails(media);
+                        MovieCategory movieCategory = MovieCategory.getMovieCategoryById(getApplicationContext(), movie.getCategoryId());
+
+                        mediaGroupTitle.setText(movieCategory.getName());
+
+                        getMovieDetails(movie);
 
                         Glide.with(mediaImage.getContext())
-                                .load(media.getTvg_logo())
+                                .load(movie.getPoster())
                                 .into(mediaImage);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -139,12 +145,12 @@ public class MediaActivity extends AppCompatActivity {
         });
     }
 
-    public void getMediaDetails(Media media) {
+    public void getMovieDetails(Movie movie) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(getMainLooper());
         String locale = Locale.getDefault().getLanguage();
         StringBuilder lang = new StringBuilder();
-        String title = media.getTitle();
+        String title = movie.getTitle();
         title = title.split(String.valueOf("\\("))[0].trim();
 
         try {
@@ -160,22 +166,20 @@ public class MediaActivity extends AppCompatActivity {
                     break;
             }
 
-            String url = "https://api.themoviedb.org/3/search/movie?api_key=bee04557bade921aab4537b991dfb6df&query=" + URLEncoder.encode(title, "UTF-8") + "&language=" + lang;
+            String url = "https://api.themoviedb.org/3/search/movie/" + movie.getTmdbId() + "?api_key=bee04557bade921aab4537b991dfb6df&language=" + lang;
 
             executorService.execute(() -> {
                 String result = APIClient.getMethodExternalAPI(url);
                 handler.post(() -> {
-                    Log.d("MediaActivity", result);
                     try {
-                        JSONObject jsonObject = new JSONObject(result);
-                        JSONObject movie = jsonObject.getJSONArray("results").getJSONObject(0);
+                        JSONObject movieJson = new JSONObject(result);
 
-                        mediaDescription.setText(movie.getString("overview"));
-                        String year = movie.getString("release_date").split("-")[0];
+                        mediaDescription.setText(movieJson.getString("overview"));
+                        String year = movieJson.getString("release_date").split("-")[0];
                         mediaYear.setText(year);
 
-                        getMediaActors(movie.getString("id"));
-                        getMoviesTrailers(movie.getString("id"));
+                        getMediaActors(movieJson.getString("id"));
+                        getMoviesTrailers(movieJson.getString("id"));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -295,7 +299,7 @@ public class MediaActivity extends AppCompatActivity {
         }
 
         HashMap<String, String> data = new HashMap<>();
-        data.put("mediaId", String.valueOf(media.getId()));
+        data.put("mediaId", String.valueOf(movie.getId()));
         data.put("profileId", String.valueOf(profileId));
         data.put("mediaType", "movie");
         data.put("interactionType", "view");

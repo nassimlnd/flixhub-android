@@ -3,8 +3,6 @@ package com.nassimlnd.flixhub.Controller.Home.Fragments.Home.Fragments;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,14 +16,10 @@ import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.bumptech.glide.Glide;
-import com.nassimlnd.flixhub.Controller.Media.MediaActivity;
+import com.nassimlnd.flixhub.Controller.Media.MovieDetailsActivity;
 import com.nassimlnd.flixhub.Model.Interaction;
 import com.nassimlnd.flixhub.Model.Media;
 import com.nassimlnd.flixhub.R;
-
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class MediaFragment extends Fragment {
 
@@ -59,7 +53,7 @@ public class MediaFragment extends Fragment {
         circularProgressDrawable.start();
 
         mediaLayout.setOnClickListener(v -> {
-            Intent intent = new Intent(view.getContext(), MediaActivity.class);
+            Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
             intent.putExtra("mediaId", media.getId());
 
             Interaction interaction = new Interaction();

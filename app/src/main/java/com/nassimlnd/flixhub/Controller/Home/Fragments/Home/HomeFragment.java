@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,7 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.bumptech.glide.Glide;
 import com.nassimlnd.flixhub.Controller.Home.Fragments.Home.Fragments.CategoryFragment;
-import com.nassimlnd.flixhub.Controller.Media.MediaActivity;
+import com.nassimlnd.flixhub.Controller.Media.MovieDetailsActivity;
 import com.nassimlnd.flixhub.Model.Movie;
 import com.nassimlnd.flixhub.R;
 
@@ -124,7 +123,7 @@ public class HomeFragment extends Fragment {
 
         // Set the listener for the play button of the highlitghted media
         playButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), MediaActivity.class);
+            Intent intent = new Intent(getContext(), MovieDetailsActivity.class);
             intent.putExtra("mediaId", highlightedMedia.getId());
             startActivity(intent);
         });

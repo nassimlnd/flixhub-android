@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class CategoryListActivity extends AppCompatActivity {
+public class MovieCategoryListActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     FlexboxLayout flex1;
@@ -121,7 +121,7 @@ public class CategoryListActivity extends AppCompatActivity {
                 flex1.addView(image1);
 
                 image1.setOnClickListener(v -> {
-                    Intent intent = new Intent(getApplicationContext(), MediaActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), MovieDetailsActivity.class);
                     intent.putExtra("mediaId", movie.getId());
 
                     Interaction interaction = new Interaction();

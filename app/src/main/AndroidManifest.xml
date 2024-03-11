@@ -43,13 +43,13 @@
             android:name=".Controller.Auth.Register.RegisterInterestsActivity"
             android:configChanges="orientation" />
         <activity
-            android:name=".Controller.Media.CategoryListActivity"
+            android:name=".Controller.Media.MovieCategoryListActivity"
             android:configChanges="orientation" />
         <activity
             android:name=".Controller.Home.HomeActivity"
             android:configChanges="orientation" />
         <activity
-            android:name=".Controller.Media.MediaActivity"
+            android:name=".Controller.Media.MovieDetailsActivity"
             android:configChanges="orientation" />
         <activity
             android:name=".Controller.Player.PlayerActivity"

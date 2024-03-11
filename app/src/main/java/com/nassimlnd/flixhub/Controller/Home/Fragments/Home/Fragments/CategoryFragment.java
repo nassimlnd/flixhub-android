@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.nassimlnd.flixhub.Controller.Media.CategoryListActivity;
+import com.nassimlnd.flixhub.Controller.Media.MovieCategoryListActivity;
 import com.nassimlnd.flixhub.Model.Media;
 import com.nassimlnd.flixhub.Model.Movie;
 import com.nassimlnd.flixhub.R;
@@ -52,7 +52,7 @@ public class CategoryFragment extends Fragment {
         categoryTitle.setText(title);
 
         seeAll.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), CategoryListActivity.class);
+            Intent intent = new Intent(getContext(), MovieCategoryListActivity.class);
             intent.putExtra("category", title);
 
             startActivity(intent);
