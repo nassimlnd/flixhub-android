@@ -93,7 +93,7 @@ public class HomeFragment extends Fragment {
         executor.execute(() -> {
             // Getting the shared preferences to get the user's favorites categories
             SharedPreferences sharedPreferences = getActivity().getSharedPreferences("profile", Context.MODE_PRIVATE);
-            String favoritesCategories = sharedPreferences.getString("interests", "");
+            String favoritesCategories = sharedPreferences.getString("movieInterests", "");
             try {
                 JSONArray jsonArray = new JSONArray(favoritesCategories);
                 // Setting the content of the view
@@ -143,7 +143,7 @@ public class HomeFragment extends Fragment {
         ArrayList<Movie> moviesList = Movie.getMoviesByCategory(String.valueOf(movieCategory.getId()), ctx, AMOUNT_MOVIES_PER_CATEGORY);
 
         // Create the fragment for the category
-        MovieCategoryFragment movieCategoryFragment = new MovieCategoryFragment(category, moviesList);
+        MovieCategoryFragment movieCategoryFragment = new MovieCategoryFragment(movieCategory.getName(), moviesList);
         getActivity().getSupportFragmentManager().beginTransaction().add(R.id.categoryContainer, movieCategoryFragment).commit();
     }
 }

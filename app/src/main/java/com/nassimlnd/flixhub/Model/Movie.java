@@ -172,7 +172,7 @@ public class Movie {
     public static ArrayList<Movie> getMoviesByCategory(String category, Context ctx, int amount) {
         ArrayList<Movie> movies = new ArrayList<>();
         try {
-            String param = "/movies/category/" + category + "/" + amount;
+            String param = "/movies/category/" + category + "/movies/" + amount;
 
             ExecutorService executor =
                     Executors.newSingleThreadExecutor();
@@ -181,8 +181,7 @@ public class Movie {
                 String result = APIClient.callGetMethodWithCookies(param, ctx);
 
                 try {
-                    JSONObject jsonResult = new JSONObject(result);
-                    JSONArray moviesJson = jsonResult.getJSONArray("movies");
+                    JSONArray moviesJson = new JSONArray(result);
 
                     for (int i = 0; i < moviesJson.length(); i++) {
                         JSONObject jsonMovie = moviesJson.getJSONObject(i);
