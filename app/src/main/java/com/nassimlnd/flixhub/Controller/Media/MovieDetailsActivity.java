@@ -23,7 +23,6 @@ import com.nassimlnd.flixhub.Controller.Media.Fragments.MediaActorFragment;
 import com.nassimlnd.flixhub.Controller.Media.Fragments.MediaTrailersFragment;
 import com.nassimlnd.flixhub.Controller.Network.APIClient;
 import com.nassimlnd.flixhub.Controller.Player.PlayerActivity;
-import com.nassimlnd.flixhub.Model.Media;
 import com.nassimlnd.flixhub.Model.Movie;
 import com.nassimlnd.flixhub.Model.MovieCategory;
 import com.nassimlnd.flixhub.R;
@@ -31,7 +30,6 @@ import com.nassimlnd.flixhub.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.CountDownLatch;
@@ -110,11 +108,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     Log.d("MediaActivity", result);
 
                     try {
-                        JSONObject mediaObject = new JSONObject(result);
-                        JSONObject mediaJson = mediaObject.getJSONObject("movie");
-
-                        Log.d("MediaActivity", mediaJson.toString());
-
+                        JSONObject mediaJson = new JSONObject(result);
                         movie = new Movie();
 
                         movie.setId(mediaJson.getInt("id"));
@@ -166,7 +160,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     break;
             }
 
-            String url = "https://api.themoviedb.org/3/search/movie/" + movie.getTmdbId() + "?api_key=bee04557bade921aab4537b991dfb6df&language=" + lang;
+            String url = "https://api.themoviedb.org/3/movie/" + movie.getTmdbId() + "?api_key=bee04557bade921aab4537b991dfb6df&language=" + lang;
 
             executorService.execute(() -> {
                 String result = APIClient.getMethodExternalAPI(url);

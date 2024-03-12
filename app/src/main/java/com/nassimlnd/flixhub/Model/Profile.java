@@ -272,4 +272,16 @@ public class Profile {
     public int hashCode() {
         return Objects.hash(getId(), getName(), getAvatar(), getBirthdate(), getMovieInterests(), getSerieInterests());
     }
+
+    @Override
+    public String toString() {
+        return "Profile{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", birthdate='" + birthdate + '\'' +
+                ", movieInterests='" + movieInterests + '\'' +
+                ", serieInterests='" + serieInterests + '\'' +
+                '}';
+    }
 }

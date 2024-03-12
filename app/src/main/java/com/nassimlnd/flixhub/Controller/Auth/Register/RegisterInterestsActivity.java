@@ -56,11 +56,15 @@ public class RegisterInterestsActivity extends AppCompatActivity {
 
             Profile newProfile = Profile.createProfile(data, getApplicationContext());
 
+            Log.d("RegisterInterestsActivity", "onSubmit: " + newProfile.toString());
+
             if (newProfile.getName().equals(sharedPreferences.getString("name", ""))) {
                 editor.clear();
                 editor.putString("name", newProfile.getName());
                 editor.putString("avatar", newProfile.getAvatar());
                 editor.putString("movieInterests", newProfile.getMovieInterests());
+                editor.putString("serieInterests", newProfile.getSerieInterests());
+
                 Intent intent = new Intent(this, HomeActivity.class);
                 startActivity(intent);
             }
@@ -69,8 +73,6 @@ public class RegisterInterestsActivity extends AppCompatActivity {
         registerInterestsSubmitButton.setOnClickListener(v -> onSubmit());
 
         getMoviesCategories();
-
-        Log.d("TAG", "onCreate: " + topics.size());
     }
 
     public void getMoviesCategories() {
@@ -132,6 +134,8 @@ public class RegisterInterestsActivity extends AppCompatActivity {
         data.put("haveSerieInterests", String.valueOf(sharedPreferences.getBoolean("haveSerieInterests", false)));
 
         Profile newProfile = Profile.createProfile(data, getApplicationContext());
+
+        Log.d("RegisterInterestsActivity", "onSubmit: " + newProfile.toString());
 
         if (newProfile.getName().equals(sharedPreferences.getString("name", ""))) {
             editor.clear();
