@@ -27,14 +27,16 @@ public class Profile {
     private String name;
     private String avatar;
     private String birthdate;
-    private String interests;
+    private String movieInterests;
+    private String serieInterests;
 
-    public Profile(int id, String name, String avatar, String birthdate, String interests) {
+    public Profile(int id, String name, String avatar, String birthdate, String movieInterests, String serieInterests) {
         this.id = id;
         this.name = name;
         this.avatar = avatar;
         this.birthdate = birthdate;
-        this.interests = interests;
+        this.movieInterests = movieInterests;
+        this.serieInterests = serieInterests;
     }
 
     public Profile() {
@@ -64,7 +66,8 @@ public class Profile {
                                 profilesArray.getJSONObject(i).getString("name"),
                                 profilesArray.getJSONObject(i).getString("avatar"),
                                 profilesArray.getJSONObject(i).getString("birthdate"),
-                                profilesArray.getJSONObject(i).getString("interests")
+                                profilesArray.getJSONObject(i).getString("movieInterests"),
+                                profilesArray.getJSONObject(i).getString("serieInterests")
                         ));
                     }
                 } catch (Exception e) {
@@ -90,18 +93,16 @@ public class Profile {
             executorService.execute(() -> {
                 // Post the new profile
                 String result = APIClient.postMethodWithCookies(PROFILE_ROUTE, data, ctx);
-                Log.d(TAG, "createProfile: " + result);
-
                 // Parse the result
                 try {
                     JSONObject profileObject = new JSONObject(result);
 
                     profile.setAvatar(profileObject.getString("avatar"));
                     profile.setId(profileObject.getInt("id"));
-                    profile.setBirthdate(profileObject.getString("birthdate"));
-                    profile.setInterests(profileObject.getString("interests"));
                     profile.setName(profileObject.getString("name"));
-
+                    profile.setBirthdate(profileObject.getString("birthdate"));
+                    profile.setMovieInterests(profileObject.getString("movieInterests"));
+                    profile.setSerieInterests(profileObject.getString("serieInterests"));
                     latch.countDown();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -126,7 +127,7 @@ public class Profile {
 
             executorService.execute(() -> {
                 String result = APIClient.postMethodWithCookies(PROFILE_ROUTE + "/delete", data, ctx);
- 
+
                 Log.d(TAG, "deleteProfile: " + result);
                 latch.countDown();
             });
@@ -156,7 +157,8 @@ public class Profile {
                     updatedProfile.setAvatar(profileObject.getString("avatar"));
                     updatedProfile.setId(profileObject.getInt("id"));
                     updatedProfile.setBirthdate(profileObject.getString("birthdate"));
-                    updatedProfile.setInterests(profileObject.getString("interests"));
+                    updatedProfile.setMovieInterests(profileObject.getString("movieInterests"));
+                    updatedProfile.setSerieInterests(profileObject.getString("serieInterests"));
                     updatedProfile.setName(profileObject.getString("name"));
 
                     if (updatedProfile.equals(profile)) {
@@ -223,12 +225,20 @@ public class Profile {
         this.avatar = avatar;
     }
 
-    public String getInterests() {
-        return interests;
+    public String getMovieInterests() {
+        return movieInterests;
     }
 
-    public void setInterests(String interests) {
-        this.interests = interests;
+    public void setMovieInterests(String movieInterests) {
+        this.movieInterests = movieInterests;
+    }
+
+    public String getSerieInterests() {
+        return serieInterests;
+    }
+
+    public void setSerieInterests(String serieInterests) {
+        this.serieInterests = serieInterests;
     }
 
     public String getBirthdate() {
@@ -245,7 +255,8 @@ public class Profile {
         data.put("name", name);
         data.put("avatar", avatar);
         data.put("birthdate", birthdate);
-        data.put("interests", interests);
+        data.put("movieInterests", movieInterests);
+        data.put("serieInterests", serieInterests);
         return data;
     }
 
@@ -254,11 +265,11 @@ public class Profile {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Profile profile = (Profile) o;
-        return getId() == profile.getId() && Objects.equals(getName(), profile.getName()) && Objects.equals(getAvatar(), profile.getAvatar()) && Objects.equals(getBirthdate(), profile.getBirthdate()) && Objects.equals(getInterests(), profile.getInterests());
+        return getId() == profile.getId() && Objects.equals(getName(), profile.getName()) && Objects.equals(getAvatar(), profile.getAvatar()) && Objects.equals(getBirthdate(), profile.getBirthdate()) && Objects.equals(getMovieInterests(), profile.getMovieInterests()) && Objects.equals(getSerieInterests(), profile.getSerieInterests());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getAvatar(), getBirthdate(), getInterests());
+        return Objects.hash(getId(), getName(), getAvatar(), getBirthdate(), getMovieInterests(), getSerieInterests());
     }
 }

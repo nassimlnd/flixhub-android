@@ -14,12 +14,29 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.nassimlnd.flixhub.Model.MovieCategory;
+import com.nassimlnd.flixhub.Model.SerieCategory;
 import com.nassimlnd.flixhub.R;
 
 public class InterestFragment extends Fragment {
 
-    public String text;
     TextView interestFragmentTitle;
+    private MovieCategory movieCategory;
+    private SerieCategory serieCategory;
+    private boolean isSelected = false;
+    private String categoryType;
+
+    public InterestFragment(MovieCategory movieCategory) {
+        super(R.layout.fragment_register_interest);
+        this.movieCategory = movieCategory;
+        this.categoryType = "movie";
+    }
+
+    public InterestFragment(SerieCategory serieCategory) {
+        super(R.layout.fragment_register_interest);
+        this.serieCategory = serieCategory;
+        this.categoryType = "serie";
+    }
 
     public boolean isSelected() {
         return isSelected;
@@ -27,13 +44,6 @@ public class InterestFragment extends Fragment {
 
     public void setSelected(boolean selected) {
         isSelected = selected;
-    }
-
-    private boolean isSelected = false;
-
-    public InterestFragment(String text) {
-        super(R.layout.fragment_register_interest);
-        this.text = text;
     }
 
     @Override
@@ -48,24 +58,52 @@ public class InterestFragment extends Fragment {
 
         interestFragmentTitle = view.findViewById(R.id.interest_fragment_title);
 
-        interestFragmentTitle.setText(text);
+        if (movieCategory != null) {
+            interestFragmentTitle.setText(movieCategory.getName());
 
-        interestFragmentTitle.setOnClickListener(v -> {
-            Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.interest_fragment);
-            if (isSelected) {
-                isSelected = false;
-                drawable.setColorFilter(new BlendModeColorFilter(getContext().getColor(R.color.background_light), BlendMode.SRC_ATOP));
-                interestFragmentTitle.setTextColor(getContext().getColor(R.color.primary));
-                interestFragmentTitle.setBackground(drawable);
-            } else {
-                isSelected = true;
-                drawable.setColorFilter(new BlendModeColorFilter(getContext().getColor(R.color.primary), BlendMode.SRC_ATOP));
-                interestFragmentTitle.setTextColor(getContext().getColor(R.color.white));
-                interestFragmentTitle.setBackground(drawable);
-            }
-        });
+            interestFragmentTitle.setOnClickListener(v -> {
+                Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.interest_fragment);
+                if (isSelected) {
+                    isSelected = false;
+                    drawable.setColorFilter(new BlendModeColorFilter(getContext().getColor(R.color.background_light), BlendMode.SRC_ATOP));
+                    interestFragmentTitle.setTextColor(getContext().getColor(R.color.primary));
+                    interestFragmentTitle.setBackground(drawable);
+                } else {
+                    isSelected = true;
+                    drawable.setColorFilter(new BlendModeColorFilter(getContext().getColor(R.color.primary), BlendMode.SRC_ATOP));
+                    interestFragmentTitle.setTextColor(getContext().getColor(R.color.white));
+                    interestFragmentTitle.setBackground(drawable);
+                }
+            });
+        } else if (serieCategory != null) {
 
-
+        }
         return view;
+    }
+
+    // Getters and setters
+
+    public MovieCategory getMovieCategory() {
+        return movieCategory;
+    }
+
+    public void setMovieCategory(MovieCategory movieCategory) {
+        this.movieCategory = movieCategory;
+    }
+
+    public SerieCategory getSerieCategory() {
+        return serieCategory;
+    }
+
+    public void setSerieCategory(SerieCategory serieCategory) {
+        this.serieCategory = serieCategory;
+    }
+
+    public String getCategoryType() {
+        return categoryType;
+    }
+
+    public void setCategoryType(String categoryType) {
+        this.categoryType = categoryType;
     }
 }

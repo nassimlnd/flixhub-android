@@ -26,7 +26,8 @@
     <string name="register_interests_subtitle">Sélectionnez vos centres d\'intérêt</string>
     <string name="register_interests_skip">Passer</string>
     <string name="register_interests_submit">Continuer</string>
-    <string name="register_interests_error">Veuillez sélectionner au moins 3 centres d\'intérêt</string>
+    <string name="register_movie_interests_error">Veuillez sélectionner au moins 3 centres d\'intérêt de film</string>
+    <string name="register_serie_interests_error">Veuillez sélectionner au moins 3 centres d\'intérêt de serie</string>
 
     <string name="register_profile_title">Créer votre profil</string>
     <string name="register_profile_name">Nom</string>

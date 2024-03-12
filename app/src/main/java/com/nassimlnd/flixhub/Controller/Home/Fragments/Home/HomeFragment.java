@@ -140,7 +140,7 @@ public class HomeFragment extends Fragment {
     public void getMoviesByCategory(String category, Context ctx) {
         // Get the movies of the category
         MovieCategory movieCategory = MovieCategory.getMovieCategoryById(ctx, Integer.parseInt(category));
-        ArrayList<Movie> moviesList = Movie.getMoviesByCategory(mo, ctx, AMOUNT_MOVIES_PER_CATEGORY);
+        ArrayList<Movie> moviesList = Movie.getMoviesByCategory(String.valueOf(movieCategory.getId()), ctx, AMOUNT_MOVIES_PER_CATEGORY);
 
         // Create the fragment for the category
         MovieCategoryFragment movieCategoryFragment = new MovieCategoryFragment(category, moviesList);

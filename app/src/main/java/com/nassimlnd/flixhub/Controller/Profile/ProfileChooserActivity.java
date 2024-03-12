@@ -26,7 +26,6 @@ import com.nassimlnd.flixhub.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Locale;
 
 /**
@@ -61,11 +60,8 @@ public class ProfileChooserActivity extends AppCompatActivity {
 
         // For each profile, create a card
         for (Profile profile : profiles) {
-            Log.d("Profile", "onCreate: " + profile.getInterests());
             ProfileCardFragment profileCardFragment = new ProfileCardFragment(profile);
-
             getSupportFragmentManager().beginTransaction().add(R.id.profileContainer, profileCardFragment).commit();
-
             profileCardFragments.add(profileCardFragment);
         }
 
