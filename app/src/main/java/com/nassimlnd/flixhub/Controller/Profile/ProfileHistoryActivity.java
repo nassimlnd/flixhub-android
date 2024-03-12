@@ -54,7 +54,8 @@ public class ProfileHistoryActivity extends AppCompatActivity {
             profile.setName(sharedPreferences.getString("name", ""));
             profile.setAvatar(sharedPreferences.getString("avatar", ""));
             profile.setBirthdate(sharedPreferences.getString("birthdate", ""));
-            profile.setInterests(sharedPreferences.getString("interests", ""));
+            profile.setMovieInterests(sharedPreferences.getString("movieInterests", ""));
+            profile.setSerieInterests(sharedPreferences.getString("serieInterests", ""));
             profile.eraseProfileHistory(getApplicationContext());
 
             bottomSheetDialog.dismiss();

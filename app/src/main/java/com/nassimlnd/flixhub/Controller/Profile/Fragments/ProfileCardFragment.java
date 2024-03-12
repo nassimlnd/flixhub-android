@@ -122,7 +122,8 @@ public class ProfileCardFragment extends Fragment {
             updatedProfile.setName(editProfileName.getText().toString());
             updatedProfile.setBirthdate(editProfileBirthdate.getText().toString());
             updatedProfile.setAvatar(profile.getAvatar());
-            updatedProfile.setInterests(profile.getInterests());
+            updatedProfile.setMovieInterests(profile.getMovieInterests());
+            updatedProfile.setSerieInterests(profile.getSerieInterests());
 
             profile = Profile.updateProfile(getContext(), updatedProfile);
 
@@ -153,7 +154,8 @@ public class ProfileCardFragment extends Fragment {
                 editor.putInt("id", profile.getId());
                 editor.putString("name", profile.getName());
                 editor.putString("avatar", profile.getAvatar());
-                editor.putString("interests", profile.getInterests());
+                editor.putString("movieInterests", profile.getMovieInterests());
+                editor.putString("serieInterests", profile.getSerieInterests());
                 editor.apply();
 
                 requireActivity().finish();
