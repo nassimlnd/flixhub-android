@@ -61,8 +61,7 @@ public class Movie {
             executor.execute(() -> {
                 String result = APIClient.callGetMethodWithCookies("/movies/random/" + amount, ctx);
                 try {
-                    JSONObject jsonObject = new JSONObject(result);
-                    JSONArray moviesArray = jsonObject.getJSONArray("movies");
+                    JSONArray moviesArray = new JSONArray(result);
 
                     for (int i = 0; i < moviesArray.length(); i++) {
                         JSONObject movieObject = moviesArray.getJSONObject(i);
@@ -103,8 +102,7 @@ public class Movie {
                     String inputEncoded = URLEncoder.encode(input, "UTF-8");
                     String result = APIClient.callGetMethodWithCookies("/movies/search/" + inputEncoded, ctx);
                     try {
-                        JSONObject jsonObject = new JSONObject(result);
-                        JSONArray moviesArray = jsonObject.getJSONArray("movies");
+                        JSONArray moviesArray = new JSONArray(result);
 
                         for (int i = 0; i < moviesArray.length(); i++) {
                             JSONObject movieJson = moviesArray.getJSONObject(i);
@@ -262,14 +260,14 @@ public class Movie {
                 String result = APIClient.callGetMethodWithCookies("/movies/" + movieId, ctx);
                 try {
                     JSONObject mediaObject = new JSONObject(result);
-                    JSONObject mediaJson = mediaObject.getJSONObject("movie");
-                    movie.setId(mediaJson.getInt("id"));
-                    movie.setTitle(mediaJson.getString("title"));
-                    movie.setCategoryId(mediaJson.getInt("categoryId"));
-                    movie.setPoster(mediaJson.getString("poster"));
-                    movie.setStreamId(mediaJson.getString("streamId"));
-                    movie.setTmdbId(mediaJson.getString("tmdbId"));
-                    movie.setUrl(mediaJson.getString("url"));
+
+                    movie.setId(mediaObject.getInt("id"));
+                    movie.setTitle(mediaObject.getString("title"));
+                    movie.setCategoryId(mediaObject.getInt("categoryId"));
+                    movie.setPoster(mediaObject.getString("poster"));
+                    movie.setStreamId(mediaObject.getString("streamId"));
+                    movie.setTmdbId(mediaObject.getString("tmdbId"));
+                    movie.setUrl(mediaObject.getString("url"));
                     latch.countDown();
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
