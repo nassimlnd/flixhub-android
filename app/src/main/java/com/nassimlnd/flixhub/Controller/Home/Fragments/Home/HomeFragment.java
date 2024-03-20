@@ -179,7 +179,7 @@ public class HomeFragment extends Fragment {
         // Set the listener for the play button of the highlitghted media
         playMovieButton.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), MovieDetailsActivity.class);
-            intent.putExtra("mediaId", highlightedMedia.getId());
+            intent.putExtra("movieId", highlightedMedia.getId());
             startActivity(intent);
         });
 
