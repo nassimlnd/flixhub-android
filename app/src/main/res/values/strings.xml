@@ -84,4 +84,6 @@
     <string name="modal_erase_history_subtitle">Êtes-vous sûr de vouloir effacer votre historique ? Cette action est irréversible.</string>
     <string name="modal_erase_history_cancel">Annuler</string>
     <string name="modal_erase_history_erase">Effacer</string>
+    <string name="home_tab_movie_title">Films</string>
+    <string name="home_tab_serie_title">Séries</string>
 </resources>

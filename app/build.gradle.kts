@@ -1,5 +1,7 @@
 plugins {
     id("com.android.application")
+
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -61,4 +63,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.google.android.flexbox:flexbox:3.0.0")
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("lib-*.aar"))))
+    implementation("com.google.firebase:firebase-messaging")
+    implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
+    implementation("com.google.firebase:firebase-analytics")
 }

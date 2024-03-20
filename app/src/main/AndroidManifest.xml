@@ -60,6 +60,14 @@
         <activity
             android:name=".Controller.Profile.ProfileHistoryActivity"
             android:configChanges="orientation" />
+
+        <service
+            android:name=".Service.NotificationService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

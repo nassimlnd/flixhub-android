@@ -74,7 +74,7 @@ public class MovieCategoryListActivity extends AppCompatActivity {
                 Handler(Looper.getMainLooper());
         executor.execute(new Runnable() {
             public void run() {
-                String result = APIClient.callGetMethodWithCookies(param, ctx);
+                String result = APIClient.getMethodWithCookies(param, ctx);
                 handler.post(new Runnable() {
                     @Override
                     public void run() {

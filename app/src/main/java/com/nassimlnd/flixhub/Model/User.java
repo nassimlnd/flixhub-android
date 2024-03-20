@@ -126,6 +126,11 @@ public class User {
         }
     }
 
+    public static void sendRegistrationToken(String token) {
+
+    }
+
+    // Getters and Setters
     public String getFullName() {
         return fullName;
     }

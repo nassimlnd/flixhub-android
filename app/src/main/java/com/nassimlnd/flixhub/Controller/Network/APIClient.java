@@ -52,10 +52,6 @@ public class APIClient {
             inputStream.close();
             bf.close();
             conn.disconnect();
-        } catch (ProtocolException e) {
-            throw new RuntimeException(e);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -63,7 +59,7 @@ public class APIClient {
         return result.toString();
     }
 
-    public static String callGetMethodWithCookies(String param, Context ctx) {
+    public static String getMethodWithCookies(String param, Context ctx) {
         StringBuilder result = new StringBuilder();
         HttpURLConnection conn = null;
 
@@ -246,49 +242,6 @@ public class APIClient {
         }
     }
 
-    /*public static void callPostMethod(String param, HashMap<String, String> data, Context ctx) {
-        ExecutorService executor =
-                Executors.newSingleThreadExecutor();
-        Handler handler = new
-                Handler(Looper.getMainLooper());
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                String result = postMethod(param, data, ctx);
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        display(result);
-                    }
-                });
-            }
-        });
-    }*/
-
-    public static String callGetMethod(String param) {
-        final StringBuilder[] result = {new StringBuilder()};
-        ExecutorService executor =
-                Executors.newSingleThreadExecutor();
-        Handler handler = new
-                Handler(Looper.getMainLooper());
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                result[0] = new StringBuilder(getMethod(param));
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        display(result[0].toString());
-                    }
-                });
-            }
-        });
-        return result[0].toString();
-    }
-
-    private static void display(String result) {
-    }
-
     public static void deleteMethod(String param) {
         // ...
     }
@@ -315,10 +268,6 @@ public class APIClient {
             inputStream.close();
             bf.close();
             conn.disconnect();
-        } catch (ProtocolException e) {
-            throw new RuntimeException(e);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

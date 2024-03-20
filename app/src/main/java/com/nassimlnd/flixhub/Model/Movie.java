@@ -59,7 +59,7 @@ public class Movie {
             CountDownLatch latch = new CountDownLatch(1);
 
             executor.execute(() -> {
-                String result = APIClient.callGetMethodWithCookies("/movies/random/" + amount, ctx);
+                String result = APIClient.getMethodWithCookies("/movies/random/" + amount, ctx);
                 try {
                     JSONArray moviesArray = new JSONArray(result);
 
@@ -100,7 +100,7 @@ public class Movie {
             executorService.execute(() -> {
                 try {
                     String inputEncoded = URLEncoder.encode(input, "UTF-8");
-                    String result = APIClient.callGetMethodWithCookies("/movies/search/" + inputEncoded, ctx);
+                    String result = APIClient.getMethodWithCookies("/movies/search/" + inputEncoded, ctx);
                     try {
                         JSONArray moviesArray = new JSONArray(result);
 
@@ -140,7 +140,7 @@ public class Movie {
             CountDownLatch latch = new CountDownLatch(1);
 
             executor.execute(() -> {
-                String result = APIClient.callGetMethodWithCookies("/movies/random", ctx);
+                String result = APIClient.getMethodWithCookies("/movies/random", ctx);
                 try {
                     JSONArray jsonArray = new JSONArray(result);
                     JSONObject jsonMovie = jsonArray.getJSONObject(0);
@@ -176,7 +176,7 @@ public class Movie {
                     Executors.newSingleThreadExecutor();
             CountDownLatch latch = new CountDownLatch(1);
             executor.execute(() -> {
-                String result = APIClient.callGetMethodWithCookies(param, ctx);
+                String result = APIClient.getMethodWithCookies(param, ctx);
 
                 try {
                     JSONArray moviesJson = new JSONArray(result);
@@ -226,7 +226,7 @@ public class Movie {
             CountDownLatch latch = new CountDownLatch(1);
 
             executor.execute(() -> {
-                String result = APIClient.callGetMethodWithCookies(url, ctx);
+                String result = APIClient.getMethodWithCookies(url, ctx);
                 try {
                     JSONArray resultArray = new JSONArray(result);
                     for (int i = 0; i < resultArray.length(); i++) {
@@ -257,7 +257,7 @@ public class Movie {
             CountDownLatch latch = new CountDownLatch(1);
 
             executorService.execute(() -> {
-                String result = APIClient.callGetMethodWithCookies("/movies/" + movieId, ctx);
+                String result = APIClient.getMethodWithCookies("/movies/" + movieId, ctx);
                 try {
                     JSONObject mediaObject = new JSONObject(result);
 

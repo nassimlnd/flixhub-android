@@ -38,7 +38,7 @@ public class MovieCategory {
             CountDownLatch countDownLatch = new CountDownLatch(1);
 
             executorService.execute(() -> {
-                String result = APIClient.callGetMethodWithCookies("/movies/categories", ctx);
+                String result = APIClient.getMethodWithCookies("/movies/categories", ctx);
                 try {
                     JSONArray movieCategoriesArray = new JSONArray(result);
                     for (int i = 0; i < movieCategoriesArray.length(); i++) {
@@ -67,7 +67,7 @@ public class MovieCategory {
             CountDownLatch countDownLatch = new CountDownLatch(1);
 
             executorService.execute(() -> {
-                String result = APIClient.callGetMethodWithCookies("/movies/category/" + movieCategoryId, ctx);
+                String result = APIClient.getMethodWithCookies("/movies/category/" + movieCategoryId, ctx);
                 try {
                     JSONObject movieCategoryObject = new JSONObject(result);
                     movieCategory.setId(movieCategoryObject.getInt("id"));
