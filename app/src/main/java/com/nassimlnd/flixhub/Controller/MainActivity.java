@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.nassimlnd.flixhub.Controller.Home.HomeActivity;
 import com.nassimlnd.flixhub.Controller.Profile.ProfileChooserActivity;
+import com.nassimlnd.flixhub.Model.User;
 import com.nassimlnd.flixhub.R;
 
 /**
@@ -46,8 +47,10 @@ public class MainActivity extends AppCompatActivity {
 
                         // Log and toast
                         String msg = token;
-                        Log.d(TAG, msg);
-                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        //Log.d(TAG, msg);
+                        //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+
+                        User.sendRegistrationToken(token, MainActivity.this);
                     }
                 });
 

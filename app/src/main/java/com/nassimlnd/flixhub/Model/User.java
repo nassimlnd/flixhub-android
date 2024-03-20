@@ -126,8 +126,27 @@ public class User {
         }
     }
 
-    public static void sendRegistrationToken(String token) {
+    public static void sendRegistrationToken(String token, Context ctx) {
+        HashMap<String, String> data = new HashMap<>();
+        data.put("fcmToken", token);
 
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        CountDownLatch latch = new CountDownLatch(1);
+
+        executor.execute(() -> {
+            try {
+                APIClient.postMethodWithCookies("/auth/fcm", data, ctx);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            latch.countDown();
+        });
+
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     // Getters and Setters

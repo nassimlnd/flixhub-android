@@ -16,6 +16,7 @@
         android:visibility="gone">
 
         <ScrollView
+            android:id="@+id/movies_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -30,7 +31,7 @@
                     android:layout_height="300dp">
 
                     <ImageView
-                        android:id="@+id/highlight_image"
+                        android:id="@+id/highlight_movie_image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop" />
@@ -44,7 +45,7 @@
                         app:justifyContent="flex_end">
 
                         <TextView
-                            android:id="@+id/highlight_title"
+                            android:id="@+id/highlight_movie_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
@@ -52,7 +53,7 @@
                             android:textSize="24sp" />
 
                         <TextView
-                            android:id="@+id/highlight_group_title"
+                            android:id="@+id/highlight_movie_category"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
@@ -64,7 +65,7 @@
                             android:orientation="horizontal">
 
                             <Button
-                                android:id="@+id/highlight_play_button"
+                                android:id="@+id/highlight_movie_play_button"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:drawableLeft="@drawable/play"
@@ -73,7 +74,7 @@
                                 tools:ignore="RtlHardcoded" />
 
                             <Button
-                                android:id="@+id/highlight_download_button"
+                                android:id="@+id/highlight_movie_list_button"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
@@ -87,14 +88,96 @@
                 </RelativeLayout>
 
                 <LinearLayout
-                    android:id="@+id/categoryContainer"
+                    android:id="@+id/movieCategoryContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                 </LinearLayout>
             </LinearLayout>
+        </ScrollView>
 
+        <ScrollView
+            android:id="@+id/series_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="24dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp">
+
+                    <ImageView
+                        android:id="@+id/highlight_serie_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
+
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="24dp"
+                        app:alignItems="flex_start"
+                        app:flexDirection="column"
+                        app:justifyContent="flex_end">
+
+                        <TextView
+                            android:id="@+id/highlight_serie_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:textColor="@color/white"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/highlight_serie_category"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:textColor="@color/white" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/highlight_serie_play_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/play"
+                                android:text="@string/home_play_button"
+                                android:textColor="@color/white"
+                                tools:ignore="RtlHardcoded" />
+
+                            <Button
+                                android:id="@+id/highlight_serie_list_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:drawableLeft="@drawable/plus"
+                                android:text="@string/home_add_list"
+                                android:textColor="@color/white"
+                                android:theme="@style/Button.Secondary"
+                                tools:ignore="RtlHardcoded" />
+                        </LinearLayout>
+                    </com.google.android.flexbox.FlexboxLayout>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/serieCategoryContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </LinearLayout>
         </ScrollView>
 
         <View
@@ -140,8 +223,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/home_tab_serie_title"
-                    android:paddingHorizontal="6dp"
-                    android:paddingVertical="4dp"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="8dp"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
             </LinearLayout>

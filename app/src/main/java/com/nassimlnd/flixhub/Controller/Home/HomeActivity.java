@@ -1,8 +1,10 @@
 package com.nassimlnd.flixhub.Controller.Home;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -13,6 +15,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import com.nassimlnd.flixhub.Controller.Home.Fragments.List.ListFragment;
@@ -73,6 +76,10 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         bottomNavigationView.setSelectedItemId(R.id.home);
+
+
+
+
 
     }
 

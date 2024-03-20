@@ -1,5 +1,16 @@
 package com.nassimlnd.flixhub.Model;
 
+import android.content.Context;
+
+import com.nassimlnd.flixhub.Controller.Network.APIClient;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class SerieCategory {
 
     // Attributes
@@ -17,6 +28,33 @@ public class SerieCategory {
     }
 
     // Back-end methods
+
+    public static SerieCategory getSerieCategoryById(int id, Context ctx) {
+        SerieCategory serieCategory = new SerieCategory();
+        try {
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
+            CountDownLatch latch = new CountDownLatch(1);
+
+            executorService.execute(() -> {
+                String result = APIClient.getMethodWithCookies("/series/category/" + id, ctx);
+                try {
+                    JSONObject serieCategoryObject = new JSONObject(result);
+
+                    serieCategory.setId(serieCategoryObject.getInt("id"));
+                    serieCategory.setName(serieCategoryObject.getString("name"));
+
+                    latch.countDown();
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+            latch.await();
+            return serieCategory;
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     // Getters and setters
 

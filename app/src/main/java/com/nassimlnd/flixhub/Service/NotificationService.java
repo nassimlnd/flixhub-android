@@ -1,6 +1,7 @@
 package com.nassimlnd.flixhub.Service;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -23,6 +24,7 @@ public class NotificationService extends FirebaseMessagingService {
         Log.d("NotificationService", "Message received" + message.getData());
 
         String title = message.getData().get("title");
+        String messageBody = message.getData().get("message");
 
         NotificationChannel channel = new NotificationChannel("FlixHub", "FlixHub", NotificationManager.IMPORTANCE_HIGH);
 
@@ -31,6 +33,7 @@ public class NotificationService extends FirebaseMessagingService {
 
         Notification.Builder builder = new Notification.Builder(this, channel.getId())
                 .setContentTitle(title)
+                .setContentText(messageBody)
                 .setSmallIcon(R.drawable.ic_launcher_foreground);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
@@ -43,6 +46,7 @@ public class NotificationService extends FirebaseMessagingService {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+
         NotificationManagerCompat.from(this).notify(1, builder.build());
 
         super.onMessageReceived(message);

@@ -24,9 +24,12 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.bumptech.glide.Glide;
 import com.nassimlnd.flixhub.Controller.Home.Fragments.Home.Fragments.MovieCategoryFragment;
+import com.nassimlnd.flixhub.Controller.Home.Fragments.Home.Fragments.SerieCategoryFragment;
 import com.nassimlnd.flixhub.Controller.Media.MovieDetailsActivity;
 import com.nassimlnd.flixhub.Model.Movie;
 import com.nassimlnd.flixhub.Model.MovieCategory;
+import com.nassimlnd.flixhub.Model.Serie;
+import com.nassimlnd.flixhub.Model.SerieCategory;
 import com.nassimlnd.flixhub.R;
 
 import org.json.JSONArray;
@@ -45,15 +48,17 @@ public class HomeFragment extends Fragment {
     // Constants
     private final int AMOUNT_MOVIES_PER_CATEGORY = 10;
     private final String TAG = "HomeFragment";
+    private String tabSelected = "movies";
 
     // View elements
-    ImageView highlightImage;
-    TextView highlightTitle, highlightGroupTitle, movieTab, serieTab;
+    ImageView highlightMovieImage, highlightSerieImage;
+    TextView highlightMovieTitle, highlightMovieCategory, highlightSerieTitle, highlightSerieCategory, movieTab, serieTab;
     RelativeLayout content;
     ProgressBar progressBar;
-    Button playButton, downloadButton;
+    Button playMovieButton, listMovieButton, playSerieButton, listSerieButton;
     ImageView notificationButton;
     CircularProgressDrawable circularProgressDrawable;
+    ScrollView moviesContent, seriesContent;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,16 +74,29 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         // Gettings all the elements from the view
-        highlightImage = view.findViewById(R.id.highlight_image);
-        highlightTitle = view.findViewById(R.id.highlight_title);
-        highlightGroupTitle = view.findViewById(R.id.highlight_group_title);
+        highlightMovieImage = view.findViewById(R.id.highlight_movie_image);
+        highlightMovieTitle = view.findViewById(R.id.highlight_movie_title);
+        highlightMovieCategory = view.findViewById(R.id.highlight_movie_category);
+
+        highlightSerieImage = view.findViewById(R.id.highlight_serie_image);
+        highlightSerieTitle = view.findViewById(R.id.highlight_serie_title);
+        highlightSerieCategory = view.findViewById(R.id.highlight_serie_category);
+
+        playSerieButton = view.findViewById(R.id.highlight_serie_play_button);
+        listSerieButton = view.findViewById(R.id.highlight_serie_list_button);
+
+        playMovieButton = view.findViewById(R.id.highlight_movie_play_button);
+        listMovieButton = view.findViewById(R.id.highlight_movie_list_button);
+
         content = view.findViewById(R.id.content);
         progressBar = view.findViewById(R.id.loading_spinner);
-        playButton = view.findViewById(R.id.highlight_play_button);
-        downloadButton = view.findViewById(R.id.highlight_download_button);
         notificationButton = view.findViewById(R.id.home_notification_button);
+
         movieTab = view.findViewById(R.id.homeTabMovies);
         serieTab = view.findViewById(R.id.homeTabSeries);
+
+        moviesContent = view.findViewById(R.id.movies_content);
+        seriesContent = view.findViewById(R.id.series_content);
 
         circularProgressDrawable = new CircularProgressDrawable(getContext());
         circularProgressDrawable.setStrokeWidth(5f);
@@ -88,6 +106,29 @@ public class HomeFragment extends Fragment {
 
         Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.selected_tab);
         movieTab.setBackground(drawable);
+
+        // Set the listener for the tabs
+        movieTab.setOnClickListener(v -> {
+            if (!tabSelected.equals("movies")) {
+                tabSelected = "movies";
+                movieTab.setBackground(drawable);
+                serieTab.setBackground(null);
+
+                moviesContent.setVisibility(View.VISIBLE);
+                seriesContent.setVisibility(View.GONE);
+            }
+        });
+
+        serieTab.setOnClickListener(v -> {
+            if (!tabSelected.equals("series")) {
+                tabSelected = "series";
+                serieTab.setBackground(drawable);
+                movieTab.setBackground(null);
+
+                moviesContent.setVisibility(View.GONE);
+                seriesContent.setVisibility(View.VISIBLE);
+            }
+        });
 
         showHighlightedMedia(getContext());
         getContent();
@@ -100,12 +141,19 @@ public class HomeFragment extends Fragment {
         executor.execute(() -> {
             // Getting the shared preferences to get the user's favorites categories
             SharedPreferences sharedPreferences = getActivity().getSharedPreferences("profile", Context.MODE_PRIVATE);
-            String favoritesCategories = sharedPreferences.getString("movieInterests", "");
+            String favoritesMovieCategories = sharedPreferences.getString("movieInterests", "");
+            String favoritesSerieCategories = sharedPreferences.getString("serieInterests", "");
             try {
-                JSONArray jsonArray = new JSONArray(favoritesCategories);
+                JSONArray favoritesMovieCategoriesJson = new JSONArray(favoritesMovieCategories);
+                JSONArray favoritesSerieCategoriesJson = new JSONArray(favoritesSerieCategories);
+
                 // Setting the content of the view
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    getMoviesByCategory(jsonArray.getString(i), getContext());
+                for (int i = 0; i < favoritesMovieCategoriesJson.length(); i++) {
+                    getMoviesByCategory(favoritesMovieCategoriesJson.getString(i), getContext());
+                }
+
+                for (int i = 0; i < favoritesSerieCategoriesJson.length(); i++) {
+                    getSeriesByCategory(favoritesSerieCategoriesJson.getString(i), getContext());
                 }
             } catch (JSONException e) {
                 getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Error while getting the favorites categories", Toast.LENGTH_SHORT).show());
@@ -124,22 +172,22 @@ public class HomeFragment extends Fragment {
         Movie highlightedMedia = Movie.getSingleRandomMovie(ctx);
 
         // Set the content of the view
-        highlightTitle.setText(highlightedMedia.getTitle());
+        highlightMovieTitle.setText(highlightedMedia.getTitle());
         MovieCategory movieCategory = MovieCategory.getMovieCategoryById(ctx, highlightedMedia.getCategoryId());
-        highlightGroupTitle.setText(movieCategory.getName());
+        highlightMovieCategory.setText(movieCategory.getName());
 
         // Set the listener for the play button of the highlitghted media
-        playButton.setOnClickListener(v -> {
+        playMovieButton.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), MovieDetailsActivity.class);
             intent.putExtra("mediaId", highlightedMedia.getId());
             startActivity(intent);
         });
 
         // Loading the image of the highlighted media
-        Glide.with(highlightImage.getContext())
+        Glide.with(highlightMovieImage.getContext())
                 .load(highlightedMedia.getPoster())
                 .placeholder(circularProgressDrawable)
-                .into(highlightImage);
+                .into(highlightMovieImage);
     }
 
     public void getMoviesByCategory(String category, Context ctx) {
@@ -149,6 +197,16 @@ public class HomeFragment extends Fragment {
 
         // Create the fragment for the category
         MovieCategoryFragment movieCategoryFragment = new MovieCategoryFragment(movieCategory.getName(), moviesList);
-        getActivity().getSupportFragmentManager().beginTransaction().add(R.id.categoryContainer, movieCategoryFragment).commit();
+        getActivity().getSupportFragmentManager().beginTransaction().add(R.id.movieCategoryContainer, movieCategoryFragment).commit();
+    }
+
+    private void getSeriesByCategory(String string, Context context) {
+        // Get the series of the category
+        SerieCategory serieCategory = SerieCategory.getSerieCategoryById(Integer.parseInt(string), context);
+        ArrayList<Serie> seriesList = Serie.getSeriesByCategory(context, serieCategory.getId(), AMOUNT_MOVIES_PER_CATEGORY);
+
+        // Create the fragment for the category
+        SerieCategoryFragment serieCategoryFragment = new SerieCategoryFragment(serieCategory.getName(), seriesList);
+        getActivity().getSupportFragmentManager().beginTransaction().add(R.id.serieCategoryContainer, serieCategoryFragment).commit();
     }
 }
