@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,10 +49,10 @@ public class HomeFragment extends Fragment {
     // View elements
     ImageView highlightImage;
     TextView highlightTitle, highlightGroupTitle, movieTab, serieTab;
-    ScrollView content;
+    RelativeLayout content;
     ProgressBar progressBar;
     Button playButton, downloadButton;
-    ImageView searchButton, notificationButton;
+    ImageView notificationButton;
     CircularProgressDrawable circularProgressDrawable;
 
     @Override

@@ -85,17 +85,30 @@ public class MovieCategory {
         }
     }
 
-//    public static MovieCategory getMovieCategoryByName(Context ctx, String category) {
-//        MovieCategory movieCategory = new MovieCategory();
-//        try {
-//            ExecutorService executorService = Executors.newSingleThreadExecutor();
-//            CountDownLatch countDownLatch = new CountDownLatch(1);
-//
-//            executorService.execute(() -> {
-//                String result = APIClient.callGetMethodWithCookies("/movies/category/")
-//            });
-//        }
-//    }
+    public static MovieCategory getCategoryByName(String category, Context ctx) {
+        MovieCategory movieCategory = new MovieCategory();
+        try {
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
+            CountDownLatch countDownLatch = new CountDownLatch(1);
+
+            executorService.execute(() -> {
+                String result = APIClient.getMethodWithCookies("/movies/category/name/" + category, ctx);
+                try {
+                    JSONObject movieCategoryObject = new JSONObject(result);
+                    movieCategory.setId(movieCategoryObject.getInt("id"));
+                    movieCategory.setName(movieCategoryObject.getString("name"));
+                    countDownLatch.countDown();
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+            countDownLatch.await();
+            return movieCategory;
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     // Getters and Setters
     public int getId() {
