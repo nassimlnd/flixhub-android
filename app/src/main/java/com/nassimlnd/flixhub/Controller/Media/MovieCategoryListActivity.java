@@ -21,6 +21,8 @@ import com.google.android.flexbox.FlexboxLayout;
 import com.nassimlnd.flixhub.Controller.Network.APIClient;
 import com.nassimlnd.flixhub.Model.Interaction;
 import com.nassimlnd.flixhub.Model.Media;
+import com.nassimlnd.flixhub.Model.Movie;
+import com.nassimlnd.flixhub.Model.MovieCategory;
 import com.nassimlnd.flixhub.R;
 
 import org.json.JSONArray;
@@ -58,84 +60,41 @@ public class MovieCategoryListActivity extends AppCompatActivity {
 
         flex1 = findViewById(R.id.flex1);
 
-        try {
-            getMoviesbyCategory(category, getApplicationContext());
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+        getContent(this, category);
     }
 
-    public void getMoviesbyCategory(String category, Context ctx) throws UnsupportedEncodingException {
-        String categoryFormatted = URLEncoder.encode(category, "UTF-8");
-        String param = "/movies/groups/" + categoryFormatted + "/20";
-        ExecutorService executor =
-                Executors.newSingleThreadExecutor();
-        Handler handler = new
-                Handler(Looper.getMainLooper());
-        executor.execute(new Runnable() {
-            public void run() {
-                String result = APIClient.callGetMethodWithCookies(param, ctx);
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        insertCategoryMedia(category, result);
-                    }
-                });
-            }
-        });
-    }
+    public void getContent(Context ctx, String category) {
+        MovieCategory movieCategory = MovieCategory.getCategoryByName(category, ctx);
+        ArrayList<Movie> moviesList = Movie.getMoviesByCategory(String.valueOf(movieCategory.getId()), ctx, 30);
 
-    public void insertCategoryMedia(String categoryName, String result) {
-        ArrayList<Media> moviesList = new ArrayList<>();
+        for (Movie movie : moviesList) {
+            ImageView image1 = new ImageView(this);
+            image1.setBackground(AppCompatResources.getDrawable(getApplicationContext(), R.drawable.media_card));
+            image1.setClipToOutline(true);
 
-        try {
-            JSONObject jsonResult = new JSONObject(result);
-            JSONArray movies = jsonResult.getJSONArray("movies");
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(450, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMargins(0, 0, 0, 24);
 
-            for (int i = 0; i < movies.length(); i++) {
-                JSONObject jsonMovie = movies.getJSONObject(i);
-                Media movie = new Media();
-                movie.setId(Integer.parseInt(jsonMovie.getString("id")));
-                movie.setTitle(jsonMovie.getString("title"));
-                //movie.setTvg_id(jsonMovie.getString("tvgId"));
-                movie.setTvg_name(jsonMovie.getString("tvgName"));
-                movie.setTvg_logo(jsonMovie.getString("tvgLogo"));
-                movie.setGroup_title(jsonMovie.getString("groupTitle"));
-                movie.setUrl(jsonMovie.getString("url"));
+            image1.setLayoutParams(layoutParams);
 
-                moviesList.add(movie);
+            Glide.with(image1.getContext())
+                    .load(movie.getPoster())
+                    .into(image1);
 
-                ImageView image1 = new ImageView(this);
-                image1.setBackground(AppCompatResources.getDrawable(getApplicationContext(), R.drawable.media_card));
-                image1.setClipToOutline(true);
+            flex1.addView(image1);
 
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(450, ViewGroup.LayoutParams.WRAP_CONTENT);
-                layoutParams.setMargins(0, 0, 0, 24);
+            image1.setOnClickListener(v -> {
+                Intent intent = new Intent(getApplicationContext(), MovieDetailsActivity.class);
+                intent.putExtra("movieId", movie.getId());
 
-                image1.setLayoutParams(layoutParams);
+                Interaction interaction = new Interaction();
+                interaction.setMediaId(movie.getId());
+                interaction.setMediaType("movie");
+                interaction.setInteractionType("click");
+                interaction.sendInteraction(getApplicationContext());
 
-                Glide.with(image1.getContext())
-                        .load(movie.getTvg_logo())
-                        .into(image1);
-
-                flex1.addView(image1);
-
-                image1.setOnClickListener(v -> {
-                    Intent intent = new Intent(getApplicationContext(), MovieDetailsActivity.class);
-                    intent.putExtra("mediaId", movie.getId());
-
-                    Interaction interaction = new Interaction();
-                    interaction.setMediaId(movie.getId());
-                    interaction.setMediaType("movie");
-                    interaction.setInteractionType("click");
-                    interaction.sendInteraction(getApplicationContext());
-
-                    startActivity(intent);
-                });
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+                startActivity(intent);
+            });
         }
-
     }
 }

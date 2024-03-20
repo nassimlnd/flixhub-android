@@ -54,7 +54,7 @@ public class Profile {
 
             executor.execute(() -> {
                 // Fetch profiles from the database
-                String result = APIClient.callGetMethodWithCookies(PROFILE_ROUTE, ctx);
+                String result = APIClient.getMethodWithCookies(PROFILE_ROUTE, ctx);
 
                 Log.d(TAG, "getProfiles: " + result);
                 // Parse the result
@@ -275,7 +275,7 @@ public class Profile {
 
     @Override
     public String toString() {
-        return "Profile{" +
+        return "Profile {" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", avatar='" + avatar + '\'' +

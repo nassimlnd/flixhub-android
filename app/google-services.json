@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "542266569023",
+    "project_id": "flixhub-f57be",
+    "storage_bucket": "flixhub-f57be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542266569023:android:62bacf1ccac23ab745a38a",
+        "android_client_info": {
+          "package_name": "com.nassimlnd.flixhub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUD7M7ZjEpEfof6u9kMdgXEE2rYoMlslM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

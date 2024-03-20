@@ -102,7 +102,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         Handler handler = new Handler(getMainLooper());
 
         executorService.execute(() -> {
-            String result = APIClient.callGetMethodWithCookies("/movies/" + mediaId, getApplicationContext());
+            String result = APIClient.getMethodWithCookies("/movies/" + mediaId, getApplicationContext());
             handler.post(() -> {
                 if (result != null) {
                     Log.d("MediaActivity", result);

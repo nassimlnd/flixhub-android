@@ -3,6 +3,7 @@ package com.nassimlnd.flixhub.Controller.Home.Fragments.Home;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,11 +48,11 @@ public class HomeFragment extends Fragment {
 
     // View elements
     ImageView highlightImage;
-    TextView highlightTitle, highlightGroupTitle;
-    ScrollView content;
+    TextView highlightTitle, highlightGroupTitle, movieTab, serieTab;
+    RelativeLayout content;
     ProgressBar progressBar;
     Button playButton, downloadButton;
-    ImageView searchButton, notificationButton;
+    ImageView notificationButton;
     CircularProgressDrawable circularProgressDrawable;
 
     @Override
@@ -74,13 +76,18 @@ public class HomeFragment extends Fragment {
         progressBar = view.findViewById(R.id.loading_spinner);
         playButton = view.findViewById(R.id.highlight_play_button);
         downloadButton = view.findViewById(R.id.highlight_download_button);
-        searchButton = view.findViewById(R.id.home_search_button);
         notificationButton = view.findViewById(R.id.home_notification_button);
+        movieTab = view.findViewById(R.id.homeTabMovies);
+        serieTab = view.findViewById(R.id.homeTabSeries);
+
         circularProgressDrawable = new CircularProgressDrawable(getContext());
         circularProgressDrawable.setStrokeWidth(5f);
         circularProgressDrawable.setCenterRadius(30f);
         circularProgressDrawable.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.primary));
         circularProgressDrawable.start();
+
+        Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.selected_tab);
+        movieTab.setBackground(drawable);
 
         showHighlightedMedia(getContext());
         getContent();
@@ -110,8 +117,6 @@ public class HomeFragment extends Fragment {
                 content.setVisibility(View.VISIBLE);
             });
         });
-
-
     }
 
     public void showHighlightedMedia(Context ctx) {
