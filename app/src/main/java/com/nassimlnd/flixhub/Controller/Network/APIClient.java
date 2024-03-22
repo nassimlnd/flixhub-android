@@ -155,6 +155,17 @@ public class APIClient {
             conn.disconnect();
             ctx.startActivity(new Intent(ctx, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             return null;
+        } else if (responseCode == HttpURLConnection.HTTP_BAD_REQUEST) {
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+            conn.disconnect();
+            return response.toString();
         } else {
             conn.disconnect();
             throw new Exception("HTTP response code: " + responseCode);

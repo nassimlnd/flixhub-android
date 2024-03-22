@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -69,6 +70,12 @@ public class LoginActivity extends AppCompatActivity {
 
         try {
             JSONObject jsonObject = new JSONObject(result);
+
+            if (jsonObject.has("errors")) {
+                Toast.makeText(ctx, "Invalid email or password", Toast.LENGTH_LONG).show();
+                return;
+            }
+
             JSONObject userObject = jsonObject.getJSONObject("user");
             Log.d("TAG", "handleResult: " + userObject);
 
