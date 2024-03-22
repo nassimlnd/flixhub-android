@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,14 +88,21 @@ public class DiscoverFragment extends Fragment {
     public void showRandomMovies() {
         ArrayList<Movie> movies = Movie.getRandomMovies(getContext(), 20);
 
+        String orientation = getResources().getConfiguration().orientation == 1 ? "portrait" : "landscape";
+
+        int screenWidth = getResources().getDisplayMetrics().widthPixels - 48;
+
+        int width = orientation.equals("portrait") ? (screenWidth / 2) - 72 : (screenWidth / 4) - 72;
+
         for (Movie movie : movies) {
             ImageView imageView = new ImageView(getContext());
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(450, ViewGroup.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT);
             layoutParams.setMargins(0, 0, 0, 24);
 
             imageView.setLayoutParams(layoutParams);
             imageView.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.media_card));
             imageView.setClipToOutline(true);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
             imageView.setOnClickListener(v -> {
                 Intent intent = new Intent(getContext(), MovieDetailsActivity.class);

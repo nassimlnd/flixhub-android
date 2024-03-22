@@ -17,6 +17,7 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.bumptech.glide.Glide;
 import com.nassimlnd.flixhub.Controller.Media.MovieDetailsActivity;
+import com.nassimlnd.flixhub.Controller.Media.SerieDetailsActivity;
 import com.nassimlnd.flixhub.Model.Interaction;
 import com.nassimlnd.flixhub.Model.Movie;
 import com.nassimlnd.flixhub.Model.Serie;
@@ -71,6 +72,17 @@ public class MediaFragment extends Fragment {
                 interaction.sendInteraction(view.getContext());
 
                 startActivity(intent);
+            } else {
+                Intent intent = new Intent(view.getContext(), SerieDetailsActivity.class);
+                intent.putExtra("serieId", serie.getId());
+
+                Interaction interaction = new Interaction();
+                interaction.setMediaId(serie.getId());
+                interaction.setMediaType("serie");
+                interaction.setInteractionType("click");
+                interaction.sendInteraction(view.getContext());
+
+                startActivity(intent);
             }
         });
 
@@ -81,6 +93,16 @@ public class MediaFragment extends Fragment {
 
             Glide.with(mediaImage.getContext())
                     .load(movie.getPoster())
+                    .transition(withCrossFade())
+                    .error(R.drawable.image)
+                    .into(mediaImage);
+        } else {
+            if (serie.getPoster().equals("https://image.tmdb.org/t/p/w600_and_h900_bestv2")) {
+                serie.setPoster("");
+            }
+
+            Glide.with(mediaImage.getContext())
+                    .load(serie.getPoster())
                     .transition(withCrossFade())
                     .error(R.drawable.image)
                     .into(mediaImage);

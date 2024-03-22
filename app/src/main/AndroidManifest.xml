@@ -60,6 +60,9 @@
         <activity
             android:name=".Controller.Profile.ProfileHistoryActivity"
             android:configChanges="orientation" />
+        <activity
+            android:name=".Controller.Media.SerieDetailsActivity"
+            android:configChanges="orientation" />
 
         <service
             android:name=".Service.NotificationService"

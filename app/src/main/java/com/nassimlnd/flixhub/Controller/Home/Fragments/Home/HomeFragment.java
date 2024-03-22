@@ -171,10 +171,17 @@ public class HomeFragment extends Fragment {
         // Get a random movie
         Movie highlightedMedia = Movie.getSingleRandomMovie(ctx);
 
+        // Get a random serie
+        Serie highlightedSerie = Serie.getRandomSerie(ctx);
+
         // Set the content of the view
         highlightMovieTitle.setText(highlightedMedia.getTitle());
         MovieCategory movieCategory = MovieCategory.getMovieCategoryById(ctx, highlightedMedia.getCategoryId());
         highlightMovieCategory.setText(movieCategory.getName());
+
+        highlightSerieTitle.setText(highlightedSerie.getTitle());
+        SerieCategory serieCategory = SerieCategory.getSerieCategoryById(highlightedSerie.getCategoryId(), ctx);
+        highlightSerieCategory.setText(serieCategory.getName());
 
         // Set the listener for the play button of the highlitghted media
         playMovieButton.setOnClickListener(v -> {
@@ -188,6 +195,11 @@ public class HomeFragment extends Fragment {
                 .load(highlightedMedia.getPoster())
                 .placeholder(circularProgressDrawable)
                 .into(highlightMovieImage);
+
+        Glide.with(highlightSerieImage.getContext())
+                .load(highlightedSerie.getPoster())
+                .placeholder(circularProgressDrawable)
+                .into(highlightSerieImage);
     }
 
     public void getMoviesByCategory(String category, Context ctx) {

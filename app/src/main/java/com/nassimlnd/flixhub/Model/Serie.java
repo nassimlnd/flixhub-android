@@ -58,14 +58,14 @@ public class Serie {
                     serie.setTmdbId(serieJSON.getInt("tmdbId"));
 
                     ArrayList<Episode> episodes = new ArrayList<>();
-                    JSONArray episodesJSON = serieJSON.getJSONArray("episodes");
+                    JSONArray episodesJSON = json.getJSONArray("episodes");
 
                     for (int i = 0; i < episodesJSON.length(); i++) {
                         JSONObject episodeJSON = episodesJSON.getJSONObject(i);
                         Episode episode = new Episode();
                         episode.setId(episodeJSON.getInt("id"));
                         episode.setTitle(episodeJSON.getString("title"));
-                        episode.setEpisodeNumber(episodeJSON.getInt("episodeNumber"));
+                        episode.setEpisodeNumber(episodeJSON.getInt("episodeNum"));
                         episode.setSeasonNumber(episodeJSON.getInt("seasonNumber"));
                         episode.setSerieId(episodeJSON.getInt("serieId"));
                         episode.setUrl(episodeJSON.getString("url"));
@@ -157,6 +157,36 @@ public class Serie {
 
     public static ArrayList<Serie> getSearchSeries(Context ctx, String query) {
         return null;
+    }
+
+    public static Serie getRandomSerie(Context ctx) {
+        Serie serie = new Serie();
+        try {
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
+            CountDownLatch countDownLatch = new CountDownLatch(1);
+
+            executorService.execute(() -> {
+                String result = APIClient.getMethodWithCookies("/series/random", ctx);
+                try {
+                    JSONObject serieJSON = new JSONObject(result);
+                    serie.setId(serieJSON.getInt("id"));
+                    serie.setTitle(serieJSON.getString("title"));
+                    serie.setPoster(serieJSON.getString("poster"));
+                    serie.setSerieId(serieJSON.getString("serieId"));
+                    serie.setCategoryId(serieJSON.getInt("categoryId"));
+                    serie.setTmdbId(serieJSON.getInt("tmdbId"));
+                    countDownLatch.countDown();
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                countDownLatch.countDown();
+            });
+
+            countDownLatch.await();
+            return serie;
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // Getters and Setters

@@ -86,6 +86,7 @@
     <string name="modal_erase_history_erase">Effacer</string>
     <string name="home_tab_movie_title">Films</string>
     <string name="home_tab_serie_title">Séries</string>
-    <string name="ListeVide">Il semble que vous n\'ayez pas ajouté de films à la liste</string>
-    <string name="Liste_Vide_Titre">Votre liste est vide</string>
+    <string name="empty_list_subtitle">Il semble que vous n\'ayez pas ajouté de films à la liste</string>
+    <string name="empty_list_title">Votre liste est vide</string>
+    <string name="episodes">Épisodes</string>
 </resources>

@@ -53,7 +53,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_media);
+        setContentView(R.layout.activity_movie);
 
         loadingSpinner = findViewById(R.id.loading_spinner);
         content = findViewById(R.id.mediaContainer);
