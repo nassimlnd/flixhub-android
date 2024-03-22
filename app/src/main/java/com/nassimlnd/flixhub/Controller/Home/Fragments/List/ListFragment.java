@@ -27,8 +27,6 @@ public class ListFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_list, container, false);
 
-        toolbar = view.findViewById(R.id.toolbar);
-
 
 
         return view;

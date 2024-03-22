@@ -75,4 +75,6 @@
     <string name="modal_erase_history_erase">Delete</string>
     <string name="home_tab_movie_title">Movies</string>
     <string name="home_tab_serie_title">Series</string>
+    <string name="ListeVide">" It seems that you haven't added any movies to the list"</string>
+    <string name="Liste_Vide_Titre">Your list is empty</string>
 </resources>
