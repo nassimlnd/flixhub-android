@@ -69,6 +69,7 @@ public class Serie {
                         episode.setSeasonNumber(episodeJSON.getInt("seasonNumber"));
                         episode.setSerieId(episodeJSON.getInt("serieId"));
                         episode.setUrl(episodeJSON.getString("url"));
+                        episode.setPoster(episodeJSON.getString("poster"));
                         episodes.add(episode);
                     }
 

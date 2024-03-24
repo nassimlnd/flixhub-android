@@ -9,19 +9,21 @@ public class Episode {
     private int seasonNumber;
     private int serieId;
     private String url;
+    private String poster;
 
     // Constructor
 
     public Episode() {
     }
 
-    public Episode(int id, String title, int episodeNumber, int seasonNumber, int serieId, String url) {
+    public Episode(int id, String title, int episodeNumber, int seasonNumber, int serieId, String url, String poster) {
         this.id = id;
         this.title = title;
         this.episodeNumber = episodeNumber;
         this.seasonNumber = seasonNumber;
         this.serieId = serieId;
         this.url = url;
+        this.poster = poster;
     }
 
     // Getters and Setters
@@ -72,5 +74,13 @@ public class Episode {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
     }
 }

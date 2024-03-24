@@ -10,5 +10,4 @@
     android:maxWidth="240dp"
     android:paddingVertical="8dp"
     android:paddingHorizontal="12dp"
-    android:gravity="center"
     android:ellipsize="marquee"/>

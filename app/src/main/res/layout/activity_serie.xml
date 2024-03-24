@@ -193,7 +193,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:paddingHorizontal="24dp">
+                android:paddingHorizontal="24dp"
+                android:orientation="vertical">
                 <com.google.android.flexbox.FlexboxLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -213,6 +214,18 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/primary" />
                 </com.google.android.flexbox.FlexboxLayout>
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="125dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="24dp">
+                    <LinearLayout
+                        android:id="@+id/episodesContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"/>
+                </HorizontalScrollView>
             </LinearLayout>
 
         </LinearLayout>

@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.Spinner;
@@ -18,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.google.android.flexbox.FlexboxLayout;
+import com.nassimlnd.flixhub.Controller.Media.Fragments.EpisodeFragment;
 import com.nassimlnd.flixhub.Controller.Network.APIClient;
 import com.nassimlnd.flixhub.Model.Episode;
 import com.nassimlnd.flixhub.Model.Serie;
@@ -41,6 +44,7 @@ public class SerieDetailsActivity extends AppCompatActivity {
     ImageView backBtn, serieImage;
     Button playButton;
     ScrollView content;
+    LinearLayout episodesContainer;
     TextView serieTitle, serieDescription, serieRating, serieYear, serieCategory, trailerTitle;
     FlexboxLayout serieRatingButton;
     Spinner seasonSpinner;
@@ -66,6 +70,7 @@ public class SerieDetailsActivity extends AppCompatActivity {
         serieCategory = findViewById(R.id.mediaGroupTitle);
         serieRatingButton = findViewById(R.id.mediaRatingButton);
         seasonSpinner = findViewById(R.id.seasonSpinner);
+        episodesContainer = findViewById(R.id.episodesContainer);
 
         backBtn.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
 
@@ -106,10 +111,12 @@ public class SerieDetailsActivity extends AppCompatActivity {
             adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
             seasonSpinner.setAdapter(adapter);
 
+            showEpisodes(1);
+
             seasonSpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    Log.d(TAG, "onItemSelected: " + position);
+                    showEpisodes(position + 1);
                 }
 
                 @Override
@@ -125,6 +132,19 @@ public class SerieDetailsActivity extends AppCompatActivity {
             content.setVisibility(View.VISIBLE);
         } else {
             finish();
+        }
+    }
+
+    public void showEpisodes(int seasonNumber) {
+        episodesContainer.removeAllViews();
+
+        ArrayList<Episode> episodes = serie.getEpisodes();
+
+        for (Episode episode : episodes) {
+            if (episode.getSeasonNumber() == seasonNumber) {
+                EpisodeFragment episodeFragment = new EpisodeFragment(episode);
+                getSupportFragmentManager().beginTransaction().add(R.id.episodesContainer, episodeFragment).commit();
+            }
         }
     }
 
