@@ -19,6 +19,8 @@ public class List {
     private Movie movie;
     private int profileId;
 
+    public List() {}
+
     public List(Movie movie, int profileId) {
         this.id = id;
         this.movie = movie;
@@ -26,7 +28,7 @@ public class List {
     }
 
     public static ArrayList<List> getListByProfile(Context ctx) {
-        ArrayList<List> List = new ArrayList<>();
+        ArrayList<List> lists = new ArrayList<>();
         try {
             SharedPreferences sharedPreferences = ctx.getSharedPreferences("profile", Context.MODE_PRIVATE);
             int profileId = sharedPreferences.getInt("id", 0);
@@ -39,8 +41,16 @@ public class List {
                     JSONArray resultArray = new JSONArray(result);
                     for (int i = 0; i < resultArray.length(); i++) {
                         JSONObject ListJson = resultArray.getJSONObject(i);
+                        List list = new List();
                         int movieId = ListJson.getInt("movieId");
                         int profile = ListJson.getInt("profileId");
+
+                        Movie moviee = Movie.getMovieById(movieId, ctx);
+
+                        list.setMovie(moviee);
+                        list.setProfileId(profile);
+
+                        lists.add(list);
                     }
                     latch.countDown();
                 } catch (JSONException e) {
@@ -49,7 +59,7 @@ public class List {
 
             });
             latch.await();
-            return List;
+            return lists;
 
         } catch (InterruptedException e) {
             throw new RuntimeException(e);

@@ -42,6 +42,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     ProgressBar loadingSpinner;
     ImageView backBtn, mediaImage;
     Button playButton;
+    Button downloadButton;
     ScrollView content;
     TextView mediaTitle, mediaDescription, mediaRating, mediaYear, mediaGroupTitle, trailerTitle;
     FlexboxLayout mediaRatingButton;
@@ -66,6 +67,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         playButton = findViewById(R.id.playButton);
         trailerTitle = findViewById(R.id.trailerTitle);
         mediaRatingButton = findViewById(R.id.mediaRatingButton);
+        downloadButton = findViewById (R.id.downloadButton);
 
         backBtn.setOnClickListener(v -> {
             getOnBackPressedDispatcher().onBackPressed();
@@ -86,6 +88,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 sendInteraction();
                 startActivity(intent);
             }
+        });
+        downloadButton.setOnClickListener(v->{
+
         });
 
         int mediaId = getIntent().getIntExtra("movieId", 0);

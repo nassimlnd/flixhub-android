@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_above="@+id/bottom_nav"
+    >
 
     <com.google.android.flexbox.FlexboxLayout
         android:layout_width="match_parent"
@@ -45,7 +47,9 @@
             app:tint="@color/white" />
     </com.google.android.flexbox.FlexboxLayout>
 
+
     <LinearLayout
+        android:id="@+id/emptyListLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -78,6 +82,22 @@
             android:text="@string/empty_list_subtitle"
             android:textAlignment="center" />
     </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_marginTop="24dp"
+            android:id="@+id/flex1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="24dp"
+            app:flexDirection="row"
+            app:flexWrap="wrap"
+            app:justifyContent="space_between"
+            android:paddingBottom="10dp"
+            >
 
+        </com.google.android.flexbox.FlexboxLayout>
+    </ScrollView>
 
 </LinearLayout>
