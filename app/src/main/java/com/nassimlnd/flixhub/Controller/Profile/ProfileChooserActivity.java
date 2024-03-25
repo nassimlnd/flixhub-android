@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.nassimlnd.flixhub.Controller.Auth.Register.RegisterInterestsActivity;
+import com.nassimlnd.flixhub.Controller.Profile.Fragments.AvatarChooserModal;
 import com.nassimlnd.flixhub.Controller.Profile.Fragments.ProfileCardFragment;
 import com.nassimlnd.flixhub.Model.Profile;
 import com.nassimlnd.flixhub.R;
@@ -44,6 +45,7 @@ public class ProfileChooserActivity extends AppCompatActivity {
     // Data
     private ArrayList<Profile> profiles;
     private ArrayList<ProfileCardFragment> profileCardFragments = new ArrayList<>();
+    private Profile profile;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,13 +73,14 @@ public class ProfileChooserActivity extends AppCompatActivity {
         }
 
         // Modal to add a new profile
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
-        bottomSheetDialog.setContentView(R.layout.modal_create_profile);
+        BottomSheetDialog createProfileModal = new BottomSheetDialog(this);
+        createProfileModal.setContentView(R.layout.modal_create_profile);
+        profile = new Profile();
 
         // Initialize bottom sheet view elements
-        avatarImageView = bottomSheetDialog.findViewById(R.id.avatarImageView);
-        registerProfileBirthdate = bottomSheetDialog.findViewById(R.id.registerProfileBirthdate);
-        registerProfileName = bottomSheetDialog.findViewById(R.id.registerProfileName);
+        avatarImageView = createProfileModal.findViewById(R.id.avatarImageView);
+        registerProfileBirthdate = createProfileModal.findViewById(R.id.registerProfileBirthdate);
+        registerProfileName = createProfileModal.findViewById(R.id.registerProfileName);
 
         // Setting up the default avatar
         Glide.with(avatarImageView.getContext())
@@ -87,17 +90,23 @@ public class ProfileChooserActivity extends AppCompatActivity {
 
         avatarImageView.setClipToOutline(true);
 
+        AvatarChooserModal avatarChooserModal = new AvatarChooserModal(this, avatarImageView, profile);
+
+        avatarImageView.setOnClickListener(v -> {
+            avatarChooserModal.show();
+        });
+
         profileAddButton.setOnClickListener(v -> {
-            bottomSheetDialog.show();
-            bottomSheetDialog.findViewById(R.id.registerProfileCancel).setOnClickListener(v1 -> bottomSheetDialog.dismiss());
-            bottomSheetDialog.findViewById(R.id.registerProfileSubmit).setOnClickListener(v1 -> {
+            createProfileModal.show();
+            createProfileModal.findViewById(R.id.registerProfileCancel).setOnClickListener(v1 -> createProfileModal.dismiss());
+            createProfileModal.findViewById(R.id.registerProfileSubmit).setOnClickListener(v1 -> {
                 SharedPreferences.Editor editor = getSharedPreferences("profile", MODE_PRIVATE).edit();
                 editor.putString("name", registerProfileName.getText().toString());
                 editor.putString("birthdate", registerProfileBirthdate.getText().toString());
-                editor.putString("avatar", "avatar1.png");
+                editor.putString("avatar", profile.getAvatar());
                 editor.apply();
 
-                bottomSheetDialog.dismiss();
+                createProfileModal.dismiss();
                 Intent intent = new Intent(this, RegisterInterestsActivity.class);
                 startActivity(intent);
             });
@@ -127,8 +136,10 @@ public class ProfileChooserActivity extends AppCompatActivity {
         };
 
         registerProfileBirthdate.setOnClickListener(v -> {
-            new DatePickerDialog(bottomSheetDialog.getContext(), R.style.DatePicker_Flix, date, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+            new DatePickerDialog(createProfileModal.getContext(), R.style.DatePicker_Flix, date, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
         });
+
+
     }
 
     public void updateDateLabel() {

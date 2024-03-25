@@ -81,17 +81,17 @@ public class ProfileCardFragment extends Fragment {
                 .transition(withCrossFade())
                 .into(profileAvatar);
 
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(view.getContext());
-        bottomSheetDialog.setContentView(R.layout.modal_edit_profile);
+        BottomSheetDialog editProfileModal = new BottomSheetDialog(view.getContext());
+        editProfileModal.setContentView(R.layout.modal_edit_profile);
 
-        TextView editProfileTitle = bottomSheetDialog.findViewById(R.id.editProfileTitle);
-        TextView editProfileName = bottomSheetDialog.findViewById(R.id.editProfileName);
-        editProfileBirthdate = bottomSheetDialog.findViewById(R.id.editProfileBirthdate);
-        ImageView editProfileAvatar = bottomSheetDialog.findViewById(R.id.editAvatarImage);
+        TextView editProfileTitle = editProfileModal.findViewById(R.id.editProfileTitle);
+        TextView editProfileName = editProfileModal.findViewById(R.id.editProfileName);
+        editProfileBirthdate = editProfileModal.findViewById(R.id.editProfileBirthdate);
+        ImageView editProfileAvatar = editProfileModal.findViewById(R.id.editAvatarImage);
 
-        Button editProfileDeleteButton = bottomSheetDialog.findViewById(R.id.editProfileEditButton);
-        Button editProfileCancelButton = bottomSheetDialog.findViewById(R.id.editProfileCancelButton);
-        Button editProfileSubmitButton = bottomSheetDialog.findViewById(R.id.editProfileSubmitButton);
+        Button editProfileDeleteButton = editProfileModal.findViewById(R.id.editProfileEditButton);
+        Button editProfileCancelButton = editProfileModal.findViewById(R.id.editProfileCancelButton);
+        Button editProfileSubmitButton = editProfileModal.findViewById(R.id.editProfileSubmitButton);
 
         editProfileTitle.setText(getContext().getString(R.string.modal_edit_profile_title) + " " + profile.getName());
         editProfileName.setText(profile.getName());
@@ -104,13 +104,13 @@ public class ProfileCardFragment extends Fragment {
 
         editProfileAvatar.setClipToOutline(true);
 
-        editProfileCancelButton.setOnClickListener(v -> bottomSheetDialog.dismiss());
+        editProfileCancelButton.setOnClickListener(v -> editProfileModal.dismiss());
 
         editProfileDeleteButton.setOnClickListener(v -> {
             boolean isDeleted = Profile.deleteProfile(getContext(), profile.getId());
 
             if (isDeleted) {
-                bottomSheetDialog.dismiss();
+                editProfileModal.dismiss();
                 profileCardLayout.setVisibility(View.GONE);
             }
         });
@@ -144,7 +144,7 @@ public class ProfileCardFragment extends Fragment {
                     .into(profileAvatar);
 
 
-            bottomSheetDialog.dismiss();
+            editProfileModal.dismiss();
         });
 
 
@@ -162,7 +162,7 @@ public class ProfileCardFragment extends Fragment {
                 Intent intent = new Intent(getContext(), HomeActivity.class);
                 startActivity(intent);
             } else {
-                bottomSheetDialog.show();
+                editProfileModal.show();
             }
         });
 
@@ -177,7 +177,16 @@ public class ProfileCardFragment extends Fragment {
         };
 
         editProfileBirthdate.setOnClickListener(v -> {
-            new DatePickerDialog(bottomSheetDialog.getContext(), R.style.DatePicker_Flix, date, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+            new DatePickerDialog(editProfileModal.getContext(), R.style.DatePicker_Flix, date, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+        });
+
+        BottomSheetDialog avatarModal = new BottomSheetDialog(view.getContext());
+        avatarModal.setContentView(R.layout.modal_avatar_picker);
+
+        AvatarChooserModal avatarChooserModal = new AvatarChooserModal(view.getContext(), editProfileAvatar, profile);
+
+        editProfileAvatar.setOnClickListener(v -> {
+            avatarChooserModal.show();
         });
 
         return view;

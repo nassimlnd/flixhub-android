@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bottom_sheet_dialog_rounded"
+    android:orientation="vertical"
+    android:paddingVertical="24dp">
+
+    <TextView
+        android:id="@+id/modalTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lexend"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:text="@string/modal_avatar_picker_title"
+        android:textSize="20sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginVertical="24dp"
+        android:background="@color/background_light" />
+
+    <LinearLayout
+        android:id="@+id/modalAvatarPicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="24dp"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+
+</LinearLayout>

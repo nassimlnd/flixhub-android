@@ -89,4 +89,5 @@
     <string name="empty_list_subtitle">Il semble que vous n\'ayez pas ajouté de films à la liste</string>
     <string name="empty_list_title">Votre liste est vide</string>
     <string name="episodes">Épisodes</string>
+    <string name="modal_avatar_picker_title">Choisissez un avatar</string>
 </resources>
