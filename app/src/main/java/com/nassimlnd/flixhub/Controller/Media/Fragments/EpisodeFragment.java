@@ -1,5 +1,6 @@
 package com.nassimlnd.flixhub.Controller.Media.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.nassimlnd.flixhub.Controller.Player.PlayerActivity;
 import com.nassimlnd.flixhub.Model.Episode;
 import com.nassimlnd.flixhub.R;
 
@@ -51,6 +53,15 @@ public class EpisodeFragment extends Fragment {
         episodeName.setText("Episode " + episode.getEpisodeNumber());
 
         Glide.with(episodePoster.getContext()).load(episode.getPoster()).into(episodePoster);
+
+        view.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), PlayerActivity.class);
+            intent.putExtra("mediaUrl", episode.getUrl());
+            intent.putExtra("mediaId", episode.getId());
+
+            Log.d("EPISODE", "Playing episode with url: " + episode.getUrl() + " and id: " + episode.getId());
+            startActivity(intent);
+        });
 
         return view;
     }

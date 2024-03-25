@@ -25,7 +25,7 @@ public class List {
         this.profileId = profileId;
     }
 
-    public static ArrayList<List> getListByProfileId(Context ctx) {
+    public static ArrayList<List> getListByProfile(Context ctx) {
         ArrayList<List> List = new ArrayList<>();
         try {
             SharedPreferences sharedPreferences = ctx.getSharedPreferences("profile", Context.MODE_PRIVATE);
