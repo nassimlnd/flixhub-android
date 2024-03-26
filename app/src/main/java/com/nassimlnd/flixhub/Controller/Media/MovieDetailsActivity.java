@@ -23,6 +23,7 @@ import com.nassimlnd.flixhub.Controller.Media.Fragments.MediaActorFragment;
 import com.nassimlnd.flixhub.Controller.Media.Fragments.MediaTrailersFragment;
 import com.nassimlnd.flixhub.Controller.Network.APIClient;
 import com.nassimlnd.flixhub.Controller.Player.PlayerActivity;
+import com.nassimlnd.flixhub.Model.List;
 import com.nassimlnd.flixhub.Model.Movie;
 import com.nassimlnd.flixhub.Model.MovieCategory;
 import com.nassimlnd.flixhub.R;
@@ -30,6 +31,7 @@ import com.nassimlnd.flixhub.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.CountDownLatch;
@@ -46,6 +48,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     ScrollView content;
     TextView mediaTitle, mediaDescription, mediaRating, mediaYear, mediaGroupTitle, trailerTitle;
     FlexboxLayout mediaRatingButton;
+    ArrayList<List> lists;
 
     // Data
     private Movie movie;
@@ -67,7 +70,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         playButton = findViewById(R.id.playButton);
         trailerTitle = findViewById(R.id.trailerTitle);
         mediaRatingButton = findViewById(R.id.mediaRatingButton);
-        downloadButton = findViewById (R.id.downloadButton);
+        downloadButton = findViewById(R.id.downloadButton);
 
         backBtn.setOnClickListener(v -> {
             getOnBackPressedDispatcher().onBackPressed();
@@ -89,7 +92,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        downloadButton.setOnClickListener(v->{
+
+        downloadButton.setOnClickListener(v -> {
+
 
         });
 
@@ -97,18 +102,31 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         if (mediaId != 0) {
             getMedia(mediaId);
+
+            loadingSpinner.setVisibility(View.GONE);
+            content.setVisibility(View.VISIBLE);
         } else {
             finish();
         }
+
+        lists = List.getListByProfile(getApplicationContext());
+        for (List list : lists) {
+            if (movie.getId() == list.getMovie().getId()) {
+
+                break;
+            }
+        }
+
+
     }
 
     public void getMedia(int mediaId) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-        Handler handler = new Handler(getMainLooper());
+        CountDownLatch latch = new CountDownLatch(1);
 
-        executorService.execute(() -> {
-            String result = APIClient.getMethodWithCookies("/movies/" + mediaId, getApplicationContext());
-            handler.post(() -> {
+        try {
+            executorService.execute(() -> {
+                String result = APIClient.getMethodWithCookies("/movies/" + mediaId, getApplicationContext());
                 if (result != null) {
                     Log.d("MediaActivity", result);
 
@@ -132,21 +150,26 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
                         getMovieDetails(movie);
 
+                        latch.countDown();
+
                         Glide.with(mediaImage.getContext())
                                 .load(movie.getPoster())
                                 .into(mediaImage);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
                 }
             });
-        });
+
+            latch.await();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void getMovieDetails(Movie movie) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-        Handler handler = new Handler(getMainLooper());
+        CountDownLatch latch = new CountDownLatch(1);
         String locale = Locale.getDefault().getLanguage();
         StringBuilder lang = new StringBuilder();
         String title = movie.getTitle();
@@ -169,21 +192,23 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
             executorService.execute(() -> {
                 String result = APIClient.getMethodExternalAPI(url);
-                handler.post(() -> {
-                    try {
-                        JSONObject movieJson = new JSONObject(result);
+                try {
+                    JSONObject movieJson = new JSONObject(result);
 
-                        mediaDescription.setText(movieJson.getString("overview"));
-                        String year = movieJson.getString("release_date").split("-")[0];
-                        mediaYear.setText(year);
+                    mediaDescription.setText(movieJson.getString("overview"));
+                    String year = movieJson.getString("release_date").split("-")[0];
+                    mediaYear.setText(year);
 
-                        getMediaActors(movie.getTmdbId());
-                        getMoviesTrailers(movie.getTmdbId());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                });
+                    getMediaActors(movie.getTmdbId());
+                    getMoviesTrailers(movie.getTmdbId());
+
+                    latch.countDown();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             });
+
+            latch.await();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -192,14 +217,13 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     public void getMediaActors(String movieId) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-        Handler handler = new Handler(getMainLooper());
+        CountDownLatch latch = new CountDownLatch(1);
 
-        executorService.execute(() -> {
+        try {
+            executorService.execute(() -> {
+                String url = "https://api.themoviedb.org/3/movie/" + movieId + "/casts?api_key=bee04557bade921aab4537b991dfb6df";
+                String result = APIClient.getMethodExternalAPI(url);
 
-            String url = "https://api.themoviedb.org/3/movie/" + movieId + "/casts?api_key=bee04557bade921aab4537b991dfb6df";
-            String result = APIClient.getMethodExternalAPI(url);
-
-            handler.post(() -> {
                 Log.d("MediaActivity", result);
                 try {
                     JSONObject jsonObject = new JSONObject(result);
@@ -221,36 +245,41 @@ public class MovieDetailsActivity extends AppCompatActivity {
                                 .commit();
 
                     }
+
+                    latch.countDown();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             });
-        });
+
+            latch.await();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void getMoviesTrailers(String movieId) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-        Handler handler = new Handler(getMainLooper());
+        CountDownLatch latch = new CountDownLatch(1);
 
-        executorService.execute(() -> {
-            String locale = Locale.getDefault().getLanguage();
-            StringBuilder lang = new StringBuilder();
-            switch (locale) {
-                case "fr":
-                    lang.append("fr-FR");
-                    break;
-                case "en":
-                    lang.append("en-US");
-                    break;
-                default:
-                    lang.append("fr-FR");
-                    break;
-            }
+        try {
+            executorService.execute(() -> {
+                String locale = Locale.getDefault().getLanguage();
+                StringBuilder lang = new StringBuilder();
+                switch (locale) {
+                    case "fr":
+                        lang.append("fr-FR");
+                        break;
+                    case "en":
+                        lang.append("en-US");
+                        break;
+                    default:
+                        lang.append("fr-FR");
+                        break;
+                }
 
-            String url = "https://api.themoviedb.org/3/movie/" + movieId + "/videos?api_key=bee04557bade921aab4537b991dfb6df&language=" + lang;
-            String result = APIClient.getMethodExternalAPI(url);
-
-            handler.post(() -> {
+                String url = "https://api.themoviedb.org/3/movie/" + movieId + "/videos?api_key=bee04557bade921aab4537b991dfb6df&language=" + lang;
+                String result = APIClient.getMethodExternalAPI(url);
                 Log.d("Trailers", result);
 
                 try {
@@ -276,14 +305,17 @@ public class MovieDetailsActivity extends AppCompatActivity {
                                 .add(R.id.trailersContainer, mediaTrailersFragment)
                                 .commit();
                     }
+
+                    latch.countDown();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-                loadingSpinner.setVisibility(View.GONE);
-                content.setVisibility(View.VISIBLE);
             });
-        });
+
+            latch.await();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void sendInteraction() {
