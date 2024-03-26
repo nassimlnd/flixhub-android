@@ -132,6 +132,7 @@ public class DiscoverFragment extends Fragment {
     public void showSearchedMovies() {
         String input = searchInput.getText().toString();
         ArrayList<Movie> movies = Movie.getSearchedMovies(input, getContext());
+
         mediaContainer.setVisibility(View.GONE);
         for (Movie movie : movies) {
             SearchResultFragment searchResultFragment = new SearchResultFragment(movie);

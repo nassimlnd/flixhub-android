@@ -74,8 +74,6 @@ public class AvatarChooserModal {
             avatarGroup.addView(avatarScrollView);
 
             for (String avatar : avatars.get(key)) {
-                Log.d("LoadingAvatars", "AvatarChooserModal: loading avatar " + avatar);
-
                 ImageView avatarImageView = new ImageView(ctx);
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(300, ViewGroup.LayoutParams.WRAP_CONTENT);
                 layoutParams.setMargins(0, 0, 24, 24);
