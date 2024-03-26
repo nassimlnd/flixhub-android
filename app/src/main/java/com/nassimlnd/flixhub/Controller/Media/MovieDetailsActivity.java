@@ -113,9 +113,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
         lists = List.getListByProfile(getApplicationContext());
         for (List list : lists) {
             if (movie.getId() == list.getMovie().getId()) {
-
+                downloadButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.minus, 0, 0, 0);
                 break;
-            }
+            }else
+                downloadButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.plus, 0, 0, 0);
+
         }
 
         loadingSpinner.setVisibility(View.GONE);
