@@ -27,9 +27,13 @@ import com.nassimlnd.flixhub.Controller.Home.Fragments.Discover.Fragments.Search
 import com.nassimlnd.flixhub.Controller.Media.MovieDetailsActivity;
 import com.nassimlnd.flixhub.Model.Interaction;
 import com.nassimlnd.flixhub.Model.Movie;
+import com.nassimlnd.flixhub.Model.Serie;
 import com.nassimlnd.flixhub.R;
 
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * It's the fragment where the user can discover new movies and series
@@ -144,6 +148,19 @@ public class DiscoverFragment extends Fragment {
                     .commit();
         }
         searchListLayout.setVisibility(View.VISIBLE);
+    }
+
+    public void showSearchedResult() {
+        String input = searchInput.getText().toString();
+        ArrayList<Movie> movies = new ArrayList<>();
+        ArrayList<Serie> series = new ArrayList<>();
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+
+        executor.execute(() -> {
+
+        });
+
     }
 
 

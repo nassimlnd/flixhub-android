@@ -3,7 +3,6 @@ package com.nassimlnd.flixhub.Controller.Media;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +15,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.content.res.AppCompatResources;
 
 import com.bumptech.glide.Glide;
 import com.google.android.flexbox.FlexboxLayout;
@@ -115,13 +113,10 @@ public class MovieDetailsActivity extends AppCompatActivity {
             if (movie.getId() == list.getMovie().getId()) {
                 downloadButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.minus, 0, 0, 0);
                 break;
-            }else
+            } else
                 downloadButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.plus, 0, 0, 0);
 
         }
-
-        loadingSpinner.setVisibility(View.GONE);
-        content.setVisibility(View.VISIBLE);
 
     }
 
@@ -137,11 +132,13 @@ public class MovieDetailsActivity extends AppCompatActivity {
         Glide.with(mediaImage.getContext())
                 .load(movie.getPoster())
                 .into(mediaImage);
+
+        loadingSpinner.setVisibility(View.GONE);
+        content.setVisibility(View.VISIBLE);
     }
 
     public void getMovieDetails(Movie movie) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-        CountDownLatch latch = new CountDownLatch(1);
         String locale = Locale.getDefault().getLanguage();
         StringBuilder lang = new StringBuilder();
         String title = movie.getTitle();
@@ -174,13 +171,10 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     getMediaActors(movie.getTmdbId());
                     getMoviesTrailers(movie.getTmdbId());
 
-                    latch.countDown();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             });
-
-            latch.await();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -188,105 +182,87 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     public void getMediaActors(String movieId) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-        CountDownLatch latch = new CountDownLatch(1);
 
-        try {
-            executorService.execute(() -> {
-                String url = "https://api.themoviedb.org/3/movie/" + movieId + "/casts?api_key=bee04557bade921aab4537b991dfb6df";
-                String result = APIClient.getMethodExternalAPI(url);
+        executorService.execute(() -> {
+            String url = "https://api.themoviedb.org/3/movie/" + movieId + "/casts?api_key=bee04557bade921aab4537b991dfb6df";
+            String result = APIClient.getMethodExternalAPI(url);
 
-                Log.d("MediaActivity", result);
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-                    JSONArray actors = jsonObject.getJSONArray("cast");
+            Log.d("MediaActivity", result);
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+                JSONArray actors = jsonObject.getJSONArray("cast");
 
-                    for (int i = 0; i < actors.length(); i++) {
-                        JSONObject actor = actors.getJSONObject(i);
-                        String name = actor.getString("name");
-                        String character = actor.getString("character");
-                        String profilePath = actor.getString("profile_path");
+                for (int i = 0; i < actors.length(); i++) {
+                    JSONObject actor = actors.getJSONObject(i);
+                    String name = actor.getString("name");
+                    String character = actor.getString("character");
+                    String profilePath = actor.getString("profile_path");
 
-                        HashMap<String, String> data = new HashMap<>();
-                        data.put("name", name);
-                        data.put("character", character);
-                        data.put("profile_path", profilePath);
+                    HashMap<String, String> data = new HashMap<>();
+                    data.put("name", name);
+                    data.put("character", character);
+                    data.put("profile_path", profilePath);
 
-                        getSupportFragmentManager().beginTransaction()
-                                .add(R.id.actorsContainer, new MediaActorFragment(data))
-                                .commit();
+                    getSupportFragmentManager().beginTransaction()
+                            .add(R.id.actorsContainer, new MediaActorFragment(data))
+                            .commit();
 
-                    }
-
-                    latch.countDown();
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-            });
-
-            latch.await();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public void getMoviesTrailers(String movieId) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-        CountDownLatch latch = new CountDownLatch(1);
 
-        try {
-            executorService.execute(() -> {
-                String locale = Locale.getDefault().getLanguage();
-                StringBuilder lang = new StringBuilder();
-                switch (locale) {
-                    case "fr":
-                        lang.append("fr-FR");
-                        break;
-                    case "en":
-                        lang.append("en-US");
-                        break;
-                    default:
-                        lang.append("fr-FR");
-                        break;
+        executorService.execute(() -> {
+            String locale = Locale.getDefault().getLanguage();
+            StringBuilder lang = new StringBuilder();
+            switch (locale) {
+                case "fr":
+                    lang.append("fr-FR");
+                    break;
+                case "en":
+                    lang.append("en-US");
+                    break;
+                default:
+                    lang.append("fr-FR");
+                    break;
+            }
+
+            String url = "https://api.themoviedb.org/3/movie/" + movieId + "/videos?api_key=bee04557bade921aab4537b991dfb6df&language=" + lang;
+            String result = APIClient.getMethodExternalAPI(url);
+            Log.d("Trailers", result);
+
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+                JSONArray trailers = jsonObject.getJSONArray("results");
+
+                if (trailers.length() == 0) {
+                    trailerTitle.setVisibility(View.GONE);
+                    loadingSpinner.setVisibility(View.GONE);
+                    content.setVisibility(View.VISIBLE);
+                    return;
                 }
 
-                String url = "https://api.themoviedb.org/3/movie/" + movieId + "/videos?api_key=bee04557bade921aab4537b991dfb6df&language=" + lang;
-                String result = APIClient.getMethodExternalAPI(url);
-                Log.d("Trailers", result);
+                for (int i = 0; i < trailers.length(); i++) {
+                    JSONObject trailer = trailers.getJSONObject(i);
+                    String trailerTitle = trailer.getString("name");
+                    String trailerDuration = trailer.getString("size");
+                    String trailerImage = "https://img.youtube.com/vi/" + trailer.getString("key") + "/hqdefault.jpg";
 
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-                    JSONArray trailers = jsonObject.getJSONArray("results");
+                    MediaTrailersFragment mediaTrailersFragment = new MediaTrailersFragment(trailerTitle, trailerDuration, trailerImage);
 
-                    if (trailers.length() == 0) {
-                        trailerTitle.setVisibility(View.GONE);
-                        loadingSpinner.setVisibility(View.GONE);
-                        content.setVisibility(View.VISIBLE);
-                        return;
-                    }
-
-                    for (int i = 0; i < trailers.length(); i++) {
-                        JSONObject trailer = trailers.getJSONObject(i);
-                        String trailerTitle = trailer.getString("name");
-                        String trailerDuration = trailer.getString("size");
-                        String trailerImage = "https://img.youtube.com/vi/" + trailer.getString("key") + "/hqdefault.jpg";
-
-                        MediaTrailersFragment mediaTrailersFragment = new MediaTrailersFragment(trailerTitle, trailerDuration, trailerImage);
-
-                        getSupportFragmentManager().beginTransaction()
-                                .add(R.id.trailersContainer, mediaTrailersFragment)
-                                .commit();
-                    }
-
-                    latch.countDown();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    getSupportFragmentManager().beginTransaction()
+                            .add(R.id.trailersContainer, mediaTrailersFragment)
+                            .commit();
                 }
-            });
-
-            latch.await();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public void sendInteraction() {
