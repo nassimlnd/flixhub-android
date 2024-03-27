@@ -26,12 +26,8 @@ import com.nassimlnd.flixhub.Model.Movie;
 import com.nassimlnd.flixhub.Model.MovieCategory;
 import com.nassimlnd.flixhub.R;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -98,7 +94,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         mediaId = getIntent().getIntExtra("movieId", 0);
 
         if (mediaId != 0) {
-            getMedia(mediaId);
+            getMovie(mediaId);
         } else {
             finish();
         }
@@ -113,7 +109,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         }
     }
 
-    public void getMedia(int mediaId) {
+    public void getMovie(int mediaId) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
 
         executor.execute(() -> {
@@ -153,130 +149,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 loadingSpinner.setVisibility(View.GONE);
                 content.setVisibility(View.VISIBLE);
             });
-        });
-    }
-
-    public void getMovieDetails(Movie movie) {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        String locale = Locale.getDefault().getLanguage();
-        StringBuilder lang = new StringBuilder();
-
-        try {
-            switch (locale) {
-                case "fr":
-                    lang.append("fr-FR");
-                    break;
-                case "en":
-                    lang.append("en-US");
-                    break;
-                default:
-                    lang.append("fr-FR");
-                    break;
-            }
-
-            String url = "https://api.themoviedb.org/3/movie/" + movie.getTmdbId() + "?api_key=bee04557bade921aab4537b991dfb6df&language=" + lang;
-
-            executorService.execute(() -> {
-                String result = APIClient.getMethodExternalAPI(url);
-                try {
-                    JSONObject movieJson = new JSONObject(result);
-
-                    mediaDescription.setText(movieJson.getString("overview"));
-                    String year = movieJson.getString("release_date").split("-")[0];
-                    mediaYear.setText(year);
-
-                    getMediaActors(movie.getTmdbId());
-                    getMoviesTrailers(movie.getTmdbId());
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void getMediaActors(String movieId) {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-
-        executorService.execute(() -> {
-            String url = "https://api.themoviedb.org/3/movie/" + movieId + "/casts?api_key=bee04557bade921aab4537b991dfb6df";
-            String result = APIClient.getMethodExternalAPI(url);
-
-            try {
-                JSONObject jsonObject = new JSONObject(result);
-                JSONArray actors = jsonObject.getJSONArray("cast");
-
-                for (int i = 0; i < actors.length(); i++) {
-                    JSONObject actor = actors.getJSONObject(i);
-                    String name = actor.getString("name");
-                    String character = actor.getString("character");
-                    String profilePath = actor.getString("profile_path");
-
-                    HashMap<String, String> data = new HashMap<>();
-                    data.put("name", name);
-                    data.put("character", character);
-                    data.put("profile_path", profilePath);
-
-                    getSupportFragmentManager().beginTransaction()
-                            .add(R.id.actorsContainer, new MediaActorFragment(data))
-                            .commit();
-
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    public void getMoviesTrailers(String movieId) {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-
-        executorService.execute(() -> {
-            String locale = Locale.getDefault().getLanguage();
-            StringBuilder lang = new StringBuilder();
-            switch (locale) {
-                case "fr":
-                    lang.append("fr-FR");
-                    break;
-                case "en":
-                    lang.append("en-US");
-                    break;
-                default:
-                    lang.append("fr-FR");
-                    break;
-            }
-
-            String url = "https://api.themoviedb.org/3/movie/" + movieId + "/videos?api_key=bee04557bade921aab4537b991dfb6df&language=" + lang;
-            String result = APIClient.getMethodExternalAPI(url);
-
-            try {
-                JSONObject jsonObject = new JSONObject(result);
-                JSONArray trailers = jsonObject.getJSONArray("results");
-
-                if (trailers.length() == 0) {
-                    trailerTitle.setVisibility(View.GONE);
-                    loadingSpinner.setVisibility(View.GONE);
-                    content.setVisibility(View.VISIBLE);
-                    return;
-                }
-
-                for (int i = 0; i < trailers.length(); i++) {
-                    JSONObject trailer = trailers.getJSONObject(i);
-                    String trailerTitle = trailer.getString("name");
-                    String trailerDuration = trailer.getString("size");
-                    String trailerImage = "https://img.youtube.com/vi/" + trailer.getString("key") + "/hqdefault.jpg";
-
-                    MediaTrailersFragment mediaTrailersFragment = new MediaTrailersFragment(trailerTitle, trailerDuration, trailerImage);
-
-                    getSupportFragmentManager().beginTransaction()
-                            .add(R.id.trailersContainer, mediaTrailersFragment)
-                            .commit();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         });
     }
 
