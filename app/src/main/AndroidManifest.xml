@@ -63,6 +63,12 @@
         <activity
             android:name=".Controller.Media.SerieDetailsActivity"
             android:configChanges="orientation" />
+        <activity
+            android:name=".Controller.Media.SerieCategoryListActivity"
+            android:configChanges="orientation" />
+        <activity
+            android:name=".Controller.Profile.PrivacyPolicyActivity"
+            android:configChanges="orientation" />
 
         <service
             android:name=".Service.NotificationService"

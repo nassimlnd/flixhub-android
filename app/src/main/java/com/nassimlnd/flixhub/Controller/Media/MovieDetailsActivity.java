@@ -1,5 +1,7 @@
 package com.nassimlnd.flixhub.Controller.Media;
 
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -121,6 +123,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
             ArrayList<HashMap<String, String>> movieTrailers = movie.getMovieTrailers();
 
             runOnUiThread(() -> {
+                // movie.getTitle().split(String.valueOf("\\("))[0].trim()
                 mediaTitle.setText(movie.getTitle());
                 mediaGroupTitle.setText(category.getName());
 
@@ -134,16 +137,21 @@ public class MovieDetailsActivity extends AppCompatActivity {
                             .commit();
                 }
 
-                for (HashMap<String, String> trailer : movieTrailers) {
-                    MediaTrailersFragment mediaTrailersFragment = new MediaTrailersFragment(trailer.get("name"), trailer.get("size"), trailer.get("poster"));
+                if (movieTrailers.size() == 0) {
+                    trailerTitle.setVisibility(View.GONE);
+                } else {
+                    for (HashMap<String, String> trailer : movieTrailers) {
+                        MediaTrailersFragment mediaTrailersFragment = new MediaTrailersFragment(trailer.get("name"), trailer.get("size"), trailer.get("poster"));
 
-                    getSupportFragmentManager().beginTransaction()
-                            .add(R.id.trailersContainer, mediaTrailersFragment)
-                            .commit();
+                        getSupportFragmentManager().beginTransaction()
+                                .add(R.id.trailersContainer, mediaTrailersFragment)
+                                .commit();
+                    }
                 }
 
                 Glide.with(mediaImage.getContext())
                         .load(movie.getPoster())
+                        .transition(withCrossFade())
                         .into(mediaImage);
 
                 loadingSpinner.setVisibility(View.GONE);

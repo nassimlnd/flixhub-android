@@ -90,4 +90,18 @@
     <string name="empty_list_title">Votre liste est vide</string>
     <string name="episodes">Épisodes</string>
     <string name="modal_avatar_picker_title">Choisissez un avatar</string>
+    <string name="privacy_policy_title_1">Politique de Confidentialité de FlixHub</string>
+    <string name="privacy_policy_text_1">Cette politique de confidentialité explique comment FlixHub recueille, utilise et protège les informations personnelles que vous nous fournissez lorsque vous utilisez notre application mobile FlixHub (l\'application). FlixHub est dédié à la protection de la vie privée de ses utilisateurs. Toute information que nous recueillons est utilisée conformément à cette politique de confidentialité.\n\nEn utilisant l\'application, vous consentez à la collecte et à l\'utilisation de vos informations personnelles telles que décrites dans cette politique de confidentialité. Si vous n\'acceptez pas les termes de cette politique de confidentialité, veuillez ne pas utiliser l\'application.</string>
+    <string name="privacy_policy_title_2">1. Informations que nous collectons :</string>
+    <string name="privacy_policy_text_2">1.1 Informations personnelles :\nLors de votre utilisation de l\'application, nous pouvons recueillir certaines informations personnelles vous concernant, telles que votre nom, votre adresse e-mail, votre âge, et vos préférences de contenu.\n\n1.2 Données d\'utilisation :\nNous pouvons également collecter des informations sur la manière dont vous utilisez l\'application, telles que les films/émissions regardés, les recherches effectuées, les interactions avec l\'interface utilisateur, etc.</string>
+    <string name="privacy_policy_title_3">2. Comment nous utilisons vos informations :</string>
+    <string name="privacy_policy_text_3">Nous utilisons les informations collectées pour :\n\n- Vous fournir des fonctionnalités et des services personnalisés.\n- Améliorer et optimiser l\'expérience utilisateur.\n- Analyser les tendances d\'utilisation et les préférences des utilisateurs.\n- Vous envoyer des notifications et des mises à jour concernant l\'application.</string>
+    <string name="privacy_policy_title_4">3. Partage des informations :</string>
+    <string name="privacy_policy_text_4">Nous ne vendons, n\'échangeons ni ne louons vos informations personnelles à des tiers sans votre consentement. Cependant, nous pouvons partager vos informations avec des tiers de confiance qui nous aident à exploiter l\'application ou à fournir des services en notre nom, sous réserve de cette politique de confidentialité.</string>
+    <string name="privacy_policy_title_5">4. Sécurité des informations :</string>
+    <string name="privacy_policy_text_5">Nous mettons en place des mesures de sécurité appropriées pour protéger vos informations personnelles contre tout accès non autorisé, altération, divulgation ou destruction.</string>
+    <string name="privacy_policy_title_6">5. Modifications de la politique de confidentialité :</string>
+    <string name="privacy_policy_text_6">FlixHub se réserve le droit de modifier cette politique de confidentialité à tout moment. Toute modification de cette politique de confidentialité sera affichée sur cette page avec la date de révision mise à jour.</string>
+    <string name="privacy_policy_title_7">6. Contactez-nous :</string>
+    <string name="privacy_policy_text_7">Si vous avez des questions ou des préoccupations concernant cette Politique de Confidentialité, veuillez nous contacter à l\'adresse suivante : nassimlnd37@gmail.com.\n\nCette politique de confidentialité a été mise à jour le 27 mars 2024.</string>
 </resources>

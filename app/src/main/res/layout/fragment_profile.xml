@@ -89,7 +89,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
-                    android:paddingHorizontal="10dp"
                     app:alignItems="center"
                     app:flexDirection="row"
                     app:justifyContent="space_between">
@@ -126,7 +125,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
-                    android:paddingHorizontal="10dp"
                     app:alignItems="center"
                     app:flexDirection="row"
                     app:justifyContent="space_between">
@@ -162,7 +160,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
-                    android:paddingHorizontal="10dp"
                     app:alignItems="center"
                     app:flexDirection="row"
                     app:justifyContent="space_between">
@@ -198,7 +195,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
-                    android:paddingHorizontal="10dp"
                     app:alignItems="center"
                     app:flexDirection="row"
                     app:justifyContent="space_between">
@@ -234,7 +230,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
-                    android:paddingHorizontal="10dp"
                     app:alignItems="center"
                     app:flexDirection="row"
                     app:justifyContent="space_between">
@@ -267,10 +262,10 @@
                 </com.google.android.flexbox.FlexboxLayout>
 
                 <com.google.android.flexbox.FlexboxLayout
+                    android:id="@+id/privacy_policy_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
-                    android:paddingHorizontal="10dp"
                     app:alignItems="center"
                     app:flexDirection="row"
                     app:justifyContent="space_between">
@@ -307,7 +302,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
-                    android:paddingHorizontal="10dp"
                     app:alignItems="center"
                     app:flexDirection="row"
                     app:justifyContent="space_between">
