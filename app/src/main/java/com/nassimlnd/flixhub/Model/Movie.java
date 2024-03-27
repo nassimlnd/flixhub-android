@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.nassimlnd.flixhub.Controller.Network.APIClient;
 
+import org.checkerframework.checker.units.qual.A;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,6 +14,8 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -52,6 +55,12 @@ public class Movie {
     }
 
     // Back-end methods
+
+    /**
+     * Get random movies from the server
+     * @param ctx the context
+     * @return ArrayList<Movie> movies
+     */
     public static ArrayList<Movie> getRandomMovies(Context ctx, int amount) {
         ArrayList<Movie> movies = new ArrayList<>();
         try {
@@ -133,6 +142,11 @@ public class Movie {
         return movies;
     }
 
+    /**
+     * Get a single random movie from the server
+     * @param ctx the context
+     * @return Movie movie
+     */
     public static Movie getSingleRandomMovie(Context ctx) {
         Movie movie = new Movie();
         try {
@@ -167,6 +181,13 @@ public class Movie {
         return movie;
     }
 
+    /**
+     * Get the movies by category
+     * @param category the category of the movies
+     * @param ctx the context
+     * @param amount the amount of movies to fetch
+     * @return ArrayList<Movie> movies
+     */
     public static ArrayList<Movie> getMoviesByCategory(String category, Context ctx, int amount) {
         ArrayList<Movie> movies = new ArrayList<>();
         try {
@@ -208,6 +229,11 @@ public class Movie {
         return null;
     }
 
+    /**
+     * Get the movie history of the user by its profile
+     * @param ctx the context
+     * @return ArrayList<Movie> movies
+     */
     public static ArrayList<Movie> getMovieHistoryByProfile(Context ctx) {
         // Get the profile id from the shared preferences
         SharedPreferences sharedPreferences = ctx.getSharedPreferences("profile", Context.MODE_PRIVATE);
@@ -250,6 +276,12 @@ public class Movie {
         }
     }
 
+    /**
+     * Get the movie from the server by its id
+     * @param movieId the id of the movie
+     * @param ctx the context
+     * @return Movie movie
+     */
     public static Movie getMovieById(int movieId, Context ctx) {
         Movie movie = new Movie();
         try {
@@ -275,6 +307,156 @@ public class Movie {
             });
             latch.await();
             return movie;
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Get the details of the movie from TMDB API
+     * @return HashMap<String, String> movieDetails
+     */
+    public HashMap<String, String> getMovieDetails() {
+        HashMap<String, String> movieDetails = new HashMap<>();
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        CountDownLatch latch = new CountDownLatch(1);
+
+        try {
+            executor.execute(() -> {
+                String locale = Locale.getDefault().getLanguage();
+                StringBuilder lang = new StringBuilder();
+
+                switch (locale) {
+                    case "fr":
+                        lang.append("fr-FR");
+                        break;
+                    case "en":
+                        lang.append("en-US");
+                        break;
+                    default:
+                        lang.append("en-US");
+                        break;
+                }
+
+                String url = "https://api.themoviedb.org/3/movie/" + this.getTmdbId() + "?api_key=bee04557bade921aab4537b991dfb6df&language=" + lang;
+                String result = APIClient.getMethodExternalAPI(url);
+                try {
+                    JSONObject movieObject = new JSONObject(result);
+
+                    movieDetails.put("overview", movieObject.getString("overview"));
+                    movieDetails.put("release_date", movieObject.getString("release_date"));
+
+                    latch.countDown();
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+            latch.await();
+            return movieDetails;
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Get the cast of the movie from TMDB API
+     * @return HashMap<String, HashMap<String, String>> movieCast
+     */
+    public HashMap<String, HashMap<String, String>> getMovieCast() {
+        HashMap<String, HashMap<String, String>> movieCast = new HashMap<>();
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        CountDownLatch latch = new CountDownLatch(1);
+
+        try {
+            executor.execute(() -> {
+                String url = "https://api.themoviedb.org/3/movie/" + this.getTmdbId() + "/casts?api_key=bee04557bade921aab4537b991dfb6df";
+                String result = APIClient.getMethodExternalAPI(url);
+
+                try {
+                    JSONObject castObject = new JSONObject(result);
+                    JSONArray castArray = castObject.getJSONArray("cast");
+
+                    for (int i = 0; i < castArray.length(); i++) {
+                        JSONObject actor = castArray.getJSONObject(i);
+                        HashMap<String, String> actorDetails = new HashMap<>();
+
+                        actorDetails.put("name", actor.getString("name"));
+                        actorDetails.put("character", actor.getString("character"));
+                        actorDetails.put("profile_path", actor.getString("profile_path"));
+
+                        movieCast.put(actor.getString("name"), actorDetails);
+                    }
+
+                    latch.countDown();
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+            latch.await();
+            return movieCast;
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Get the trailers of the movie from TMDB API
+     * @return ArrayList<HashMap<String, String>> movieTrailers
+     */
+    public ArrayList<HashMap<String, String>> getMovieTrailers() {
+        ArrayList<HashMap<String, String>> movieTrailers = new ArrayList<>();
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        CountDownLatch latch = new CountDownLatch(1);
+
+        try {
+            executorService.execute(() -> {
+                String locale = Locale.getDefault().getLanguage();
+                StringBuilder lang = new StringBuilder();
+                switch (locale) {
+                    case "fr":
+                        lang.append("fr-FR");
+                        break;
+                    case "en":
+                        lang.append("en-US");
+                        break;
+                    default:
+                        lang.append("fr-FR");
+                        break;
+                }
+
+                String url = "https://api.themoviedb.org/3/movie/" + this.getTmdbId() + "/videos?api_key=bee04557bade921aab4537b991dfb6df&language=" + lang;
+                String result = APIClient.getMethodExternalAPI(url);
+
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray trailers = jsonObject.getJSONArray("results");
+
+                    if (trailers.length() > 0) {
+                        for (int i = 0; i < trailers.length(); i++) {
+                            JSONObject trailer = trailers.getJSONObject(i);
+                            HashMap<String, String> trailerDetails = new HashMap<>();
+
+                            trailerDetails.put("name", trailer.getString("name"));
+                            trailerDetails.put("key", trailer.getString("key"));
+                            trailerDetails.put("size", trailer.getString("size"));
+                            trailerDetails.put("poster", "https://img.youtube.com/vi/" + trailer.getString("key") + "/hqdefault.jpg");
+
+                            movieTrailers.add(trailerDetails);
+                        }
+                        latch.countDown();
+                    } else {
+                        latch.countDown();
+                    }
+
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+            latch.await();
+            return movieTrailers;
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

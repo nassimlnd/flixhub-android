@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -42,8 +41,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     // View elements
     ProgressBar loadingSpinner;
     ImageView backBtn, mediaImage;
-    Button playButton;
-    Button downloadButton;
+    Button playButton, listButton;
     ScrollView content;
     TextView mediaTitle, mediaDescription, mediaRating, mediaYear, mediaGroupTitle, trailerTitle;
     FlexboxLayout mediaRatingButton;
@@ -52,6 +50,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     // Data
     private Movie movie;
     private int count = 0;
+    private int mediaId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,7 +68,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         playButton = findViewById(R.id.playButton);
         trailerTitle = findViewById(R.id.trailerTitle);
         mediaRatingButton = findViewById(R.id.mediaRatingButton);
-        downloadButton = findViewById(R.id.downloadButton);
+        listButton = findViewById(R.id.downloadButton);
 
         backBtn.setOnClickListener(v -> {
             getOnBackPressedDispatcher().onBackPressed();
@@ -92,15 +91,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
             }
         });
 
-        downloadButton.setOnClickListener(v -> {
-
+        listButton.setOnClickListener(v -> {
 
         });
 
-        // Exemple de changement d'icône pour le bouton
-        // downloadButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.minus, 0, 0, 0);
-
-        int mediaId = getIntent().getIntExtra("movieId", 0);
+        mediaId = getIntent().getIntExtra("movieId", 0);
 
         if (mediaId != 0) {
             getMedia(mediaId);
@@ -111,38 +106,60 @@ public class MovieDetailsActivity extends AppCompatActivity {
         lists = List.getListByProfile(getApplicationContext());
         for (List list : lists) {
             if (movie.getId() == list.getMovie().getId()) {
-                downloadButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.minus, 0, 0, 0);
+                listButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.minus, 0, 0, 0);
                 break;
             } else
-                downloadButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.plus, 0, 0, 0);
-
+                listButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.plus, 0, 0, 0);
         }
-
     }
 
     public void getMedia(int mediaId) {
-        movie = Movie.getMovieById(mediaId, getApplicationContext());
-        MovieCategory category = MovieCategory.getMovieCategoryById(getApplicationContext(), movie.getCategoryId());
+        ExecutorService executor = Executors.newSingleThreadExecutor();
 
-        mediaTitle.setText(movie.getTitle());
-        mediaGroupTitle.setText(category.getName());
+        executor.execute(() -> {
+            movie = Movie.getMovieById(mediaId, getApplicationContext());
+            MovieCategory category = MovieCategory.getMovieCategoryById(getApplicationContext(), movie.getCategoryId());
 
-        getMovieDetails(movie);
+            HashMap<String, String> movieDetails = movie.getMovieDetails();
+            HashMap<String, HashMap<String, String>> movieCast = movie.getMovieCast();
+            ArrayList<HashMap<String, String>> movieTrailers = movie.getMovieTrailers();
 
-        Glide.with(mediaImage.getContext())
-                .load(movie.getPoster())
-                .into(mediaImage);
+            runOnUiThread(() -> {
+                mediaTitle.setText(movie.getTitle());
+                mediaGroupTitle.setText(category.getName());
 
-        loadingSpinner.setVisibility(View.GONE);
-        content.setVisibility(View.VISIBLE);
+                mediaDescription.setText(movieDetails.get("overview"));
+                String year = movieDetails.get("release_date").split("-")[0];
+                mediaYear.setText(year);
+
+                for (HashMap<String, String> actor : movieCast.values()) {
+                    getSupportFragmentManager().beginTransaction()
+                            .add(R.id.actorsContainer, new MediaActorFragment(actor))
+                            .commit();
+                }
+
+                for (HashMap<String, String> trailer : movieTrailers) {
+                    MediaTrailersFragment mediaTrailersFragment = new MediaTrailersFragment(trailer.get("name"), trailer.get("size"), trailer.get("poster"));
+
+                    getSupportFragmentManager().beginTransaction()
+                            .add(R.id.trailersContainer, mediaTrailersFragment)
+                            .commit();
+                }
+
+                Glide.with(mediaImage.getContext())
+                        .load(movie.getPoster())
+                        .into(mediaImage);
+
+                loadingSpinner.setVisibility(View.GONE);
+                content.setVisibility(View.VISIBLE);
+            });
+        });
     }
 
     public void getMovieDetails(Movie movie) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         String locale = Locale.getDefault().getLanguage();
         StringBuilder lang = new StringBuilder();
-        String title = movie.getTitle();
-        title = title.split(String.valueOf("\\("))[0].trim();
 
         try {
             switch (locale) {
@@ -187,7 +204,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
             String url = "https://api.themoviedb.org/3/movie/" + movieId + "/casts?api_key=bee04557bade921aab4537b991dfb6df";
             String result = APIClient.getMethodExternalAPI(url);
 
-            Log.d("MediaActivity", result);
             try {
                 JSONObject jsonObject = new JSONObject(result);
                 JSONArray actors = jsonObject.getJSONArray("cast");
@@ -234,7 +250,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
             String url = "https://api.themoviedb.org/3/movie/" + movieId + "/videos?api_key=bee04557bade921aab4537b991dfb6df&language=" + lang;
             String result = APIClient.getMethodExternalAPI(url);
-            Log.d("Trailers", result);
 
             try {
                 JSONObject jsonObject = new JSONObject(result);
