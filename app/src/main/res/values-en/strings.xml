@@ -78,4 +78,19 @@
     <string name="empty_list_subtitle">" It seems that you haven't added any movies to the list"</string>
     <string name="empty_list_title">Your list is empty</string>
     <string name="episodes">Episodes</string>
+    <string name="modal_avatar_picker_title">Choose an avatar</string>
+    <string name="privacy_policy_title_1">FlixHub Privacy Policy</string>
+    <string name="privacy_policy_text_1">This Privacy Policy explains how FlixHub collects, uses and protects the personal information you provide to us when you use our FlixHub mobile application (the \"Application\"). FlixHub is dedicated to protecting the privacy of its users. Any information we collect is used in accordance with this privacy policy.  By using the App, you consent to the collection and use of your personal information as described in this Privacy Policy. If you do not agree to the terms of this privacy policy, please do not use the application.</string>
+    <string name="privacy_policy_title_2">1. Information we collect :</string>
+    <string name="privacy_policy_text_2">1.1 Personal information:  When you use the application, we may collect certain personal information about you, such as your name, e-mail address, age, and content preferences.    1.2 Usage data:  We may also collect information about how you use the application, such as movies/shows watched, searches performed, interactions with the user interface, etc.</string>
+    <string name="privacy_policy_title_3">2. How we use your information :</string>
+    <string name="privacy_policy_text_3">We use the information we collect to:  - Provide you with personalized features and services.  - Improve and optimize the user experience.  - Analyze usage trends and user preferences.  - Send you notifications and updates about the application.</string>
+    <string name="privacy_policy_title_4">3. Sharing information :</string>
+    <string name="privacy_policy_text_4">We do not sell, trade or rent your personal information to third parties without your consent. However, we may share your information with trusted third parties who assist us in operating the application or providing services on our behalf, subject to this privacy policy.</string>
+    <string name="privacy_policy_title_5">4. Information security :</string>
+    <string name="privacy_policy_text_5">We implement appropriate security measures to protect your personal information from unauthorized access, alteration, disclosure or destruction.</string>
+    <string name="privacy_policy_title_6">5. Changes to the Privacy Policy :</string>
+    <string name="privacy_policy_text_6">FlixHub reserves the right to modify this privacy policy at any time. Any changes to this Privacy Policy will be posted on this page with the updated revision date.</string>
+    <string name="privacy_policy_title_7">6. Contact us :</string>
+    <string name="privacy_policy_text_7">If you have any questions or concerns regarding this Privacy Policy, please contact us at nassimlnd37@gmail.com.  This Privacy Policy was last updated on March 27, 2024.</string>
 </resources>
