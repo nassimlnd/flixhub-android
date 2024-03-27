@@ -75,7 +75,7 @@ public class AvatarChooserModal {
 
             for (String avatar : avatars.get(key)) {
                 ImageView avatarImageView = new ImageView(ctx);
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(300, ViewGroup.LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(150, ViewGroup.LayoutParams.WRAP_CONTENT);
                 layoutParams.setMargins(0, 0, 24, 24);
 
                 avatarImageView.setLayoutParams(layoutParams);

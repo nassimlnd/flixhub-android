@@ -16,6 +16,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.nassimlnd.flixhub.Controller.Home.HomeActivity;
 import com.nassimlnd.flixhub.Controller.Profile.ProfileChooserActivity;
 import com.nassimlnd.flixhub.Model.User;
+import androidx.core.splashscreen.SplashScreen;
 import com.nassimlnd.flixhub.R;
 
 /**
@@ -30,7 +31,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
 
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(new OnCompleteListener<String>() {

@@ -66,4 +66,6 @@ dependencies {
     implementation("com.google.firebase:firebase-messaging")
     implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
     implementation("com.google.firebase:firebase-analytics")
+
+    implementation("androidx.core:core-splashscreen:1.0.1")
 }

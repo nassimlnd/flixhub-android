@@ -26,6 +26,7 @@ import com.nassimlnd.flixhub.Controller.Network.APIClient;
 import com.nassimlnd.flixhub.Controller.Profile.PrivacyPolicyActivity;
 import com.nassimlnd.flixhub.Controller.Profile.ProfileChooserActivity;
 import com.nassimlnd.flixhub.Controller.Profile.ProfileHistoryActivity;
+import com.nassimlnd.flixhub.Controller.Profile.UserInformationActivity;
 import com.nassimlnd.flixhub.R;
 
 import java.util.HashMap;
@@ -44,7 +45,7 @@ public class ProfileFragment extends Fragment {
     // View elements
     TextView profileName;
     ImageView profileAvatar;
-    FlexboxLayout logout, changeProfile, historyButton, privacyPolicyButton;
+    FlexboxLayout logout, changeProfile, historyButton, privacyPolicyButton, userInformationsButton;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,6 +65,7 @@ public class ProfileFragment extends Fragment {
         changeProfile = view.findViewById(R.id.profile_change_profile_button);
         historyButton = view.findViewById(R.id.profile_history_button);
         privacyPolicyButton = view.findViewById(R.id.privacy_policy_button);
+        userInformationsButton = view.findViewById(R.id.user_informations_button);
 
         // Get the user's name and email from the shared preferences
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("profile", Context.MODE_PRIVATE);
@@ -103,6 +105,9 @@ public class ProfileFragment extends Fragment {
 
         // Privacy policy button
         privacyPolicyButton.setOnClickListener(v -> startActivity(new Intent(getContext(), PrivacyPolicyActivity.class)));
+
+        // User information button
+        userInformationsButton.setOnClickListener(v -> startActivity(new Intent(getContext(), UserInformationActivity.class)));
 
         return view;
     }
