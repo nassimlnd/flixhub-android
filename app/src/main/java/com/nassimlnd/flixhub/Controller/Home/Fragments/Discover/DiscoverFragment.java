@@ -25,10 +25,15 @@ import com.bumptech.glide.Glide;
 import com.google.android.flexbox.FlexboxLayout;
 import com.nassimlnd.flixhub.Controller.Home.Fragments.Discover.Fragments.SearchResultFragment;
 import com.nassimlnd.flixhub.Controller.Media.MovieDetailsActivity;
+import com.nassimlnd.flixhub.Controller.Network.APIClient;
 import com.nassimlnd.flixhub.Model.Interaction;
 import com.nassimlnd.flixhub.Model.Movie;
 import com.nassimlnd.flixhub.Model.Serie;
 import com.nassimlnd.flixhub.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -90,7 +95,8 @@ public class DiscoverFragment extends Fragment {
                         new java.util.TimerTask() {
                             @Override
                             public void run() {
-                                showSearchedMovies();
+                                // showSearchedMovies();
+                                showSearchedResult();
                             }
                         },
                         DELAY
@@ -181,14 +187,95 @@ public class DiscoverFragment extends Fragment {
 
     public void showSearchedResult() {
         String input = searchInput.getText().toString();
+
+        if (input.length() < 3) {
+            return;
+        }
+
         ArrayList<Movie> movies = new ArrayList<>();
         ArrayList<Serie> series = new ArrayList<>();
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
+        CountDownLatch latch = new CountDownLatch(1);
 
-        executor.execute(() -> {
+        try {
+            getActivity().runOnUiThread(() -> {
+                mediaContainer.setVisibility(View.GONE);
+                loadingSpinner.setVisibility(View.VISIBLE);
+                searchContent.setVisibility(View.GONE);
+                searchListLayout.setVisibility(View.GONE);
+            });
 
-        });
+            executor.execute(() -> {
+                String result = APIClient.getMethodWithCookies("/search/" + input, getContext());
+                try {
+                    JSONObject jsonArray = new JSONObject(result);
+                    JSONArray moviesArray = jsonArray.getJSONArray("movies");
+
+                    for (int i = 0; i < moviesArray.length(); i++) {
+                        JSONObject movieObject = moviesArray.getJSONObject(i);
+                        Movie movie = new Movie();
+                        movie.setId(movieObject.getInt("id"));
+                        movie.setTitle(movieObject.getString("title"));
+                        movie.setPoster(movieObject.getString("poster"));
+                        movie.setStreamId(movieObject.getString("streamId"));
+                        movie.setCategoryId(movieObject.getInt("categoryId"));
+                        movie.setUrl(movieObject.getString("url"));
+                        movie.setTmdbId(movieObject.getString("tmdbId"));
+
+                        movies.add(movie);
+                    }
+
+                    JSONArray seriesArray = jsonArray.getJSONArray("series");
+
+                    for (int i = 0; i < seriesArray.length(); i++) {
+                        JSONObject serieObject = seriesArray.getJSONObject(i);
+
+                        Serie serie = new Serie();
+                        serie.setId(serieObject.getInt("id"));
+                        serie.setTitle(serieObject.getString("title"));
+                        serie.setPoster(serieObject.getString("poster"));
+                        serie.setCategoryId(serieObject.getInt("categoryId"));
+                        serie.setSerieId(serieObject.getString("serieId"));
+                        serie.setTmdbId(serieObject.getInt("tmdbId"));
+
+                        series.add(serie);
+                    }
+
+                    latch.countDown();
+
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            latch.await();
+
+            getActivity().runOnUiThread(() -> {
+                searchContent.removeAllViews();
+
+                for (Movie movie : movies) {
+                    SearchResultFragment searchResultFragment = new SearchResultFragment(movie);
+
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .add(R.id.searchListContent, searchResultFragment)
+                            .commit();
+                }
+
+                for (Serie serie : series) {
+                    SearchResultFragment searchResultFragment = new SearchResultFragment(serie);
+
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .add(R.id.searchListContent, searchResultFragment)
+                            .commit();
+                }
+
+                searchContent.setVisibility(View.VISIBLE);
+                searchListLayout.setVisibility(View.VISIBLE);
+                loadingSpinner.setVisibility(View.GONE);
+            });
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

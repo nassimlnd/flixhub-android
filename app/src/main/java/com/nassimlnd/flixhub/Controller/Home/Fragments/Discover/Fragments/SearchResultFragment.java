@@ -11,15 +11,18 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.google.android.flexbox.FlexboxLayout;
+import com.nassimlnd.flixhub.Controller.Media.SerieDetailsActivity;
 import com.nassimlnd.flixhub.Model.Interaction;
 import com.nassimlnd.flixhub.Model.Media;
 import com.nassimlnd.flixhub.Model.Movie;
 import com.nassimlnd.flixhub.Model.MovieCategory;
 import com.nassimlnd.flixhub.Model.Serie;
+import com.nassimlnd.flixhub.Model.SerieCategory;
 import com.nassimlnd.flixhub.R;
 import com.nassimlnd.flixhub.Controller.Media.MovieDetailsActivity;
 
@@ -61,6 +64,9 @@ public class SearchResultFragment extends Fragment {
         searchResultImage = view.findViewById(R.id.searchResultImage);
         searchResultContainer = view.findViewById(R.id.searchResultLayout);
 
+        searchResultImage.setClipToOutline(true);
+        searchResultImage.setBackground(AppCompatResources.getDrawable(view.getContext(), R.drawable.media_card));
+
         searchResultContainer.setOnClickListener(v -> {
             if (movie != null) {
                 Intent intent = new Intent(getContext(), MovieDetailsActivity.class);
@@ -69,6 +75,17 @@ public class SearchResultFragment extends Fragment {
                 Interaction interaction = new Interaction();
                 interaction.setMediaId(movie.getId());
                 interaction.setMediaType("movie");
+                interaction.setInteractionType("click");
+                interaction.sendInteraction(view.getContext());
+
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(getContext(), SerieDetailsActivity.class);
+                intent.putExtra("serieId", serie.getId());
+
+                Interaction interaction = new Interaction();
+                interaction.setMediaId(serie.getId());
+                interaction.setMediaType("serie");
                 interaction.setInteractionType("click");
                 interaction.sendInteraction(view.getContext());
 
@@ -86,7 +103,14 @@ public class SearchResultFragment extends Fragment {
                     .load(movie.getPoster())
                     .into(searchResultImage);
         } else {
+            searchResultTitle.setText(serie.getTitle());
 
+            SerieCategory serieCategory = SerieCategory.getSerieCategoryById(serie.getCategoryId(), view.getContext());
+            searchResultGroup.setText(serieCategory.getName());
+
+            Glide.with(view.getContext())
+                    .load(serie.getPoster())
+                    .into(searchResultImage);
         }
 
         return view;
