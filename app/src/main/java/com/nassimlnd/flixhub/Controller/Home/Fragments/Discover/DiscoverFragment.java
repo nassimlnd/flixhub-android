@@ -151,20 +151,31 @@ public class DiscoverFragment extends Fragment {
 
     public void showSearchedMovies() {
         String input = searchInput.getText().toString();
-        ArrayList<Movie> movies = Movie.getSearchedMovies(input, getContext());
+        if (input.length() < 3) {
+            return;
+        }
 
         getActivity().runOnUiThread(() -> {
             mediaContainer.setVisibility(View.GONE);
+            loadingSpinner.setVisibility(View.VISIBLE);
+            searchContent.setVisibility(View.GONE);
+            searchListLayout.setVisibility(View.GONE);
+        });
+
+        ArrayList<Movie> movies = Movie.getSearchedMovies(input, getContext());
+
+        getActivity().runOnUiThread(() -> {
+            searchContent.removeAllViews();
             for (Movie movie : movies) {
                 SearchResultFragment searchResultFragment = new SearchResultFragment(movie);
-
-                searchContent.removeAllViews();
 
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .add(R.id.searchListContent, searchResultFragment)
                         .commit();
             }
+            searchContent.setVisibility(View.VISIBLE);
             searchListLayout.setVisibility(View.VISIBLE);
+            loadingSpinner.setVisibility(View.GONE);
         });
     }
 
