@@ -84,7 +84,7 @@
     <string name="privacy_policy_title_2">1. Information we collect :</string>
     <string name="privacy_policy_text_2">1.1 Personal information:  When you use the application, we may collect certain personal information about you, such as your name, e-mail address, age, and content preferences.    1.2 Usage data:  We may also collect information about how you use the application, such as movies/shows watched, searches performed, interactions with the user interface, etc.</string>
     <string name="privacy_policy_title_3">2. How we use your information :</string>
-    <string name="privacy_policy_text_3">We use the information we collect to:  - Provide you with personalized features and services.  - Improve and optimize the user experience.  - Analyze usage trends and user preferences.  - Send you notifications and updates about the application.</string>
+    <string name="privacy_policy_text_3">We use the information we collect to:  \n- Provide you with personalized features and services.  \n- Improve and optimize the user experience.  \n- Analyze usage trends and user preferences.  \n- Send you notifications and updates about the application.</string>
     <string name="privacy_policy_title_4">3. Sharing information :</string>
     <string name="privacy_policy_text_4">We do not sell, trade or rent your personal information to third parties without your consent. However, we may share your information with trusted third parties who assist us in operating the application or providing services on our behalf, subject to this privacy policy.</string>
     <string name="privacy_policy_title_5">4. Information security :</string>

@@ -31,6 +31,7 @@ import com.nassimlnd.flixhub.Model.Serie;
 import com.nassimlnd.flixhub.R;
 
 import java.util.ArrayList;
+import java.util.Timer;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -69,6 +70,9 @@ public class DiscoverFragment extends Fragment {
         showRandomMovies();
 
         searchInput.addTextChangedListener(new TextWatcher() {
+            private final long DELAY = 300;
+            private Timer timer = new Timer();
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -80,9 +84,21 @@ public class DiscoverFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (searchInput.getText().toString().length() > 2) {
+                timer.cancel();
+                timer = new Timer();
+                timer.schedule(
+                        new java.util.TimerTask() {
+                            @Override
+                            public void run() {
+                                showSearchedMovies();
+                            }
+                        },
+                        DELAY
+                );
+
+                /*if (searchInput.getText().toString().length() > 2) {
                     showSearchedMovies();
-                }
+                }*/
             }
         });
 
@@ -137,17 +153,19 @@ public class DiscoverFragment extends Fragment {
         String input = searchInput.getText().toString();
         ArrayList<Movie> movies = Movie.getSearchedMovies(input, getContext());
 
-        mediaContainer.setVisibility(View.GONE);
-        for (Movie movie : movies) {
-            SearchResultFragment searchResultFragment = new SearchResultFragment(movie);
+        getActivity().runOnUiThread(() -> {
+            mediaContainer.setVisibility(View.GONE);
+            for (Movie movie : movies) {
+                SearchResultFragment searchResultFragment = new SearchResultFragment(movie);
 
-            searchContent.removeAllViews();
+                searchContent.removeAllViews();
 
-            getActivity().getSupportFragmentManager().beginTransaction()
-                    .add(R.id.searchListContent, searchResultFragment)
-                    .commit();
-        }
-        searchListLayout.setVisibility(View.VISIBLE);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .add(R.id.searchListContent, searchResultFragment)
+                        .commit();
+            }
+            searchListLayout.setVisibility(View.VISIBLE);
+        });
     }
 
     public void showSearchedResult() {

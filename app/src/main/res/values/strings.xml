@@ -95,7 +95,7 @@
     <string name="privacy_policy_title_2">1. Informations que nous collectons :</string>
     <string name="privacy_policy_text_2">1.1 Informations personnelles : Lors de votre utilisation de l\'application, nous pouvons recueillir certaines informations personnelles vous concernant, telles que votre nom, votre adresse e-mail, votre âge, et vos préférences de contenu.  1.2 Données d\'utilisation : Nous pouvons également collecter des informations sur la manière dont vous utilisez l\'application, telles que les films/émissions regardés, les recherches effectuées, les interactions avec l\'interface utilisateur, etc.</string>
     <string name="privacy_policy_title_3">2. Comment nous utilisons vos informations :</string>
-    <string name="privacy_policy_text_3">Nous utilisons les informations collectées pour :  - Vous fournir des fonctionnalités et des services personnalisés. - Améliorer et optimiser l\'expérience utilisateur. - Analyser les tendances d\'utilisation et les préférences des utilisateurs. - Vous envoyer des notifications et des mises à jour concernant l\'application.</string>
+    <string name="privacy_policy_text_3">Nous utilisons les informations collectées pour :\n \n- Vous fournir des fonctionnalités et des services personnalisés. \n- Améliorer et optimiser l\'expérience utilisateur. \n- Analyser les tendances d\'utilisation et les préférences des utilisateurs. \n- Vous envoyer des notifications et des mises à jour concernant l\'application.</string>
     <string name="privacy_policy_title_4">3. Partage des informations :</string>
     <string name="privacy_policy_text_4">Nous ne vendons, n\'échangeons ni ne louons vos informations personnelles à des tiers sans votre consentement. Cependant, nous pouvons partager vos informations avec des tiers de confiance qui nous aident à exploiter l\'application ou à fournir des services en notre nom, sous réserve de cette politique de confidentialité.</string>
     <string name="privacy_policy_title_5">4. Sécurité des informations :</string>
@@ -103,6 +103,6 @@
     <string name="privacy_policy_title_6">5. Modifications de la politique de confidentialité :</string>
     <string name="privacy_policy_text_6">FlixHub se réserve le droit de modifier cette politique de confidentialité à tout moment. Toute modification de cette politique de confidentialité sera affichée sur cette page avec la date de révision mise à jour.</string>
     <string name="privacy_policy_title_7">6. Contactez-nous :</string>
-    <string name="privacy_policy_text_7">Si vous avez des questions ou des préoccupations concernant cette Politique de Confidentialité, veuillez nous contacter à l\'adresse suivante : nassimlnd37@gmail.com.  Cette politique de confidentialité a été mise à jour le 27 mars 2024.</string>
+    <string name="privacy_policy_text_7">Si vous avez des questions ou des préoccupations concernant cette politique de confidentialité, veuillez nous contacter à l\'adresse suivante : nassimlnd37@gmail.com.  \nCette politique de confidentialité a été mise à jour le 27 mars 2024.</string>
     <string name="user_informations_title">Informations du compte</string>
 </resources>
