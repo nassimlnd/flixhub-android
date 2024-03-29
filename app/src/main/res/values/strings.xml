@@ -93,7 +93,6 @@
     <string name="privacy_policy_title_1">Politique de Confidentialité de FlixHub</string>
     <string name="privacy_policy_text_1">Cette politique de confidentialité explique comment FlixHub recueille, utilise et protège les informations personnelles que vous nous fournissez lorsque vous utilisez notre application mobile FlixHub (l\'application). FlixHub est dédié à la protection de la vie privée de ses utilisateurs. Toute information que nous recueillons est utilisée conformément à cette politique de confidentialité.  En utilisant l\'application, vous consentez à la collecte et à l\'utilisation de vos informations personnelles telles que décrites dans cette politique de confidentialité. Si vous n\'acceptez pas les termes de cette politique de confidentialité, veuillez ne pas utiliser l\'application.</string>
     <string name="privacy_policy_title_2">1. Informations que nous collectons :</string>
-    <string name="privacy_policy_text_2">1.1 Informations personnelles : Lors de votre utilisation de l\'application, nous pouvons recueillir certaines informations personnelles vous concernant, telles que votre nom, votre adresse e-mail, votre âge, et vos préférences de contenu.  1.2 Données d\'utilisation : Nous pouvons également collecter des informations sur la manière dont vous utilisez l\'application, telles que les films/émissions regardés, les recherches effectuées, les interactions avec l\'interface utilisateur, etc.</string>
     <string name="privacy_policy_title_3">2. Comment nous utilisons vos informations :</string>
     <string name="privacy_policy_text_3">Nous utilisons les informations collectées pour :\n \n- Vous fournir des fonctionnalités et des services personnalisés. \n- Améliorer et optimiser l\'expérience utilisateur. \n- Analyser les tendances d\'utilisation et les préférences des utilisateurs. \n- Vous envoyer des notifications et des mises à jour concernant l\'application.</string>
     <string name="privacy_policy_title_4">3. Partage des informations :</string>
@@ -105,4 +104,9 @@
     <string name="privacy_policy_title_7">6. Contactez-nous :</string>
     <string name="privacy_policy_text_7">Si vous avez des questions ou des préoccupations concernant cette politique de confidentialité, veuillez nous contacter à l\'adresse suivante : nassimlnd37@gmail.com.  \nCette politique de confidentialité a été mise à jour le 27 mars 2024.</string>
     <string name="user_informations_title">Informations du compte</string>
+    <string name="user_informations_submit_button">Modifier</string>
+    <string name="user_information_edit_title">Modifier les informations du compte</string>
+    <string name="notifications_settings_title">Notifications</string>
+    <string name="user_informations_delete_button">Supprimer le compte</string>
+    <string name="privacy_policy_text_2">1.1 Informations personnelles : \nLors de votre utilisation de l\'application, nous pouvons recueillir certaines informations personnelles vous concernant, telles que votre nom, votre adresse e-mail, votre âge, et vos préférences de contenu. \n\n1.2 Données d\'utilisation : \nNous pouvons également collecter des informations sur la manière dont vous utilisez l\'application, telles que les films/émissions regardés, les recherches effectuées, les interactions avec l\'interface utilisateur, etc.</string>
 </resources>

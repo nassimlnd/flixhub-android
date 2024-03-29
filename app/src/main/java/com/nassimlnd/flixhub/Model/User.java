@@ -26,6 +26,8 @@ public class User {
     private String createdAt;
     private String updatedAt;
 
+    // Constructors
+
     public User(String fullName, String email, String createdAt, String updatedAt) {
         this.fullName = fullName;
         this.email = email;
@@ -36,20 +38,7 @@ public class User {
     public User() {
     }
 
-    /**
-     * Get the user from the shared preferences
-     *
-     * @param ctx The application context
-     * @return User stored in the shared preferences
-     */
-    public static User getUserFromSP(Context ctx) {
-        User user = new User();
-        user.setFullName(ctx.getSharedPreferences("user", 0).getString("fullName", ""));
-        user.setEmail(ctx.getSharedPreferences("user", 0).getString("email", ""));
-        user.setCreatedAt(ctx.getSharedPreferences("user", 0).getString("createdAt", ""));
-        user.setUpdatedAt(ctx.getSharedPreferences("user", 0).getString("updatedAt", ""));
-        return user;
-    }
+    // Backend methods
 
     public static boolean login(String email, String password, Context ctx) throws Exception {
         HashMap<String, String> data = new HashMap<>();
@@ -147,6 +136,45 @@ public class User {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public static User getCurrentUser(Context ctx) {
+        User user = new User();
+
+        // Get the user from the shared preferences
+        SharedPreferences sharedPreferences = ctx.getSharedPreferences("user", Context.MODE_PRIVATE);
+        user.setFullName(sharedPreferences.getString("fullName", ""));
+        user.setEmail(sharedPreferences.getString("email", ""));
+        user.setCreatedAt(sharedPreferences.getString("createdAt", ""));
+        user.setUpdatedAt(sharedPreferences.getString("updatedAt", ""));
+
+        return user;
+    }
+
+    public boolean update(Context ctx) {
+        HashMap<String, String> data = new HashMap<>();
+        data.put("fullName", this.fullName);
+        data.put("email", this.email);
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        CountDownLatch latch = new CountDownLatch(1);
+
+        executor.execute(() -> {
+            try {
+                APIClient.postMethodWithCookies("/user/update", data, ctx);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            latch.countDown();
+        });
+
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return true;
     }
 
     // Getters and Setters

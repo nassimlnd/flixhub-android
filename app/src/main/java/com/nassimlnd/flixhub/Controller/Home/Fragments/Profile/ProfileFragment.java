@@ -23,6 +23,7 @@ import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.nassimlnd.flixhub.Controller.GettingStartedActivity;
 import com.nassimlnd.flixhub.Controller.Network.APIClient;
+import com.nassimlnd.flixhub.Controller.Profile.NotificationsSettingsActivity;
 import com.nassimlnd.flixhub.Controller.Profile.PrivacyPolicyActivity;
 import com.nassimlnd.flixhub.Controller.Profile.ProfileChooserActivity;
 import com.nassimlnd.flixhub.Controller.Profile.ProfileHistoryActivity;
@@ -45,7 +46,7 @@ public class ProfileFragment extends Fragment {
     // View elements
     TextView profileName;
     ImageView profileAvatar;
-    FlexboxLayout logout, changeProfile, historyButton, privacyPolicyButton, userInformationsButton;
+    FlexboxLayout logout, changeProfile, historyButton, privacyPolicyButton, userInformationsButton, notificationsSettingsButton;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,6 +67,7 @@ public class ProfileFragment extends Fragment {
         historyButton = view.findViewById(R.id.profile_history_button);
         privacyPolicyButton = view.findViewById(R.id.privacy_policy_button);
         userInformationsButton = view.findViewById(R.id.user_informations_button);
+        notificationsSettingsButton = view.findViewById(R.id.notifications_settings_button);
 
         // Get the user's name and email from the shared preferences
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("profile", Context.MODE_PRIVATE);
@@ -108,6 +110,9 @@ public class ProfileFragment extends Fragment {
 
         // User information button
         userInformationsButton.setOnClickListener(v -> startActivity(new Intent(getContext(), UserInformationActivity.class)));
+
+        // Notifications settings button
+        notificationsSettingsButton.setOnClickListener(v -> startActivity(new Intent(getContext(), NotificationsSettingsActivity.class)));
 
         return view;
     }

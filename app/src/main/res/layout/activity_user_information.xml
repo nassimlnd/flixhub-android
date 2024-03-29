@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background"
+    android:paddingBottom="24dp"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
@@ -10,5 +12,104 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/background" />
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:paddingHorizontal="24dp"
+        app:flexDirection="column"
+        app:flexWrap="nowrap"
+        app:alignItems="center"
+        app:justifyContent="center">
+
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/user_round" />
+
+        <TextView
+            android:textAlignment="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/user_information_edit_title"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+    </com.google.android.flexbox.FlexboxLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="24dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp">
+
+        <EditText
+            android:id="@+id/userFullName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:autofillHints="emailAddress"
+            android:background="@drawable/edit_text_rounded"
+            android:drawableStart="@drawable/user_round"
+            android:drawablePadding="12dp"
+            android:fontFamily="@font/lexend"
+            android:hint="@string/register_fullname"
+            android:inputType="textEmailAddress"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="16dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/hint"
+            android:textSize="14sp" />
+
+        <EditText
+            android:autofillHints="emailAddress"
+            android:id="@+id/userEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/edit_text_rounded"
+            android:drawableStart="@drawable/mail"
+            android:drawablePadding="12dp"
+            android:fontFamily="@font/lexend"
+            android:hint="@string/login_email"
+            android:inputType="textEmailAddress"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="16dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/hint"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_gravity="center"
+        android:theme="@style/Button.Danger"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/lexend"
+        android:text="@string/user_informations_delete_button"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/editButton"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/lexend"
+        android:text="@string/user_informations_submit_button"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
 
 </LinearLayout>

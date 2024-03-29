@@ -16,11 +16,12 @@
         android:theme="@style/Theme.Flixhub"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
         <activity
             android:name=".Controller.MainActivity"
-            android:theme="@style/Theme.AppSplashScreen"
             android:configChanges="orientation"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.AppSplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,6 +31,7 @@
 
         <activity
             android:name=".Controller.GettingStartedActivity"
+            android:configChanges="orientation"
             android:noHistory="true" />
         <activity
             android:name=".Controller.LogChoiceActivity"
@@ -72,6 +74,9 @@
             android:configChanges="orientation" />
         <activity
             android:name=".Controller.Profile.UserInformationActivity"
+            android:configChanges="orientation" />
+        <activity
+            android:name=".Controller.Profile.NotificationsSettingsActivity"
             android:configChanges="orientation" />
 
         <service
