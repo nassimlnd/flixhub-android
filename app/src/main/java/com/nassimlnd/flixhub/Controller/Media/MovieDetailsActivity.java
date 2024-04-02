@@ -89,9 +89,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
             }
         });
 
-        listButton.setOnClickListener(v -> {
-
-        });
 
         mediaId = getIntent().getIntExtra("movieId", 0);
 
@@ -102,9 +99,20 @@ public class MovieDetailsActivity extends AppCompatActivity {
         }
 
         lists = List.getListByProfile(getApplicationContext());
+        listButton.setOnClickListener(v -> {
+            List.addMovie(getApplicationContext(),movie);
+        });
+
         for (List list : lists) {
             if (movie.getId() == list.getMovie().getId()) {
+
                 listButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.minus, 0, 0, 0);
+
+                listButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.minus, 0, 0, 0);
+                listButton.setOnClickListener(v -> {
+                    List.removeMovie(getApplicationContext(),movie);
+                });
+
                 break;
             } else
                 listButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.plus, 0, 0, 0);

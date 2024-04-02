@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -19,7 +20,8 @@ public class List {
     private Movie movie;
     private int profileId;
 
-    public List() {}
+    public List() {
+    }
 
     public List(Movie movie, int profileId) {
         this.id = id;
@@ -65,6 +67,44 @@ public class List {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public static void addMovie(Context ctx, Movie movie) {
+        SharedPreferences sharedPreferences = ctx.getSharedPreferences("profile", Context.MODE_PRIVATE);
+        int profileId = sharedPreferences.getInt("id", 0);
+        String param = "/profile/" + profileId + "/list/add";
+        HashMap<String, String> data = new HashMap<>();
+        data.put("movieId", String.valueOf(movie.getId()));
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        CountDownLatch latch = new CountDownLatch(1);
+        executor.execute(() -> {
+            String result = APIClient.postMethodWithCookies(param, data, ctx);
+            latch.countDown();
+        });
+        try{
+            latch.await();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void removeMovie(Context ctx, Movie movie) {
+        SharedPreferences sharedPreferences = ctx.getSharedPreferences("profile", Context.MODE_PRIVATE);
+        int profileId = sharedPreferences.getInt("id", 0);
+        String param = "/profile/" + profileId + "/list/delete";
+        HashMap<String, String> data = new HashMap<>();
+        data.put("movieId", String.valueOf(movie.getId()));
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        CountDownLatch latch = new CountDownLatch(1);
+        executor.execute(() -> {
+            String result = APIClient.postMethodWithCookies(param, data, ctx);
+            latch.countDown();
+        });
+        try{
+            latch.await();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public int getId() {
