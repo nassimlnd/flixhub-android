@@ -98,4 +98,6 @@
     <string name="user_information_edit_title">Edit account informations</string>
     <string name="notifications_settings_title">Notifications</string>
     <string name="user_informations_delete_button">Delete the account</string>
+    <string name="add_movie">You added a movie to your list</string>
+    <string name="remove_movie">You removed a film from your list</string>
 </resources>

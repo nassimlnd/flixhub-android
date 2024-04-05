@@ -101,6 +101,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         lists = List.getListByProfile(getApplicationContext());
         listButton.setOnClickListener(v -> {
             List.addMovie(getApplicationContext(),movie);
+            Toast.makeText(this, R.string.add_movie , Toast.LENGTH_LONG).show();
         });
 
         for (List list : lists) {
@@ -111,6 +112,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 listButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.minus, 0, 0, 0);
                 listButton.setOnClickListener(v -> {
                     List.removeMovie(getApplicationContext(),movie);
+                    Toast.makeText(this, R.string.remove_movie , Toast.LENGTH_LONG).show();
+
                 });
 
                 break;

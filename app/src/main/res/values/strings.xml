@@ -109,4 +109,6 @@
     <string name="notifications_settings_title">Notifications</string>
     <string name="user_informations_delete_button">Supprimer le compte</string>
     <string name="privacy_policy_text_2">1.1 Informations personnelles : \nLors de votre utilisation de l\'application, nous pouvons recueillir certaines informations personnelles vous concernant, telles que votre nom, votre adresse e-mail, votre âge, et vos préférences de contenu. \n\n1.2 Données d\'utilisation : \nNous pouvons également collecter des informations sur la manière dont vous utilisez l\'application, telles que les films/émissions regardés, les recherches effectuées, les interactions avec l\'interface utilisateur, etc.</string>
+    <string name="add_movie">vous avez ajouté un film à votre liste</string>
+    <string name="remove_movie">vous avez retiré un film de votre liste</string>
 </resources>
