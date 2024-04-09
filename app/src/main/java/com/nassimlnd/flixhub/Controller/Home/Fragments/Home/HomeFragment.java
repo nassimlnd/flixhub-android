@@ -233,7 +233,7 @@ public class HomeFragment extends Fragment {
         ArrayList<Serie> seriesList = Serie.getSeriesByCategory(context, serieCategory.getId(), AMOUNT_MOVIES_PER_CATEGORY);
 
         // Create the fragment for the category
-        SerieCategoryFragment serieCategoryFragment = new SerieCategoryFragment(serieCategory.getName(), seriesList);
+        SerieCategoryFragment serieCategoryFragment = new SerieCategoryFragment(serieCategory, seriesList);
         getActivity().getSupportFragmentManager().beginTransaction().add(R.id.serieCategoryContainer, serieCategoryFragment).commit();
     }
     public void setButtonState(Context ctx, Movie movie) {
