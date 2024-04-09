@@ -26,6 +26,7 @@ import com.bumptech.glide.Glide;
 import com.nassimlnd.flixhub.Controller.Home.Fragments.Home.Fragments.MovieCategoryFragment;
 import com.nassimlnd.flixhub.Controller.Home.Fragments.Home.Fragments.SerieCategoryFragment;
 import com.nassimlnd.flixhub.Controller.Media.MovieDetailsActivity;
+import com.nassimlnd.flixhub.Model.List;
 import com.nassimlnd.flixhub.Model.Movie;
 import com.nassimlnd.flixhub.Model.MovieCategory;
 import com.nassimlnd.flixhub.Model.Serie;
@@ -50,6 +51,7 @@ public class HomeFragment extends Fragment {
     private final String TAG = "HomeFragment";
     private String tabSelected = "movies";
 
+    private boolean state;
     // View elements
     ImageView highlightMovieImage, highlightSerieImage;
     TextView highlightMovieTitle, highlightMovieCategory, highlightSerieTitle, highlightSerieCategory, movieTab, serieTab;
@@ -173,7 +175,19 @@ public class HomeFragment extends Fragment {
 
         // Get a random serie
         Serie highlightedSerie = Serie.getRandomSerie(ctx);
+        ArrayList<List> lists = List.getListByProfile(ctx);
+        state = true;
+        setButtonState(ctx, highlightedMedia);
 
+        for (List list : lists) {
+            if (highlightedMedia.getId() == list.getMovie().getId()) {
+                listMovieButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.minus, 0, 0, 0);
+                state = false;
+                setButtonState(ctx, highlightedMedia);
+                break;
+            } else
+                listMovieButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.plus, 0, 0, 0);
+        }
         // Set the content of the view
         highlightMovieTitle.setText(highlightedMedia.getTitle());
         MovieCategory movieCategory = MovieCategory.getMovieCategoryById(ctx, highlightedMedia.getCategoryId());
@@ -189,6 +203,7 @@ public class HomeFragment extends Fragment {
             intent.putExtra("movieId", highlightedMedia.getId());
             startActivity(intent);
         });
+
 
         // Loading the image of the highlighted media
         Glide.with(highlightMovieImage.getContext())
@@ -220,5 +235,25 @@ public class HomeFragment extends Fragment {
         // Create the fragment for the category
         SerieCategoryFragment serieCategoryFragment = new SerieCategoryFragment(serieCategory.getName(), seriesList);
         getActivity().getSupportFragmentManager().beginTransaction().add(R.id.serieCategoryContainer, serieCategoryFragment).commit();
+    }
+    public void setButtonState(Context ctx, Movie movie) {
+        if (state) {
+            listMovieButton.setOnClickListener(v -> {
+                List.addMovie(ctx, movie);
+                Toast.makeText(ctx, R.string.add_movie, Toast.LENGTH_LONG).show();
+                listMovieButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.minus, 0, 0, 0);
+                state = false;
+                setButtonState(ctx, movie);
+            });
+        } else {
+            listMovieButton.setOnClickListener(v -> {
+                List.removeMovie(ctx, movie);
+                Toast.makeText(ctx, R.string.remove_movie, Toast.LENGTH_LONG).show();
+                listMovieButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.plus, 0, 0, 0);
+                state = true;
+                setButtonState(ctx, movie);
+            });
+        }
+
     }
 }

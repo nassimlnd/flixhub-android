@@ -49,6 +49,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private Movie movie;
     private int count = 0;
     private int mediaId;
+    private boolean state;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,27 +100,39 @@ public class MovieDetailsActivity extends AppCompatActivity {
         }
 
         lists = List.getListByProfile(getApplicationContext());
-        listButton.setOnClickListener(v -> {
-            List.addMovie(getApplicationContext(),movie);
-            Toast.makeText(this, R.string.add_movie , Toast.LENGTH_LONG).show();
-        });
+        state = true;
+        setButtonState();
 
         for (List list : lists) {
             if (movie.getId() == list.getMovie().getId()) {
-
                 listButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.minus, 0, 0, 0);
-
-                listButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.minus, 0, 0, 0);
-                listButton.setOnClickListener(v -> {
-                    List.removeMovie(getApplicationContext(),movie);
-                    Toast.makeText(this, R.string.remove_movie , Toast.LENGTH_LONG).show();
-
-                });
-
+                state = false;
+                setButtonState();
                 break;
             } else
                 listButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.plus, 0, 0, 0);
         }
+    }
+
+    public void setButtonState() {
+        if (state) {
+            listButton.setOnClickListener(v -> {
+                List.addMovie(getApplicationContext(), movie);
+                Toast.makeText(this, R.string.add_movie, Toast.LENGTH_LONG).show();
+                listButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.minus, 0, 0, 0);
+                state = false;
+                setButtonState();
+            });
+        } else {
+            listButton.setOnClickListener(v -> {
+                List.removeMovie(getApplicationContext(), movie);
+                Toast.makeText(this, R.string.remove_movie, Toast.LENGTH_LONG).show();
+                listButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.plus, 0, 0, 0);
+                state = true;
+                setButtonState();
+            });
+        }
+
     }
 
     public void getMovie(int mediaId) {
