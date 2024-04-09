@@ -115,9 +115,7 @@ public class DiscoverFragment extends Fragment {
         ArrayList<Movie> movies = Movie.getRandomMovies(getContext(), 20);
 
         String orientation = getResources().getConfiguration().orientation == 1 ? "portrait" : "landscape";
-
         int screenWidth = getResources().getDisplayMetrics().widthPixels - 48;
-
         int width = orientation.equals("portrait") ? (screenWidth / 2) - 72 : (screenWidth / 4) - 72;
 
         for (Movie movie : movies) {

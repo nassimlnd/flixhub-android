@@ -53,15 +53,19 @@ public class SerieCategoryListActivity extends AppCompatActivity {
     public void getContent(Context ctx, String category) {
         SerieCategory serieCat = SerieCategory.getSerieCategoryById(Integer.parseInt(category), ctx);
         ArrayList<Serie> serieList = Serie.getSeriesByCategory(ctx,serieCat.getId(), 30);
+
+        String orientation = getResources().getConfiguration().orientation == 1 ? "portrait" : "landscape";
+        int screenWidth = getResources().getDisplayMetrics().widthPixels - 48;
+        int width = orientation.equals("portrait") ? (screenWidth / 2) - 72 : (screenWidth / 4) - 72;
+
         for (Serie serie : serieList) {
             ImageView image1 = new ImageView(this);
-            image1.setBackground(AppCompatResources.getDrawable(getApplicationContext(), R.drawable.media_card));
-            image1.setClipToOutline(true);
-
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(450, ViewGroup.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT);
             layoutParams.setMargins(0, 0, 0, 24);
 
             image1.setLayoutParams(layoutParams);
+            image1.setBackground(AppCompatResources.getDrawable(getApplicationContext(), R.drawable.media_card));
+            image1.setClipToOutline(true);
 
             Glide.with(image1.getContext())
                     .load(serie.getPoster())
