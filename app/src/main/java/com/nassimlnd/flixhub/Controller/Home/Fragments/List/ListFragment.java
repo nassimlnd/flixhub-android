@@ -61,6 +61,10 @@ public class ListFragment extends Fragment {
                 flex1.addView(image1);
                 image1.setOnClickListener(v -> {
                     Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
+                    if (list.getMovie() == null) {
+                        return;
+                    }
+
                     intent.putExtra("movieId", list.getMovie().getId());
 
                     Interaction interaction = new Interaction();

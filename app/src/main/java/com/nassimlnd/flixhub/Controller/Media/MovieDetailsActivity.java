@@ -104,7 +104,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         setButtonState();
 
         for (List list : lists) {
-            if (movie.getId() == list.getMovie().getId()) {
+            if (mediaId == list.getMovie().getId()) {
                 listButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.minus, 0, 0, 0);
                 state = false;
                 setButtonState();

@@ -130,7 +130,8 @@ public class DiscoverFragment extends Fragment {
 
             imageView.setOnClickListener(v -> {
                 Intent intent = new Intent(getContext(), MovieDetailsActivity.class);
-                intent.putExtra("movieId", movie.getId());
+                int movieId = movie.getId();
+                intent.putExtra("movieId", movieId);
 
                 Interaction interaction = new Interaction();
                 interaction.setMediaId(movie.getId());
