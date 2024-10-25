@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.nassimlnd.flixhub"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.nassimlnd.flixhub"
         minSdk = 30
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 2
         versionName = "2.0"
 
